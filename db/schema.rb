@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_15_141722) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_15_161007) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "debits", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.decimal "balance" # decimal instead of float for financial calculations
+    t.decimal "balance"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -26,7 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_141722) do
 
   create_table "expenses", force: :cascade do |t|
     t.string "name"
-    t.decimal "balance" # decimal instead of float for financial calculations
+    t.decimal "balance"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -35,11 +35,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_141722) do
 
   create_table "incomes", force: :cascade do |t|
     t.string "name"
-    t.decimal "balance" # decimal instead of float for financial calculations
+    t.decimal "balance"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_incomes_on_user_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string "type"
+    t.text "description"
+    t.decimal "amount"
+    t.date "date"
+    t.bigint "debit_id", null: false
+    t.bigint "income_id", null: false
+    t.bigint "expense_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["debit_id"], name: "index_transactions_on_debit_id"
+    t.index ["expense_id"], name: "index_transactions_on_expense_id"
+    t.index ["income_id"], name: "index_transactions_on_income_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,4 +74,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_141722) do
   add_foreign_key "debits", "users"
   add_foreign_key "expenses", "users"
   add_foreign_key "incomes", "users"
+  add_foreign_key "transactions", "debits"
+  add_foreign_key "transactions", "expenses"
+  add_foreign_key "transactions", "incomes"
+  add_foreign_key "transactions", "users"
 end
