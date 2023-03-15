@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @debit %>
+
+<div>
+  <%= link_to "Edit this debit", edit_debit_path(@debit) %> |
+  <%= link_to "Back to debits", debits_path %>
+
+  <%= button_to "Destroy this debit", @debit, method: :delete %>
+</div>
