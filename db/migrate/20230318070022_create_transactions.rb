@@ -5,7 +5,7 @@ class CreateTransactions < ActiveRecord::Migration[7.0]
       t.string :type, null: false
       t.references :user, null: false, foreign_key: true
       t.references :category, null: false, foreign_key: true
-      t.decimal :amount
+      t.decimal :amount, null: false
       t.date :date, null: false
 
       t.timestamps
