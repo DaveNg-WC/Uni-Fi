@@ -2,13 +2,20 @@
 <%= simple_form_for(@wallet) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.input :type %>
-    <%= f.select :type, options_for_select([["Select One", ""], 'Credit', 'Debit']), required: true %><br>
+    <%= f.input :t %>
+    <%#= 'Type'%>
+    <%#= f.select :type, options_for_select([["Select One", ""], 'Credit', 'Debit']), required: true %><br>
     <%= f.input :payment_due_date %>
-    <%= f.input :notes %>
+
+    <%# f.fields_for :associated_object do |associated_f| %>
+      <%# if f.object.type != 'Debit' %>
+        <%#= associated_f.input :payment_due_date %>
+      <%# end %>
+    <%# end %>
+
+    <%= f.input :description %>
     <%= f.association :user %>
   </div>
 
