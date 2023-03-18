@@ -1,6 +1,7 @@
 class Category < ApplicationRecord
   belongs_to :user
   has_many :transactions
+  has_many :budgets_categories
   has_many :budgets, through: :budgets_categories
 
   # enum type: {

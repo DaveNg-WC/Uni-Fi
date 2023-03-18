@@ -51,7 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_074155) do
     t.text "description"
     t.string "txn_type", null: false
     t.bigint "user_id", null: false
-    t.bigint "category_id", null: false
+    t.bigint "category_id"
     t.decimal "amount", null: false
     t.date "date", null: false
     t.datetime "created_at", null: false
