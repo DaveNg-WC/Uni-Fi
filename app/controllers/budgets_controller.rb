@@ -22,6 +22,9 @@ class BudgetsController < ApplicationController
   # POST /budgets or /budgets.json
   def create
     @budget = Budget.new(budget_params)
+    @user_id = current_user
+    @budget.user_id = @user_id
+    @budget.save
 
     respond_to do |format|
       if @budget.save
@@ -65,6 +68,6 @@ class BudgetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def budget_params
-      params.require(:budget).permit(:amount, :name, :user_id)
+      params.require(:budget).permit(:amount, :name)
     end
 end
