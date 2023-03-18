@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :partners, only: [:show, :new, :create, :destroy]
   resources :budgets
   resources :transactions
   resources :categories
