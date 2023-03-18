@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_074155) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
-    t.string "type", null: false
+    t.string "category_type", null: false
     t.text "description"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -48,16 +48,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_074155) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.string "type", null: false
-    t.bigint "main_wallet_id", null: false
-    t.bigint "second_wallet_id"
+    t.text "description"
+    t.string "txn_type", null: false
+    t.bigint "user_id", null: false
     t.bigint "category_id", null: false
     t.decimal "amount", null: false
-    t.text "description"
     t.date "date", null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "main_wallet_id", null: false
+    t.bigint "second_wallet_id"
     t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["main_wallet_id"], name: "index_transactions_on_main_wallet_id"
     t.index ["second_wallet_id"], name: "index_transactions_on_second_wallet_id"
@@ -81,7 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_074155) do
 
   create_table "wallets", force: :cascade do |t|
     t.string "name", null: false
-    t.string "type", null: false
+    t.string "wallet_type", null: false
     t.text "description"
     t.date "payment_due_date"
     t.bigint "user_id", null: false
