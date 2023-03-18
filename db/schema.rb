@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_074155) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
-    t.string "type", null: false
+    t.string "category_type", null: false
     t.text "description"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -49,7 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_074155) do
 
   create_table "transactions", force: :cascade do |t|
     t.text "description"
-    t.string "type", null: false
+    t.string "txn_type", null: false
     t.bigint "user_id", null: false
     t.bigint "category_id", null: false
     t.decimal "amount", null: false
@@ -81,7 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_074155) do
 
   create_table "wallets", force: :cascade do |t|
     t.string "name", null: false
-    t.string "type", null: false
+    t.string "wallet_type", null: false
     t.text "description"
     t.date "payment_due_date"
     t.bigint "user_id", null: false
