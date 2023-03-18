@@ -10,11 +10,64 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_18_044419) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_18_074155) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "budgets", force: :cascade do |t|
+    t.decimal "amount", null: false
+    t.string "name", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_budgets_on_user_id"
+  end
+
+  create_table "budgets_categories", id: false, force: :cascade do |t|
+    t.bigint "budget_id", null: false
+    t.bigint "category_id", null: false
+    t.index ["budget_id"], name: "index_budgets_categories_on_budget_id"
+    t.index ["category_id"], name: "index_budgets_categories_on_category_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "type", null: false
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_categories_on_user_id"
+  end
+
+  create_table "partners_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "partner_id", null: false
+    t.index ["partner_id"], name: "index_partners_users_on_partner_id"
+    t.index ["user_id"], name: "index_partners_users_on_user_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string "type", null: false
+    t.bigint "main_wallet_id", null: false
+    t.bigint "second_wallet_id"
+    t.bigint "category_id", null: false
+    t.decimal "amount", null: false
+    t.text "description"
+    t.date "date", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_transactions_on_category_id"
+    t.index ["main_wallet_id"], name: "index_transactions_on_main_wallet_id"
+    t.index ["second_wallet_id"], name: "index_transactions_on_second_wallet_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "age"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -26,4 +79,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_044419) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "wallets", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "type", null: false
+    t.text "description"
+    t.date "payment_due_date"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_wallets_on_user_id"
+  end
+
+  add_foreign_key "budgets", "users"
+  add_foreign_key "categories", "users"
+  add_foreign_key "transactions", "categories"
+  add_foreign_key "transactions", "users"
+  add_foreign_key "transactions", "wallets", column: "main_wallet_id"
+  add_foreign_key "transactions", "wallets", column: "second_wallet_id"
+  add_foreign_key "wallets", "users"
 end
