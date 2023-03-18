@@ -6,7 +6,9 @@
   <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :type %>
+    <%= f.select :type, options_for_select([["Select One", ""], 'Credit', 'Debit']), required: true %><br>
     <%= f.input :payment_due_date %>
+    <%= f.input :notes %>
     <%= f.association :user %>
   </div>
 
