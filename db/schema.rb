@@ -38,7 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_071007) do
     t.string "type", null: false
     t.bigint "user_id", null: false
     t.bigint "category_id", null: false
-    t.decimal "amount"
+    t.decimal "amount", null: false
     t.date "date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -51,6 +51,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_071007) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "age"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
