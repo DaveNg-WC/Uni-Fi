@@ -3,6 +3,7 @@ class CreateWallets < ActiveRecord::Migration[7.0]
     create_table :wallets do |t|
       t.string :name
       t.string :type
+      t.text :description
       t.date :payment_due_date
       t.references :user, null: false, foreign_key: true
 
