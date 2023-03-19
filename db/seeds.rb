@@ -20,6 +20,7 @@ puts "created 4 users"
 
 # Creater partners
 
+
 # Create categories for each user
 categories = []
 users.each do |user|
