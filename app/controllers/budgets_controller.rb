@@ -13,6 +13,7 @@ class BudgetsController < ApplicationController
   # GET /budgets/new
   def new
     @budget = Budget.new
+    @categories = current_user.categories.where(category_type: 'Expense')
   end
 
   # GET /budgets/1/edit

@@ -6,6 +6,8 @@
     <div class="form-inputs">
       <%= f.input :name %>
       <%= f.input :amount %>
+      <%= f.collection_select :category_ids, @categories, :id, :name, {prompt: "Select category"}, {multiple: true} %>
+
       <%# <%= f.association :user %>
     </div>
 
