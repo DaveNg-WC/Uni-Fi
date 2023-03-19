@@ -4,16 +4,17 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.input :t %>
-    <%#= 'Type'%>
-    <%#= f.select :type, options_for_select([["Select One", ""], 'Credit', 'Debit']), required: true %><br>
-    <%= f.input :payment_due_date %>
+    <%#= f.input :wallet_type %>
+    <%= 'Wallet Type'%>
+    <%= f.select :wallet_type, options_for_select([["Select One", ""], 'Credit', 'Debit']), required: true %><br>
+    <%#= f.input :payment_due_date %>
 
-    <%# f.fields_for :associated_object do |associated_f| %>
-      <%# if f.object.type != 'Debit' %>
-        <%#= associated_f.input :payment_due_date %>
-      <%# end %>
-    <%# end %>
+    <%#= payment_due_date field doesnot appear regardless of wallet_type selection??? %>
+    <% f.fields_for :associated_object do |associated_f| %>
+      <% if f.object.wallet_type != 'Debit' %>
+        <%= associated_f.input :payment_due_date %>
+      <% end %>
+    <% end %>
 
     <%= f.input :description %>
     <%= f.association :user %>

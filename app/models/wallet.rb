@@ -1,6 +1,6 @@
 class Wallet < ApplicationRecord
   belongs_to :user
-  validates_presence_of :name, :t, :balance
+  validates_presence_of :name, :wallet_type
 
   # enum type: {
   #   debit: 'debit',

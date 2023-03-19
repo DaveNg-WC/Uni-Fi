@@ -7,8 +7,8 @@ class WalletsController < ApplicationController
   end
 
   # GET /wallets/1 or /wallets/1.json
-  def show
-  end
+  # def show
+  # end
 
   # GET /wallets/new
   def new
@@ -21,7 +21,7 @@ class WalletsController < ApplicationController
 
   # POST /wallets or /wallets.json
   def create
-    raise
+    # raise
     @wallet = Wallet.new(wallet_params)
 
     respond_to do |format|
@@ -66,6 +66,6 @@ class WalletsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def wallet_params
-      params.require(:wallet).permit(:name, :t, :payment_due_date, :user_id)
+      params.require(:wallet).permit(:name, :wallet_type, :description, :payment_due_date, :user_id)
     end
 end
