@@ -2,7 +2,9 @@ class Wallet < ApplicationRecord
   belongs_to :user
   validates_presence_of :name, :wallet_type
 
-  # enum type: {
+  has_many :transactions
+
+  # enum wallet_type: {
   #   debit: 'debit',
   #   credit: 'credit'
   # }
