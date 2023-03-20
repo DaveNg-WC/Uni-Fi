@@ -5,8 +5,14 @@
   </p>
 
   <p>
-    <strong>Type:</strong>
-    <%= category.category_type %>
+    <strong>Balance:</strong>
+    <% sum = 0 %>
+    <% unless @transactions.nil? %>
+      <% @transactions.where(category_id: category.id).each do |transaction|%>
+        <% sum += transaction.amount %>
+      <% end %>
+    <% end %>
+    <%= sum %>
   </p>
 
   <p>
