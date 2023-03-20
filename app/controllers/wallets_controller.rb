@@ -3,7 +3,8 @@ class WalletsController < ApplicationController
 
   # GET /wallets or /wallets.json
   def index
-    @wallets = Wallet.all
+    # @wallets = Wallet.all
+    @wallets = Wallet.where(is_hidden: false)
   end
 
   # GET /wallets/1 or /wallets/1.json
@@ -50,12 +51,12 @@ class WalletsController < ApplicationController
 
   # DELETE /wallets/1 or /wallets/1.json
   def destroy
-    @wallet.destroy
-
-    respond_to do |format|
-      format.html { redirect_to wallets_url, notice: "Wallet was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    @wallet.is_hidden = true
+    @wallet.save
+    # respond_to do |format|
+    #   format.html { redirect_to wallets_url, notice: "Wallet was successfully destroyed." }
+    #   format.json { head :no_content }
+    # end
   end
 
   private
@@ -66,6 +67,6 @@ class WalletsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def wallet_params
-      params.require(:wallet).permit(:name, :wallet_type, :description, :payment_due_date, :user_id)
+      params.require(:wallet).permit(:name, :wallet_type, :description, :payment_due_date, :user_id, :is_hidden)
     end
 end

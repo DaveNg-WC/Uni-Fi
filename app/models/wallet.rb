@@ -2,7 +2,7 @@ class Wallet < ApplicationRecord
   belongs_to :user
   validates_presence_of :name, :wallet_type
 
-  has_many :transactions
+  has_many :transactions, dependent: :nullify
 
   # enum wallet_type: {
   #   debit: 'debit',

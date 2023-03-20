@@ -6,15 +6,18 @@
     <%= f.input :name %>
     <%#= f.input :wallet_type %>
     <%= 'Wallet Type'%>
-    <%= f.select :wallet_type, options_for_select([["Select One", ""], 'Credit', 'Debit']), required: true %><br>
+    <%= f.select :wallet_type, options_for_select([["Select One", ""], 'Credit', 'Debit']), required: true, data: { action: "change->wallets#toggleFields" }%><br>
     <%#= f.input :payment_due_date %>
-
+    <div class="payment_due_date">
+      <%#= f.label :payment_due_date %>
+      <%= f.input :payment_due_date %>
+    </div>
     <%#= payment_due_date field doesnot appear regardless of wallet_type selection??? %>
-    <% f.fields_for :associated_object do |associated_f| %>
-      <% if f.object.wallet_type != 'Debit' %>
-        <%= associated_f.input :payment_due_date %>
-      <% end %>
-    <% end %>
+    <%# f.fields_for :associated_object do |associated_f| %>
+      <%# if f.object.wallet_type != 'Debit' %>
+        <%#= f.input :payment_due_date %>
+      <%# end %>
+    <%# end %>
 
     <%= f.input :description %>
     <%= f.association :user %>
