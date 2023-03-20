@@ -1,6 +1,23 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @category %>
+<%#= render @category %>
+<h1><%= @category.name %></h1>
+
+<div class="div">
+  <p>Total Spent This Month</p>
+  <p><strong><%= @sum %></strong></p>
+</div>
+
+<div class="div">
+  <p>Notes</p>
+  <p><%= @category.description %></p>
+</div>
+
+<div class="div">
+  <p>Transaction History</p>
+  <%= render "category_transaction" %>
+</div>
+
 
 <div>
   <%= link_to "Edit this category", edit_category_path(@category) %> |
