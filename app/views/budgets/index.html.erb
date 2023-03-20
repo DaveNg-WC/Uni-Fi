@@ -1,6 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Budgets</h1>
+<h2>Target Budget: <%= number_to_currency(@target_budget) %></h2>
+<h2>Current Spending: <%= number_to_currency(@current_spending) %></h2>
 
 <div id="budgets">
   <% @budgets.each do |budget| %>
