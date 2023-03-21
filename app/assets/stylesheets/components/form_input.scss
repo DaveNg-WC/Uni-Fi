@@ -1,0 +1,26 @@
+/* Form Input */
+
+.form p {
+  font-size: 16px;
+}
+
+.form-input {
+  background-color: #ececec;
+  text-indent: 16px;
+  border: 0px solid #ccc;
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  width: 325px;
+  height: 48px;
+}
+
+.form-input:focus {
+  border-color: rgb(131, 131, 131);
+  border-width: 1px;
+  background-color: #fff;
+}
+
+.stretch {
+  width: 100%;
+}

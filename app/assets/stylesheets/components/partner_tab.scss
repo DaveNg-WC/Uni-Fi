@@ -1,0 +1,45 @@
+/* Partner Tab*/
+
+.partner-tab {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 345px;
+  border: 0.5px solid #D7D7D7;
+  border-radius: 16px;
+  padding: 10px 20px;
+}
+
+.partner-tab-right {
+  display: flex;
+  flex-direction: column;
+  padding: 10 20;
+}
+
+.partner-tab-right-top {
+  align-self: flex-start;
+  margin: 0 0 4 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.partner-tab-right-btm {
+  color: #949494;
+  margin: 0px;
+  font-size: 13px;
+}
+
+.partner-tab .fa-user {
+  color: #B5B5B5;
+}
+
+.partner-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+  background-color: #F2F2F2;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}

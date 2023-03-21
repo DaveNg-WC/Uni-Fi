@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_18_074155) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_21_091306) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_074155) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
-    t.string "category_type", null: false
+    t.string "type", null: false
     t.text "description"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -40,18 +40,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_074155) do
     t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
-  create_table "partners_users", id: false, force: :cascade do |t|
+  create_table "partners_users", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "partner_id", null: false
+    t.bigint "partner_id"
     t.index ["partner_id"], name: "index_partners_users_on_partner_id"
     t.index ["user_id"], name: "index_partners_users_on_user_id"
   end
 
   create_table "transactions", force: :cascade do |t|
     t.text "description"
-    t.string "txn_type", null: false
+    t.string "type", null: false
     t.bigint "user_id", null: false
-    t.bigint "category_id"
+    t.bigint "category_id", null: false
     t.decimal "amount", null: false
     t.date "date", null: false
     t.datetime "created_at", null: false
@@ -81,7 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_074155) do
 
   create_table "wallets", force: :cascade do |t|
     t.string "name", null: false
-    t.string "wallet_type", null: false
+    t.string "type", null: false
     t.text "description"
     t.date "payment_due_date"
     t.bigint "user_id", null: false
@@ -92,6 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_074155) do
 
   add_foreign_key "budgets", "users"
   add_foreign_key "categories", "users"
+  add_foreign_key "partners_users", "users"
   add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "users"
   add_foreign_key "transactions", "wallets", column: "main_wallet_id"
