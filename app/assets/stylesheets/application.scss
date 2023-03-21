@@ -5,6 +5,7 @@
 
 // External libraries
 @import "bootstrap/scss/bootstrap";
+@import "bootstrap";
 @import "font-awesome";
 
 // Your CSS partials
@@ -22,3 +23,4 @@
 @import "components/toggle_partner";
 @import "components/side_menu";
 @import "components/form_input";
+@import "text";
