@@ -18,7 +18,15 @@ users = []
 end
 puts "created 4 users"
 
-# Creater partners
+
+# Create partnerships
+puts "creating Partnerships"
+Partnership.create(user: User.first, partner: User.second)
+Partnership.create(user: User.second, partner: User.first)
+Partnership.create(user: User.third, partner: User.fourth)
+Partnership.create(user: User.fourth, partner: User.third)
+puts "created Partnerships"
+
 
 # Create categories for each user
 categories = []
