@@ -5,9 +5,11 @@
   <div class="form-inputs" data-controller="wallets">
     <%= f.input :name %>
     <%#= f.input :wallet_type %>
-    <%= "Wallet Type"%>
-    <%= f.select :wallet_type, options_for_select([["Select One", ""], "Credit", "Debit"]), required: true, input_html: {data: { action: "click->wallets#paymentDueDate" }} %><br>
-    <%#= f.input :payment_due_date %>
+    <%= f.input :wallet_type,
+        collection: ["Credit", "Debit"], prompt: "Select one",
+        input_html: { data: { action: "change->wallets#paymentDueDate" }},
+        required: true
+        %>
     <div class="payment_due_date"  data-wallets-target="date" style="display: none">
       <%#= f.label :payment_due_date %>
       <%= f.input :payment_due_date %>

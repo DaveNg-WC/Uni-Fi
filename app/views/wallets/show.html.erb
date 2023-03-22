@@ -1,6 +1,11 @@
 <p style="color: green"><%= notice %></p>
 
-<% if @wallet.is_hidden = false %>
+<% if @wallet.is_hidden %>
+  <%= "This Wallet is DELETED" %>
+  <div>
+    <%= link_to "Back to wallets", wallets_path %>
+  </div>
+<% else %>
   <%= render @wallet %>
 
   <div>
@@ -8,11 +13,5 @@
     <%= link_to "Back to wallets", wallets_path %>
 
     <%= button_to "Destroy this wallet", @wallet, method: :delete %>
-  </div>
-
-<% else %>
-  <%= "This Wallet is DELETED" %>
-  <div>
-    <%= link_to "Back to wallets", wallets_path %>
   </div>
 <% end %>
