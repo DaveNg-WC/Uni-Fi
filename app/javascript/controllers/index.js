@@ -6,3 +6,5 @@ import { application } from "./application"
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+import WalletsController from "./wallets_controller"
+application.register("wallets", WalletsController)
