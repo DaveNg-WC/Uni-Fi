@@ -8,5 +8,6 @@ class User < ApplicationRecord
   has_many :wallets, dependent: :destroy
   has_many :transactions, dependent: :destroy
   has_many :budgets, dependent: :destroy
-  has_many :partners, through: :partners_users, dependent: :destroy
+  has_one :partnership
+  has_one :partner, through: :partnership
 end
