@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2023_03_21_091306) do
+=======
+ActiveRecord::Schema[7.0].define(version: 2023_03_19_085206) do
+>>>>>>> master
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,11 +44,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_21_091306) do
     t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
+<<<<<<< HEAD
   create_table "partners_users", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "partner_id"
     t.index ["partner_id"], name: "index_partners_users_on_partner_id"
     t.index ["user_id"], name: "index_partners_users_on_user_id"
+=======
+  create_table "partnerships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "partner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["partner_id"], name: "index_partnerships_on_partner_id"
+    t.index ["user_id"], name: "index_partnerships_on_user_id"
+>>>>>>> master
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -92,7 +106,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_21_091306) do
 
   add_foreign_key "budgets", "users"
   add_foreign_key "categories", "users"
+<<<<<<< HEAD
   add_foreign_key "partners_users", "users"
+=======
+  add_foreign_key "partnerships", "users"
+  add_foreign_key "partnerships", "users", column: "partner_id"
+>>>>>>> master
   add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "users"
   add_foreign_key "transactions", "wallets", column: "main_wallet_id"
