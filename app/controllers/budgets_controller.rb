@@ -10,8 +10,8 @@ class BudgetsController < ApplicationController
   def show
     @budget = Budget.find(params[:id])
     @category = Category.find(1)
-    @target_budget = @category.budgets.sum(:amount)
-    @current_spending = @category.expenses.sum(:amount)
+    # @target_budget = @category.budgets.sum(:amount)
+    # @current_spending = @category.expenses.sum(:amount)
   end
 
   def new
