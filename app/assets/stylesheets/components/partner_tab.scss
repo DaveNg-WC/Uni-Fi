@@ -1,26 +1,23 @@
-/* Partner Tab*/
-
 .partner-tab {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 345px;
   border: 0.5px solid #D7D7D7;
   border-radius: 16px;
-  padding: 10px 20px;
+  padding: 5px 15px;
 }
 
 .partner-tab-right {
   display: flex;
   flex-direction: column;
-  padding: 10 20;
+  padding: 10px 20px;
 }
 
 .partner-tab-right-top {
   align-self: flex-start;
-  margin: 0 0 4 0;
   font-size: 16px;
   font-weight: 600;
+  margin-bottom: 4px;
 }
 
 .partner-tab-right-btm {
