@@ -20,6 +20,9 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/1/edit
   def edit
+    @expenses       = current_user.categories.where("LOWER(category_type) = ?", "expense")
+    @incomes        = current_user.categories.where("LOWER(category_type) = ?", "income")
+    @wallets        = current_user.wallets
   end
 
   # POST /transactions or /transactions.json
