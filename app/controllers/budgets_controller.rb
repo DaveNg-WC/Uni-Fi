@@ -26,6 +26,7 @@ class BudgetsController < ApplicationController
   # POST /budgets
   def create
     @budget = Budget.new(budget_params)
+    @budget.user = current_user
 
     if @budget.save
       redirect_to @budget
