@@ -1,8 +1,79 @@
 <h1>Editing transaction</h1>
 
-<%= render "form", transaction: @transaction %>
+<% if @transaction.income? %>
+  <%# income form  %>
+  <h2>Income Form</h2>
+  <%= simple_form_for(@transaction, html: {id: 'income-form'}) do |f| %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-<br>
+    <div class="income-form-inputs">
+      <%# as: :hidden hides the input. input_html: hard code the input value %>
+      <%= f.input :txn_type, as: :hidden, input_html: { value: "income" } %>
+      <%#  LOWER function to match the category_type value with the downcased value "income". The ? is a placeholder for the actual value which is passed as the second argument to the where method.  %>
+      <%= f.association :category, label: "From", collection: @incomes %>
+      <%= f.association :main_wallet, label: "To", collection: @wallets %>
+      <%= f.input :amount %>
+      <%= f.input :date %>
+      <%= f.input :description %>
+
+      <div class="form-actions">
+        <%= f.button :submit %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+
+<% if @transaction.expense? %>
+  <%# expense form  %>
+  <h2>Expense Form</h2>
+  <%= simple_form_for(@transaction, {id: 'expense-form'}) do |f| %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <div class="expense-form-inputs">
+      <%# as: :hidden hides the input. input_html: hard code the input value %>
+      <%= f.input :txn_type, as: :hidden, input_html: { value: "expense" } %>
+      <%#  LOWER function to match the category_type value with the downcased value "income". The ? is a placeholder for the actual value which is passed as the second argument to the where method.  %>
+      <%= f.association :main_wallet, label: "From", collection: @wallets %>
+      <%= f.association :category, label: "To", collection: @expenses %>
+      <%= f.input :amount %>
+      <%= f.input :date %>
+      <%= f.input :description %>
+
+      <div class="form-actions">
+        <%= f.button :submit %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @transaction.transfer? %>
+  <%# transfer form  %>
+  <h2>Transfer Form</h2>
+  <%= simple_form_for(@transaction, {id: 'transfer-form'}) do |f| %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <div class="transfer-form-inputs">
+      <%# as: :hidden hides the input. input_html: hard code the input value %>
+      <%= f.input :txn_type, as: :hidden, input_html: { value: "transfer" } %>
+      <%= f.association :main_wallet, label: "From", collection: @wallets%>
+      <%= f.association :second_wallet, label: "To", collection: @wallets %>
+      <%= f.input :amount %>
+      <%= f.input :date %>
+      <%= f.input :description %>
+
+      <div class="form-actions">
+        <%= f.button :submit %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+
+
 
 <div>
   <%= link_to "Show this transaction", @transaction %> |

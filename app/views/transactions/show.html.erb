@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @transaction %>
+<%= render "shared/transaction", transaction: @transaction %>
 
 <div>
   <%= link_to "Edit this transaction", edit_transaction_path(@transaction) %> |
