@@ -1,0 +1,66 @@
+/* Info Tabs (3)*/
+
+.info-tab {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 345px;
+  border: 0.5px solid #D7D7D7;
+  border-radius: 16px;
+  padding: 10px 20px;
+  background-color: #DFFE51;
+}
+
+.info-tab-right {
+  display: flex;
+  flex-direction: column;
+  padding: 10 20;
+}
+
+.info-tab-right-top {
+  align-self: flex-start;
+  margin: 0 0 4 0;
+  font-size: 14px;
+}
+
+.info-tab-right-btm {
+  color: #000000;
+  margin: 0px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.green-icon {
+  color: #DFFE51;
+}
+
+.grey-icon {
+  color: #D7D7D7;
+}
+
+.orange-icon {
+  color: #FFB877;
+}
+
+.green {
+  background-color: #DFFE51;
+}
+
+.grey {
+  background-color: #D7D7D7;
+}
+
+.orange {
+  background-color: #FFB877;
+}
+
+.info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+  background-color: #000000;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+}
