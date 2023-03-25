@@ -5,8 +5,22 @@
 
 // External libraries
 @import "bootstrap/scss/bootstrap";
+@import "bootstrap";
 @import "font-awesome";
 
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+// CSS Components
+@import "components/button";
+@import "components/transaction_tab";
+@import "components/partner_tab";
+@import "components/category_tab";
+@import "components/detail_tab";
+@import "components/info_tab";
+@import "components/notes_tab";
+@import "components/toggle_partner";
+@import "components/side_menu";
+@import "components/form_input";
+@import "text";
