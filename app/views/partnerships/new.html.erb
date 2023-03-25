@@ -1,7 +1,11 @@
 <div>
-  <div class="container mobile" style="margin-bottom: 20px">
+  <div class="container mobile page-header" style="margin-bottom: 20px">
+      <a href="<%= request.referrer || root_path %>">
+        <i class="fa-solid fa-arrow-left side-icon fa-xl"></i>
+      </a>
       <h2 class="header bold" style="text-align: center;">Partner Connect</h2>
-  </div>
+      <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
+    </div>
   <div>
     <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 100px;">
       <p class="bold" style="font-size: 18px; line-height: 1.2;">Uni-fi your financial goals with your partner.</p>

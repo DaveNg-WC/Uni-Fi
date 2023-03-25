@@ -1,8 +1,12 @@
 <!-- If current_user.partner != nil, show User information below. -->
 <% if current_user.partnership == nil %>
   <div>
-    <div class="container mobile" style="margin-bottom: 20px">
-        <h2 class="header bold" style="text-align: center;">Your Finance Partner</h2>
+    <div class="container mobile page-header" style="margin-bottom: 20px">
+      <a href="<%= request.referrer || dashboard_path %>">
+        <i class="fa-solid fa-arrow-left side-icon fa-xl"></i>
+      </a>
+      <h2 class="header bold" style="text-align: center;">Your Finance Partner</h2>
+      <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
     </div>
     <div>
       <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 100px;">
@@ -20,8 +24,12 @@
   </div>
 <% else %>
   <div>
-    <div class="container mobile" style="margin-bottom: 20px">
-        <h2 class="header bold" style="text-align: center;">Your Finance Partner</h2>
+    <div class="container mobile page-header" style="margin-bottom: 20px">
+      <a href="<%= dashboard_path %>"> <!-- always goes to home? -->
+        <i class="fa-solid fa-arrow-left side-icon fa-xl"></i>
+      </a>
+      <h2 class="header bold" style="text-align: center;">Your Finance Partner</h2>
+      <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
     </div>
     <div>
       <div class="container mobile d-flex flex-column justify-content-start" style="margin-top: 50px;">

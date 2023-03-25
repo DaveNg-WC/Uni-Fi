@@ -1,54 +1,69 @@
 <div class="container mobile">
-  <p>Insert back button button</p>
-  <h2 class="header bold" style="text-align: center;">This is the side menu</h2>
+  <div class="side-menu-top" style="margin-bottom: 30px;">
+    <a href="<%= request.referrer || root_path %>">
+      <i class="fa-solid fa-arrow-left side-icon fa-xl"></i>
+    </a>
 
-  <div class="user-details">
-    <p class="bold" style="margin-bottom: 0px; font-size: 22px;"><%= current_user.first_name %> <%= current_user.last_name %></p>
-    <p class="bold" style="color: #949494; margin-bottom: 4px; font-size: 14px;">User ID: <%= current_user.id %></p>
+    <div class="user-details" style="margin-right: 8px;">
+      <p class="bold" style="margin-bottom: 0px; font-size: 16px;"><%= current_user.first_name %> <%= current_user.last_name %></p>
+      <p class="bold" style="color: #949494; margin-bottom: 4px; font-size: 13px;">User ID: <%= current_user.id %></p>
+    </div>
   </div>
-
   <div>
     <div class="side menu">
-      <div class="side-menu-tab">
-        <i class="fa-solid fa-wallet side-icon"></i>
-        <div class="side-menu-right">
-          <p>Accounts</p>
+      <a href="/wallets" method="get">
+        <div class="side-menu-tab">
+          <i class="fa-solid fa-sack-dollar side-icon"></i>
+          <div class="side-menu-right">
+            <p class="bold">Accounts</p>
+          </div>
         </div>
-      </div>
-      <div class="side-menu-tab">
-        <i class="fa-solid fa-filter side-icon"></i>
-        <div class="side-menu-right">
-          <p>Categories</p>
+      </a>
+      <a href="/categories" method="get">
+        <div class="side-menu-tab">
+          <i class="fa-solid fa-filter side-icon"></i>
+          <div class="side-menu-right">
+            <p class="bold">Categories</p>
+          </div>
         </div>
-      </div>
-      <div class="side-menu-tab">
-        <i class="fa-solid fa-square-check side-icon"></i>
-        <div class="side-menu-right">
-          <p>Budgets</p>
+      </a>
+      <a href="/budgets" method="get">
+        <div class="side-menu-tab">
+          <i class="fa-solid fa-square-check side-icon"></i>
+          <div class="side-menu-right">
+            <p class="bold">Budgets</p>
+          </div>
         </div>
-      </div>
-      <div class="side-menu-tab">
-        <i class="fa-solid fa-coins side-icon"></i>
-        <div class="side-menu-right">
-          <p>Transactions</p>
+      </a>
+      <a href="/transactions" method="get">
+        <div class="side-menu-tab">
+          <i class="fa-solid fa-coins side-icon"></i>
+          <div class="side-menu-right">
+            <p class="bold">Transactions</p>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 
   <div>
-    <div class="side menu">
-      <div class="side-menu-tab">
-        <i class="fa-solid fa-heart side-icon"></i>
-        <div class="side-menu-right">
-          <p>Partner Settings</p>
+    <div class="side-menu bottom-div">
+      <a href="/partnerships" method="get">
+        <div class="side-menu-tab">
+          <i class="fa-solid fa-heart side-icon"></i>
+          <div class="side-menu-right">
+            <p class="bold">Partner Settings</p>
+          </div>
         </div>
-      </div>
-      <div class="side-menu-tab">
-        <i class="fa-solid fa-right-from-bracket side-icon"></i>
-        <div class="side-menu-right">
-          <p>Logout</p>
+      </a>
+      <a href="/partnerships" method="get">
+        <div class="side-menu-tab">
+          <i class="fa-solid fa-right-from-bracket side-icon"></i>
+          <div class="side-menu-right">
+            <p class="bold">Logout</p>
+          </div>
         </div>
-    </div>
+      </a>
+      <p>need to if else for login and logout</p>
   </div>
 </div>

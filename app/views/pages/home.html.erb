@@ -1,2 +1,16 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<body style="background-color: #888888;">
+  <div>
+    <div class="container mobile page-header" style="margin-bottom: 20px">
+      <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
+    </div>
+
+    <div class="container mobile d-flex justify-content-center align-items-center" style="margin-top: 250px">
+      <div class="splash">
+        <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png", alt: "logo", style:"width: 80px; align-self: center;"%>
+        <p class="header bold" style="text-align: center; color: #FFFFFF; font-size: 20px; line-height: 1.2; margin-top: 20px;">Start taking control of your financial future.</p>
+        <%= button_to 'Start Now', new_partnership_path, method: :get, class: 'btn-small-primary', style:"width: 100%;"%>
+        <p>button still not directed</p>
+      </div>
+    </div>
+  </div>
+</body>
