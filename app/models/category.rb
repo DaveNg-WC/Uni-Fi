@@ -3,6 +3,8 @@ class Category < ApplicationRecord
   has_many :transactions
   has_many :budgets_categories
   has_many :budgets, through: :budgets_categories
+  validates :name, presence: true
+
 
   def expense?
     self.category_type.downcase == "expense"
