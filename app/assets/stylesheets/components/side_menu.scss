@@ -1,0 +1,23 @@
+/* Side Menu Tab */
+
+.side-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.side-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.side-menu-tab {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.side-menu-tab p {
+  font-size: 16px;
+  margin-left: 16px;
+}
