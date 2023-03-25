@@ -1,0 +1,21 @@
+<%# income transactions  %>
+ <% if category.income? %>
+    <% transactions.each do |t| %>
+      <%= category.name %>
+      <%= t.main_wallet.name %>
+      <%= t.date %>
+      <%= t.amount %>
+      <br>
+    <% end %>
+  <% end %>
+
+<%# expense transactions  %>
+  <% if category.expense? %>
+     <% transactions.each do |t| %>
+      <%= t.main_wallet.name %>
+      <%= category.name %>
+      <%= t.date %>
+      <%= t.amount %>
+      <br>
+    <% end %>
+  <% end %>

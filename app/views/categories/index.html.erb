@@ -1,9 +1,20 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Categories</h1>
+<h1>Your Categories</h1>
 
+<h2>Income</h2>
 <div id="categories">
-  <% @categories.each do |category| %>
+  <% @incomes.each do |category| %>
+    <%= render category %>
+    <p>
+      <%= link_to "Show this category", category %>
+    </p>
+  <% end %>
+</div>
+
+<h2>Expenses</h2>
+<div id="categories">
+  <% @expenses.each do |category| %>
     <%= render category %>
     <p>
       <%= link_to "Show this category", category %>
