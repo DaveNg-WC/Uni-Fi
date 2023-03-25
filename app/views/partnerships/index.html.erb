@@ -2,7 +2,7 @@
 <% if current_user.partnership == nil %>
   <div>
     <div class="container mobile page-header" style="margin-bottom: 20px">
-      <a href="<%= request.referrer || dashboard_path %>">
+      <a href="<%= dashboard_path %>">
         <i class="fa-solid fa-arrow-left side-icon fa-xl"></i>
       </a>
       <h2 class="header bold" style="text-align: center;">Your Finance Partner</h2>
