@@ -19,5 +19,11 @@
 
 .side-menu-tab p {
   font-size: 16px;
+  margin: 0;
   margin-left: 16px;
+}
+
+.side-menu-right {
+  display: flex;
+  align-items: center;
 }
