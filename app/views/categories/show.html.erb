@@ -17,11 +17,7 @@
 
 <div class="div">
   <p>Transaction History</p>
-  <% @transactions.each do |t| %>
-    <%= t.amount %>
-    <%= t.main_wallet.name %>
-  <% end %>
-  <%= render "category_transaction" %>
+  <%= render "category_transaction", category: @category, transactions: @transactions%>
 </div>
 
 
