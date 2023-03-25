@@ -3,7 +3,7 @@ class TransactionsController < ApplicationController
 
   # GET /transactions or /transactions.json
   def index
-    @transactions = Transaction.all
+    @transactions = current_user.transactions.order("date DESC")
   end
 
   # GET /transactions/1 or /transactions/1.json
@@ -12,7 +12,10 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/new
   def new
-    @transaction = Transaction.new
+    @transaction    = Transaction.new
+    @expenses       = current_user.categories.where("LOWER(category_type) = ?", "expense")
+    @incomes        = current_user.categories.where("LOWER(category_type) = ?", "income")
+    @wallets        = current_user.wallets
   end
 
   # GET /transactions/1/edit
@@ -22,6 +25,7 @@ class TransactionsController < ApplicationController
   # POST /transactions or /transactions.json
   def create
     @transaction = Transaction.new(transaction_params)
+    @transaction.user = current_user
 
     respond_to do |format|
       if @transaction.save
@@ -65,6 +69,6 @@ class TransactionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def transaction_params
-      params.require(:transaction).permit(:description, :type, :user_id, :category_id, :amount, :date)
+      params.require(:transaction).permit(:description, :txn_type, :category_id, :amount, :date, :main_wallet_id, :second_wallet_id)
     end
 end
