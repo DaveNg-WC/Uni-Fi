@@ -8,8 +8,6 @@ class BudgetsController < ApplicationController
 
   # GET /budgets/1
   def show
-    @budget = Budget.find(params[:id])
-    @category = Category.find(1)
   end
 
   def new
@@ -19,7 +17,6 @@ class BudgetsController < ApplicationController
 
   # GET /budgets/1/edit
   def edit
-    @budget = Budget.find(params[:id])
     @categories = current_user.categories.where(category_type: 'expense')
   end
 
@@ -28,11 +25,21 @@ class BudgetsController < ApplicationController
     @budget = Budget.new(budget_params)
     @budget.user = current_user
 
-    if @budget.save
-      redirect_to @budget
-    else
-      render :new
+    respond_to do |format|
+      if @budget.save
+        format.html { redirect_to budget_url(@budget), notice: "Budget was successfully created." }
+        format.json { render :show, status: :created, location: @budget }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @budget.errors, status: :unprocessable_entity }
+      end
     end
+
+    # if @budget.save
+    #   redirect_to @budget
+    # else
+    #   render :new
+    # end
   end
 
   # PATCH/PUT
