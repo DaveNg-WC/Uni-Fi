@@ -1,15 +1,15 @@
 
-<%= simple_form_for(@budget) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <%= simple_form_for(@budget) do |f| %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.input :amount %>
+    <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.association :user %>
-  </div>
+    <%= f.input :amount %>
+    <%= f.association :categories, as: :check_boxes, collection: @categories, input_html: { multiple: true } %>
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+  <% end %>

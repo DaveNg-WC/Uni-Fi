@@ -1,27 +1,29 @@
 class BudgetsController < ApplicationController
   before_action :set_budget, only: %i[ show edit update destroy ]
 
-  # GET /budgets or /budgets.json
+  # GET /budgets
   def index
-    @budgets = Budget.all
+    @budgets = Budget.all.order(:name)
   end
 
-  # GET /budgets/1 or /budgets/1.json
+  # GET /budgets/1
   def show
   end
 
-  # GET /budgets/new
   def new
     @budget = Budget.new
+    @categories = current_user.categories.where(category_type: 'expense')
   end
 
   # GET /budgets/1/edit
   def edit
+    @categories = current_user.categories.where(category_type: 'expense')
   end
 
-  # POST /budgets or /budgets.json
+  # POST /budgets
   def create
     @budget = Budget.new(budget_params)
+    @budget.user = current_user
 
     respond_to do |format|
       if @budget.save
@@ -32,9 +34,15 @@ class BudgetsController < ApplicationController
         format.json { render json: @budget.errors, status: :unprocessable_entity }
       end
     end
+
+    # if @budget.save
+    #   redirect_to @budget
+    # else
+    #   render :new
+    # end
   end
 
-  # PATCH/PUT /budgets/1 or /budgets/1.json
+  # PATCH/PUT
   def update
     respond_to do |format|
       if @budget.update(budget_params)
@@ -47,7 +55,7 @@ class BudgetsController < ApplicationController
     end
   end
 
-  # DELETE /budgets/1 or /budgets/1.json
+  # DELETE /budgets/1
   def destroy
     @budget.destroy
 
@@ -58,13 +66,15 @@ class BudgetsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_budget
-      @budget = Budget.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_budget
+    @budget = Budget.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def budget_params
-      params.require(:budget).permit(:amount, :name, :user_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def budget_params
+    # category_ids = params[:budget][:category_ids]&.reject(&:blank?)
+    # category_objs = Category.where(id: category_ids)
+    params.require(:budget).permit(:amount, :name, category_ids: [])
+  end
 end
