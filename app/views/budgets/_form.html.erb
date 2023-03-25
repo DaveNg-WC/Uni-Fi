@@ -6,7 +6,7 @@
     <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :amount %>
-    <%= f.input :categories, as: :check_boxes, collection: categories, input_html: { multiple: true } %>
+    <%= f.association :categories, as: :check_boxes, collection: @categories, input_html: { multiple: true } %>
     </div>
 
     <div class="form-actions">
