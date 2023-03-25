@@ -3,17 +3,27 @@ class CategoriesController < ApplicationController
 
   # GET /categories or /categories.json
   def index
-    @transactions   = current_user.transactions
-    @categories     = current_user.categories
-    @incomes        = current_user.categories.where(category_type: :income)
-    @expenses       = current_user.categories.where(category_type: :expense)
+    # current user's all transactions
+    @transactions = current_user.transactions
+
+    # current user's all categories
+    @categories = current_user.categories
+
+    # current user's all income categories
+    @incomes = current_user.categories.where(category_type: :income)
+
+    # current user's all expense categories
+    @expenses = current_user.categories.where(category_type: :expense)
   end
 
   # GET /categories/1 or /categories/1.json
   def show
-    transactions = current_user.transactions.where(category: @category)
+    # all transactions within current category for current user
+    @transactions = current_user.transactions.where(category: @category)
+
+    # summing all transactions values of above transactions
     @sum = 0
-    transactions.each { |t| @sum += t.amount } unless transactions.nil?
+    @transactions.each { |t| @sum += t.amount }
   end
 
   # GET /categories/new
