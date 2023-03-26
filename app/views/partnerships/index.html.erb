@@ -1,0 +1,62 @@
+<!-- If current_user.partner != nil, show User information below. -->
+<% if current_user.partnership == nil %>
+  <div>
+    <div class="container mobile page-header" style="margin-bottom: 20px">
+      <a href="<%= dashboard_path %>">
+        <i class="fa-solid fa-arrow-left side-icon fa-xl"></i>
+      </a>
+      <h2 class="header bold" style="text-align: center;">Your Finance Partner</h2>
+      <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
+    </div>
+    <div>
+      <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 100px;">
+        <p class="bold" style="font-size: 18px; line-height: 1.2;">Achieve your financial goals with your partner</p>
+        <ul style="font-size: 13px; color: #949494; line-height: 1.7; margin-bottom: 30px;">
+          <li>Stay motivated and budget together</li>
+          <li>View each other saving goals</li>
+          <li>Your household finances all in one place</li>
+          <li>Stay accountable and on track</li>
+          <li>Say hello to a coordinated approach to managing your money as a couple</li>
+        </ul>
+        <%= button_to 'Connect A Partner Account', new_partnership_path, method: :get, class: 'btn-small-primary' %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div>
+    <div class="container mobile page-header" style="margin-bottom: 20px">
+      <a href="<%= dashboard_path %>"> <!-- always goes to home? -->
+        <i class="fa-solid fa-arrow-left side-icon fa-xl"></i>
+      </a>
+      <h2 class="header bold" style="text-align: center;">Your Finance Partner</h2>
+      <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
+    </div>
+    <div>
+      <div class="container mobile d-flex flex-column justify-content-start" style="margin-top: 50px;">
+        <p class="bold" style="font-size: 18px; line-height: 1.2;">Achieve your financial goals, together. 🧑‍🤝‍🧑</p>
+        <ul style="font-size: 13px; color: #949494; line-height: 1.7; margin-bottom: 30px;">
+          <li>Stay motivated and budget together</li>
+          <li>View each other saving goals</li>
+          <li>Your household finances all in one place</li>
+          <li>Stay accountable and on track</li>
+          <li>Say hello to a coordinated approach to managing your money as a couple</li>
+        </ul>
+      </div>
+      <div class="container mobile d-flex flex-column ">
+        <p class="bold d-flex" style="font-size: 18px; line-height: 1.2; margin-top: 30px;">Your Uni-Fi partner is:</p>
+
+        <div class="partner-tab">
+          <div class="partner-icon">
+            <i class="fa-solid fa-user fa-lg"></i>
+          </div>
+          <div class="partner-tab-right">
+            <p class="partner-tab-right-top"><%= @user_partner.first_name%> <%= @user_partner.last_name %></p>
+            <p class="partner-tab-right-btm">User ID: <%= @user_partner.id %></p>
+          </div>
+        </div>
+        <p style="font-size: 13px; color: #949494; line-height: 1.7; margin-top: 20px;">ℹ️ Partner data will be available when both accounts are connected each other.</p>
+        <%= button_to 'Remove Partner', partnership_path(@partnership), method: :delete, class: 'btn-small-secondary', style: "margin-top: 50px; margin-bottom: 30px" %>
+      </div>
+    </div>
+  </div>
+<% end %>

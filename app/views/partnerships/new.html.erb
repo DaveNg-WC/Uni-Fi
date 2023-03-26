@@ -1,2 +1,21 @@
-<h1>Partners#new</h1>
-<p>Find me in app/views/partners/new.html.erb</p>
+<div>
+  <div class="container mobile page-header" style="margin-bottom: 20px">
+      <a href="<%= request.referrer || root_path %>">
+        <i class="fa-solid fa-arrow-left side-icon fa-xl"></i>
+      </a>
+      <h2 class="header bold" style="text-align: center;">Partner Connect</h2>
+      <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
+    </div>
+  <div>
+    <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 100px;">
+      <p class="bold" style="font-size: 18px; line-height: 1.2;">Uni-fi your financial goals with your partner.</p>
+      <p style="font-size: 13px; color: #949494; line-height: 1.7; margin-bottom: 30px;">After you connect an ID, you'll be able to view your partner's data. Your partner can do the same as well.</p>
+
+      <%= form_tag partnerships_path, method: :post, style: "display: flex; flex-direction: column;", class: 'stretch' do %>
+        <%= label_tag :name, 'Enter User ID:', class: 'form-label' %>
+        <%= text_field_tag :account_id, nil, class: 'form-input', style: "margin-bottom: 20px;" %>
+        <%= submit_tag 'Confirm Connect', class: 'btn-small-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -3,12 +3,14 @@ class Category < ApplicationRecord
   has_many :transactions
   has_many :budgets_categories
   has_many :budgets, through: :budgets_categories
+  validates :name, presence: true
 
-  # enum type: {
-  #   income: 'income',
-  #   expense: 'expense'
-  # }
-  # After defining the enum, you can use it in your application code like this:
-  # create a new category with type 'income'
-  # t = Category.new(type: :income, name: "food", user_id: 1)
+
+  def expense?
+    self.category_type.downcase == "expense"
+  end
+
+  def income?
+    self.category_type.downcase == "income"
+  end
 end
