@@ -51,6 +51,11 @@ class WalletsController < ApplicationController
     end
   end
 
+  def show
+    @transactions = Transaction.all
+    @transactions = @transactions.where(main_wallet_id: @wallet.id)
+  end
+
   # DELETE /wallets/1 or /wallets/1.json
   def destroy
     @wallet.is_hidden = true

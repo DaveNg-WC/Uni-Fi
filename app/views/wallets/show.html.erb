@@ -13,5 +13,16 @@
     <%= link_to "Back to wallets", wallets_path %>
 
     <%= button_to "Destroy this wallet", @wallet, method: :delete %>
+  </div><br>
+
+  <h4>Transactions</h4>
+
+  <div id="transactions">
+    <% @transactions.where(main_wallet_id: @wallet.id).each do |transaction| %>
+      <%= render transaction %>
+      <p>
+        <%= link_to "Show this transaction", transaction %>
+      </p>
+    <% end %>
   </div>
 <% end %>
