@@ -4,7 +4,8 @@ class WalletsController < ApplicationController
   # GET /wallets or /wallets.json
   def index
     # @wallets = Wallet.all
-    @wallets = Wallet.where(is_hidden: false)
+    # raise
+    @wallets = Wallet.where(user: current_user, is_hidden: false)
   end
 
   # GET /wallets/1 or /wallets/1.json
@@ -24,6 +25,7 @@ class WalletsController < ApplicationController
   def create
     # raise
     @wallet = Wallet.new(wallet_params)
+    @wallet.user = current_user
 
     respond_to do |format|
       if @wallet.save
@@ -67,6 +69,6 @@ class WalletsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def wallet_params
-      params.require(:wallet).permit(:name, :wallet_type, :description, :payment_due_date, :user_id, :is_hidden)
+      params.require(:wallet).permit(:name, :wallet_type, :description, :payment_due_date, :is_hidden)
     end
 end
