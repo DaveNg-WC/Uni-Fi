@@ -1,10 +1,28 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @wallet %>
+<% if @wallet.is_hidden %>
+  <%= "This Wallet is DELETED" %>
+  <div>
+    <%= link_to "Back to wallets", wallets_path %>
+  </div>
+<% else %>
+  <%= render @wallet %>
 
-<div>
-  <%= link_to "Edit this wallet", edit_wallet_path(@wallet) %> |
-  <%= link_to "Back to wallets", wallets_path %>
+  <div>
+    <%= link_to "Edit this wallet", edit_wallet_path(@wallet) %> |
+    <%= link_to "Back to wallets", wallets_path %>
 
-  <%= button_to "Destroy this wallet", @wallet, method: :delete %>
-</div>
+    <%= button_to "Destroy this wallet", @wallet, method: :delete %>
+  </div><br>
+
+  <h4>Transactions</h4>
+
+  <div id="transactions">
+    <% @transactions.where(main_wallet_id: @wallet.id).each do |transaction| %>
+      <%= render transaction %>
+      <p>
+        <%= link_to "Show this transaction", transaction %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
