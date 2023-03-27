@@ -1,0 +1,26 @@
+<%# income transaction card %>
+<% if transaction.income? %>
+  <%= transaction.category.name %>
+  <%= transaction.main_wallet.name %>
+  <%= transaction.date %>
+  <%= transaction.amount %>
+  <br>
+<% end %>
+
+<%# expense transaction card %>
+<% if transaction.expense? %>
+  <%= transaction.main_wallet.name %>
+  <%= transaction.category.name %>
+  <%= transaction.date %>
+  <%= transaction.amount %>
+  <br>
+<% end %>
+
+<%# transfer transaction card %>
+<% if transaction.transfer? %>
+  <%= transaction.main_wallet.name %>
+  <%= transaction.second_wallet.name %>
+  <%= transaction.date %>
+  <%= transaction.amount %>
+  <br>
+<% end %>

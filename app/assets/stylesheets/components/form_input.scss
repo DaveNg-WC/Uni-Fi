@@ -1,0 +1,29 @@
+/* Form Input */
+
+.form p {
+  font-size: 16px;
+}
+
+.form-input {
+  background-color: #ececec;
+  text-indent: 16px;
+  border: 0px solid #ccc;
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  height: 48px;
+}
+
+.form-input:focus {
+  border-color: rgb(131, 131, 131) !important;
+  border-width: 1px !important;
+  background-color: #fff
+}
+
+.form-input:focus-visible {
+  border-color: rgb(131, 131, 131) !important;
+}
+
+.stretch {
+  width: 100%;
+}

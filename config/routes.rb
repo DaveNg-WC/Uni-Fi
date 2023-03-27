@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :partners, only: [:show, :new, :create, :destroy]
+  resources :partnerships, only: [:index, :new, :create, :destroy]
   resources :budgets
   resources :transactions
   resources :categories
@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :transactions, only: [:index]
   end
 
+  get '/menu', to: 'pages#menu'
+  get '/dashboard', to: 'pages#dashboard'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
