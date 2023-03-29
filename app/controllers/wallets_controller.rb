@@ -54,6 +54,10 @@ class WalletsController < ApplicationController
   def show
     @transactions = Transaction.all
     @transactions = @transactions.where(main_wallet_id: @wallet.id)
+    @balance = 0
+    @transactions.each do |t|
+      @balance += t.amount
+    end
   end
 
   # DELETE /wallets/1 or /wallets/1.json

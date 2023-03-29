@@ -27,6 +27,8 @@
       <%= link_to "Back to wallets", wallets_path %>
     </div>
   <% else %>
+    <strong><%= @wallet.wallet_type == "Debit" ? 'Balance:' : 'Amount Spent:' %></strong>
+    <%= @balance %>
     <%= render @wallet %>
 
     <div>
