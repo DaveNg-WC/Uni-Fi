@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 345px;
   border-radius: 8px;
   padding: 10px 20px;
   background-color: #F9F9F9;
@@ -12,12 +11,12 @@
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  padding: 10 20;
+  padding: 10px 20px;
 }
 
 .transaction-tab-mid-top {
   align-self: flex-start;
-  margin: 0 0 8 0;
+  margin: 0px 0px 8px 0px;
   font-size: 16px;
   font-weight: 400;
 }
@@ -33,7 +32,7 @@
 }
 
 .transaction-tab-right-top {
-  margin: 0 0 8 0;
+  margin: 0px 0px 8px 0px;
   display: flex;
   justify-content: flex-end;
 }
@@ -43,6 +42,8 @@
   font-size: 14px;
   margin: 0px;
   font-weight: 600;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .transaction-icon {
