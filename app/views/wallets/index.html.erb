@@ -1,46 +1,34 @@
 <p style="color: green"><%= notice %></p>
 
-<!-- this handles the back button, name of page -->
-
-<div class="container mobile page-header" style="margin-bottom: 20px">
-  <a href="<%= request.referer %>">
-    <i class="fa-solid fa-arrow-left side-icon fa-xl"></i>
-  </a>
-  <h2 class="header bold" style="text-align: center;">Wallets</h2>
-  <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
-</div>
+<%= render "shared/pageheader", name: "Wallets" %>
 
 <!-- this is where content begins -->
 
 <!-- below are the wallet and info tabs that this page should have -->
 
 <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
-  <div class="info-tab green" style="margin-bottom: 20px;">
-    <div class="info-icon">
-      <i class="fa-solid fa-money-bill fa-lg green-icon"></i>
-    </div>
-    <div class="info-tab-right">
-      <p class="info-tab-right-top">Your Total Net Worth</p>
-      <p class="info-tab-right-btm">S$ 82,950.00</p>
-    </div>
+
+  <!-- this is where PARTIALS begins -->
+
+  <%= render "shared/infotab", name: "Wallet Name", balance: "S$ 500", icon: "fa-solid fa-money-bill fa-lg green-icon", bgcolor: "green" %>
+
+  <div style="margin-bottom: 15px;">
+    <%= render "shared/categorytab", name: "Wallet Name", balance: "S$ 500", icon: "fa-solid fa-wallet fa-lg" %>
   </div>
 
-  <div class="category-tab">
-    <div class="category-icon">
-      <i class="fa-solid fa-wallet fa-lg"></i>
-    </div>
-    <div class="category-tab-right">
-      <p class="category-tab-right-top">Wallet Name</p>
-      <p class="category-tab-right-btm">S$ 6,550.00</p>
-    </div>
-  </div>
+  <%= render "shared/txntab", from: "Salary", to: "Debit #1", date: "21 Jan 2020",amount: "S$ 750", icon: "fa-solid fa-circle-down fa-lg" %>
+
+
+  <h1>wallets begin here</h1>
 
   <div id="wallets">
     <% @wallets.each do |wallet| %>
-      <%= render wallet %>
-      <p>
-        <%= link_to "Show this wallet", wallet, class: "btn-small-primary" %>
-      </p>
+
+      <a href="/wallets/<%= wallet.id %>" method="get">
+        <div style="margin-bottom: 15px;">
+          <%= render "shared/categorytab", name: wallet.name, balance: "S$ 500", icon: "fa-solid fa-wallet fa-lg" %>
+        </div>
+      </a>
     <% end %>
   </div>
 
