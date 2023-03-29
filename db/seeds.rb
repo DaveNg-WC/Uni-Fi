@@ -58,13 +58,13 @@ users.each do |user|
   2.times do |i|
     wallets << Wallet.create!(
       name: "Debit Wallet #{i+1}",
-      wallet_type: "debit",
+      wallet_type: "Debit",
       description: "Debit wallet #{i+1} for #{user.first_name}",
       user: user
     )
     wallets << Wallet.create!(
       name: "Credit Wallet #{i+1}",
-      wallet_type: "credit",
+      wallet_type: "Credit",
       description: "Credit wallet #{i+1} for #{user.first_name}",
       user: user
     )

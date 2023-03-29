@@ -10,8 +10,10 @@
   </p>
 
   <p>
-    <strong>Payment due date:</strong>
-    <%= wallet.payment_due_date %>
+    <% if wallet.wallet_type == 'Credit' %>
+      <strong>Payment due date:</strong>
+      <%= wallet.payment_due_date %>
+    <% end %>
   </p>
 
   <p>
