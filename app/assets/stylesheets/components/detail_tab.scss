@@ -4,7 +4,8 @@
   align-items: center;
   border: 0px solid #D7D7D7;
   border-radius: 16px;
-  width: 345px;
+  width: 325px;
+
 }
 
 .detail-tab-right {
@@ -12,11 +13,12 @@
   flex-direction: column;
   align-items: center;
   padding: 10 20;
+  margin-left: 16px;
 }
 
 .detail-tab-right-top {
   align-self: flex-start;
-  margin: 0 0 8 0;
+  margin: 0px 0px 4px 0px;
   font-size: 14px;
   color: #888888;
 }
@@ -25,6 +27,7 @@
   color: #000;
   margin: 0px;
   font-size: 16px;
+  align-self: start;
 }
 
 .fa-wallet {

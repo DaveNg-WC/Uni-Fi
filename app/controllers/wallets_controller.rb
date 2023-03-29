@@ -3,12 +3,14 @@ class WalletsController < ApplicationController
 
   # GET /wallets or /wallets.json
   def index
-    @wallets = Wallet.all
+    # @wallets = Wallet.all
+    # raise
+    @wallets = Wallet.where(user: current_user, is_hidden: false)
   end
 
   # GET /wallets/1 or /wallets/1.json
-  def show
-  end
+  # def show
+  # end
 
   # GET /wallets/new
   def new
@@ -21,7 +23,9 @@ class WalletsController < ApplicationController
 
   # POST /wallets or /wallets.json
   def create
+    # raise
     @wallet = Wallet.new(wallet_params)
+    @wallet.user = current_user
 
     respond_to do |format|
       if @wallet.save
@@ -47,14 +51,23 @@ class WalletsController < ApplicationController
     end
   end
 
+  def show
+    @transactions = Transaction.all
+    @transactions = @transactions.where(main_wallet_id: @wallet.id)
+    @balance = 0
+    @transactions.each do |t|
+      @balance += t.amount
+    end
+  end
+
   # DELETE /wallets/1 or /wallets/1.json
   def destroy
-    @wallet.destroy
-
-    respond_to do |format|
-      format.html { redirect_to wallets_url, notice: "Wallet was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    @wallet.is_hidden = true
+    @wallet.save
+    # respond_to do |format|
+    #   format.html { redirect_to wallets_url, notice: "Wallet was successfully destroyed." }
+    #   format.json { head :no_content }
+    # end
   end
 
   private
@@ -65,6 +78,6 @@ class WalletsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def wallet_params
-      params.require(:wallet).permit(:name, :type, :payment_due_date, :user_id)
+      params.require(:wallet).permit(:name, :wallet_type, :description, :payment_due_date, :is_hidden)
     end
 end

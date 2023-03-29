@@ -1,14 +1,36 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Wallets</h1>
+<%= render "shared/pageheader", name: "Wallets" %>
 
-<div id="wallets">
-  <% @wallets.each do |wallet| %>
-    <%= render wallet %>
-    <p>
-      <%= link_to "Show this wallet", wallet %>
-    </p>
-  <% end %>
+<!-- this is where content begins -->
+
+<!-- below are the wallet and info tabs that this page should have -->
+
+<div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
+
+  <!-- this is where PARTIALS begins -->
+
+  <%= render "shared/infotab", name: "Wallet Name", balance: "S$ 500", icon: "fa-solid fa-money-bill fa-lg green-icon", bgcolor: "green" %>
+
+  <div style="margin-bottom: 15px;">
+    <%= render "shared/categorytab", name: "Wallet Name", balance: "S$ 500", icon: "fa-solid fa-wallet fa-lg" %>
+  </div>
+
+  <%= render "shared/txntab", from: "Salary", to: "Debit #1", date: "21 Jan 2020",amount: "S$ 750", icon: "fa-solid fa-circle-down fa-lg" %>
+
+
+  <h1>wallets begin here</h1>
+
+  <div id="wallets">
+    <% @wallets.each do |wallet| %>
+
+      <a href="/wallets/<%= wallet.id %>" method="get">
+        <div style="margin-bottom: 15px;">
+          <%= render "shared/categorytab", name: wallet.name, balance: "S$ 500", icon: "fa-solid fa-wallet fa-lg" %>
+        </div>
+      </a>
+    <% end %>
+  </div>
+
+  <%= link_to "Create New Wallet", new_wallet_path, class: "btn-small-primary" %>
 </div>
-
-<%= link_to "New wallet", new_wallet_path %>

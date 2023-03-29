@@ -1,6 +1,7 @@
 .notes-tab {
   display: flex;
   flex-direction: column;
+  width: 325px;
 }
 
 .notes-tab-top {
@@ -8,4 +9,9 @@
   font-size: 18px;
   font-weight: 600;
   margin: 10px 0 8px 0;
+}
+
+.notes-tab-btm {
+  font-size: 13px;
+  color: #949494;
 }
