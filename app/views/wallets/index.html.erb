@@ -1,14 +1,48 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>WALLETS</h1>
+<!-- this handles the back button, name of page -->
 
-<div id="wallets">
-  <% @wallets.each do |wallet| %>
-    <%= render wallet %>
-    <p>
-      <%= link_to "Show this wallet", wallet %>
-    </p>
-  <% end %>
+<div class="container mobile page-header" style="margin-bottom: 20px">
+  <a href="<%= request.referer %>">
+    <i class="fa-solid fa-arrow-left side-icon fa-xl"></i>
+  </a>
+  <h2 class="header bold" style="text-align: center;">Wallets</h2>
+  <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
 </div>
 
-<%= link_to "New wallet", new_wallet_path %>
+<!-- this is where content begins -->
+
+<!-- below are the wallet and info tabs that this page should have -->
+
+<div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
+  <div class="info-tab green" style="margin-bottom: 20px;">
+    <div class="info-icon">
+      <i class="fa-solid fa-money-bill fa-lg green-icon"></i>
+    </div>
+    <div class="info-tab-right">
+      <p class="info-tab-right-top">Your Total Net Worth</p>
+      <p class="info-tab-right-btm">S$ 82,950.00</p>
+    </div>
+  </div>
+
+  <div class="category-tab">
+    <div class="category-icon">
+      <i class="fa-solid fa-wallet fa-lg"></i>
+    </div>
+    <div class="category-tab-right">
+      <p class="category-tab-right-top">Wallet Name</p>
+      <p class="category-tab-right-btm">S$ 6,550.00</p>
+    </div>
+  </div>
+
+  <div id="wallets">
+    <% @wallets.each do |wallet| %>
+      <%= render wallet %>
+      <p>
+        <%= link_to "Show this wallet", wallet, class: "btn-small-primary" %>
+      </p>
+    <% end %>
+  </div>
+
+  <%= link_to "Create New Wallet", new_wallet_path, class: "btn-small-primary" %>
+</div>
