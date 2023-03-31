@@ -3,7 +3,7 @@ class BudgetsController < ApplicationController
 
   # GET /budgets
   def index
-    @budgets = Budget.all.order(:name)
+    @budgets = current_user.budgets.order(:name)
   end
 
   # GET /budgets/1
