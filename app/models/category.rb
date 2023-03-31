@@ -13,4 +13,12 @@ class Category < ApplicationRecord
   def income?
     self.category_type.downcase == "income"
   end
+
+  def balance
+    sum = 0
+    self.transactions.each do |t|
+      sum += t.amount
+    end
+    sum
+  end
 end

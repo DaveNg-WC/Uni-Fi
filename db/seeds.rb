@@ -133,7 +133,7 @@ User.all.each do |user|
     )
 
     # Add multiple categories to each budget
-    categories = Category.where(user: user, category_type: 'Expense').limit(5).order('RANDOM()')
+    categories = Category.where(user: user, category_type: 'expense').limit(5).order('RANDOM()')
     budget.categories << categories
   end
 end

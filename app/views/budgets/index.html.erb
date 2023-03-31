@@ -5,6 +5,12 @@
   <h3>Budgets</h3>
 
   <% @budgets.each do |budget| %>
+
+    <% spends = 0  %>
+    <% budget.categories.each do |c| %>
+      <% spends += c.balance  %>
+    <% end %>
+
     <a href="/budgets/<%= budget.id %>" method="get">
       <div style="margin-bottom: 15px;">
         <%= render "shared/categorytab", name: budget.name, balance: budget.amount, icon: "fa-solid fa-wallet fa-lg" %>
