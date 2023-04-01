@@ -10,10 +10,10 @@ class CategoriesController < ApplicationController
     @categories = current_user.categories
 
     # current user's all income categories
-    @incomes = current_user.categories.where(category_type: :income)
+    @incomes = current_user.categories.where(category_type: :Income)
 
     # current user's all expense categories
-    @expenses = current_user.categories.where(category_type: :expense)
+    @expenses = current_user.categories.where(category_type: :Expense)
   end
 
   # GET /categories/1 or /categories/1.json

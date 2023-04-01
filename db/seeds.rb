@@ -36,14 +36,14 @@ users.each do |user|
   3.times do |i|
     income_categories << Category.create!(
       name: "Income#{i+1}",
-      category_type: "income",
+      category_type: "Income",
       user: user
     )
   end
   7.times do |i|
     expense_categories << Category.create!(
       name: "Expense#{i+1}",
-      category_type: "expense",
+      category_type: "Expense",
       user: user
     )
   end
@@ -81,11 +81,11 @@ users.each do |user|
 
   10.times do |i|
     # Create income transactions
-    income_category = categories_for_user.select { |category| category.category_type == "income" }.sample
+    income_category = categories_for_user.select { |category| category.category_type == "Income" }.sample
     income_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "Debit" }.sample.id
     transactions << Transaction.create!(
       description: "Income transaction #{i+1}",
-      txn_type: "income",
+      txn_type: "Income",
       user: user,
       category: income_category,
       amount: rand(100..1000),
@@ -94,11 +94,11 @@ users.each do |user|
     )
 
     # Create expense transactions
-    expense_category = categories_for_user.select { |category| category.category_type == "expense" }.sample
+    expense_category = categories_for_user.select { |category| category.category_type == "Expense" }.sample
     expense_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "Credit" }.sample.id
     transactions << Transaction.create!(
       description: "Expense transaction #{i+1}",
-      txn_type: "expense",
+      txn_type: "Expense",
       user: user,
       category: expense_category,
       amount: rand(10..100),
@@ -111,7 +111,7 @@ users.each do |user|
     transfer_wallet_to = (wallets_for_user - [transfer_wallet_from]).sample.id
     transactions << Transaction.create!(
       description: "Transfer transaction #{i+1}",
-      txn_type: "transfer",
+      txn_type: "Transfer",
       user: user,
       amount: rand(10..100),
       date: Date.today - rand(1..30).days,
