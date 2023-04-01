@@ -8,6 +8,9 @@ class TransactionsController < ApplicationController
     else
       @transactions = current_user.transactions.order("date DESC")
     end
+    @transactions = @transactions.where("description ILIKE ?", "%#{params[:search_keyword]}%") if params["search_keyword"].present?
+    @transactions = @transactions.where("date >= ?", params[:start_date]) if params[:start_date].present?
+    @transactions = @transactions.where("date <= ?", params[:end_date]) if params[:end_date].present?
   end
 
   # GET /transactions/1 or /transactions/1.json
