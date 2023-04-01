@@ -1,12 +1,25 @@
 <p style="color: green"><%= notice %></p>
 
-<div id="budgets">
-  <% @budgets.each do |budget| %>
-    <%= render budget %>
-    <p>
-      <%= link_to "Show this budget", budget %>
-    </p>
-  <% end %>
-</div>
+<div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
 
-<%= link_to "New budget", new_budget_path %>
+  <h3>Budgets</h3>
+
+  <% @budgets.each do |budget| %>
+
+    <% spends = 0  %>
+    <% budget.categories.each do |c| %>
+      <% spends += c.balance  %>
+    <% end %>
+
+    <a href="/budgets/<%= budget.id %>" method="get">
+      <div style="margin-bottom: 15px;">
+        <%= render "shared/categorytab", name: budget.name, balance: budget.amount, icon: "fa-solid fa-wallet fa-lg" %>
+      </div>
+    </a>
+  <% end %>
+
+  <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); margin-bottom: 20px;">
+    <%= link_to "Create New budget", new_budget_path, class: "btn-small-primary" %>
+  </div>
+
+</div>

@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render "shared/pageheader", name: "Wallets" %>
+<%= render "shared/pageheader", name: "Your Wallets" %>
 
 <!-- this is where content begins -->
 
@@ -10,21 +10,18 @@
 
   <!-- this is where PARTIALS begins -->
 
-  <%= render "shared/infotab", name: "Wallet Name", balance: "S$ 500", icon: "fa-solid fa-money-bill fa-lg green-icon", bgcolor: "green" %>
+  <%= render "shared/infotab", name: "Your Total Net Worth", balance: net_worth(@wallets), icon: "fa-solid fa-money-bill fa-lg green-icon", bgcolor: "green" %>
 
-  <div style="margin-bottom: 15px;">
+  <%# <div style="margin-bottom: 15px;">
     <%= render "shared/categorytab", name: "Wallet Name", balance: "S$ 500", icon: "fa-solid fa-wallet fa-lg" %>
-  </div>
-
-  <h1>wallets begin here</h1>
+  <%# </div> %>
 
   <div id="wallets">
     <% @wallets.each do |wallet| %>
-
       <a href="/wallets/<%= wallet.id %>" method="get">
-        <div style="margin-bottom: 15px;">
-          <%= render "shared/categorytab", name: wallet.name, balance: "S$ 500", icon: "fa-solid fa-wallet fa-lg" %>
-        </div>
+      <div style="margin-bottom: 15px;">
+          <%= render "shared/categorytab", name: wallet.name, balance: balance(wallet), icon: "fa-solid fa-wallet fa-lg" %>
+      </div>
       </a>
     <% end %>
   </div>

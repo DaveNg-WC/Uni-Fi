@@ -1,25 +1,27 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
+  <p style="color: green"><%= notice %></p>
 
-<h1>Your Categories</h1>
+  <h1>Your Categories</h1>
 
-<h2>Income</h2>
-<div id="categories">
-  <% @incomes.each do |category| %>
-    <%= render category %>
-    <p>
-      <%= link_to "Show this category", category %>
-    </p>
+  <h2>Income</h2>
+  <div id="categories">
+    <% @incomes.each do |c| %>
+      <a href="/categories/<%= c.id %>" method="get">
+        <div style="margin-bottom: 15px;">
+          <%= render "shared/categorytab", icon: "fa-solid fa-wallet fa-lg", name: c.name, balance: c.balance  %>
+        </div>
+      </a>
+    <% end %>
+  </div>
+
+  <h2>Expense</h2>
+  <% @expenses.each do |c| %>
+    <a href="/categories/<%= c.id %>" method="get">
+      <div style="margin-bottom: 15px;">
+        <%= render "shared/categorytab", icon: "fa-solid fa-wallet fa-lg", name: c.name, balance: c.balance  %>
+      </div>
+    </a>
   <% end %>
-</div>
 
-<h2>Expenses</h2>
-<div id="categories">
-  <% @expenses.each do |category| %>
-    <%= render category %>
-    <p>
-      <%= link_to "Show this category", category %>
-    </p>
-  <% end %>
+  <%= link_to "New category", new_category_path, class:"btn-small-primary" %>
 </div>
-
-<%= link_to "New category", new_category_path %>

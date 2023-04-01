@@ -2,6 +2,12 @@
 
 <%= render "form", category: @category %>
 
+<%= form_tag transactions_path, method: :post, style: "display: flex; flex-direction: column;", class: 'stretch' do %>
+  <%= label_tag :name, 'Enter User ID:', class: 'form-label' %>
+  <%= text_field_tag :account_id, nil, class: 'form-input', style: "margin-bottom: 20px;" %>
+  <%= submit_tag 'Confirm Connect', class: 'btn-small-primary' %>
+<% end %>
+
 <br>
 
 <div>
