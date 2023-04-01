@@ -4,11 +4,20 @@ class Wallet < ApplicationRecord
 
   has_many :transactions, dependent: :nullify
 
-  # enum wallet_type: {
-  #   debit: 'debit',
-  #   credit: 'credit'
-  # }
-  # After defining the enum, you can use it in your application code like this:
-  # create a new wallet with type 'debit'
-  # t = Wallet.new(type: :debit, name: "DBS")
+  def debit?
+    self.wallet_type == "Debit"
+  end
+
+  def credit?
+    self.wallet_type == "Credit"
+  end
+
+  def balance
+    balance = 0
+    Transaction.all.where(main_wallet_id: self.id).each do |t|
+
+      balance += t.amount
+    end
+    balance
+  end
 end

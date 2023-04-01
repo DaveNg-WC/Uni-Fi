@@ -17,6 +17,7 @@ class WalletsController < ApplicationController
     # end
   end
 
+
   # GET /wallets/1 or /wallets/1.json
   # def show
   # end

@@ -10,4 +10,14 @@ class User < ApplicationRecord
   has_many :budgets, dependent: :destroy
   has_one :partnership
   has_one :partner, through: :partnership
+
+
+  def incomes
+    self.categories.where(category_type: :Income)
+  end
+
+  def expenses
+    self.categories.where(category_type: :Expense)
+  end
+
 end
