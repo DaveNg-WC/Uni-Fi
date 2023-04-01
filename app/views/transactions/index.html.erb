@@ -4,13 +4,45 @@
 
 <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
 
+  <%= form_with url: transactions_path, method: :get, class: "d-flex" do %>
+  <%= text_field_tag :search_keyword,
+    params[:search_keyword],
+    class: "form-control",
+    placeholder: "Search by Key Word",
+    style: "margin-bottom: 15px;"
+  %>
+
+  <%= label_tag :start_date, "Start Date" %>
+  <%= date_field_tag :start_date,
+    params[:start_date],
+    class: "form-control",
+    style: "margin-bottom: 15px;"
+  %>
+
+  <%= label_tag :end_date, "End Date" %>
+  <%= date_field_tag :end_date,
+    params[:end_date],
+    class: "form-control",
+    style: "margin-bottom: 15px;"
+  %>
+
+  <%= submit_tag "Search",
+    class: "btn-small-primary",
+    style: "margin-bottom: 15px;"
+  %>
+  <% end %>
+
   <div id="transactions">
-    <% @transactions.each do |t| %>
-      <div style="margin-bottom: 15px;">
-        <a href="/transactions/<%= t.id %>" method="get">
-          <%= render "shared/txntab", icon: "fa-solid fa-circle-down fa-lg", t: t %>
-        </a>
-      </div>
+    <% if @transactions.empty? %>
+      <%= "No Record Found!" %>
+    <% else %>
+      <% @transactions.each do |t| %>
+        <div style="margin-bottom: 15px;">
+          <a href="/transactions/<%= t.id %>" method="get">
+            <%= render "shared/txntab", icon: "fa-solid fa-circle-down fa-lg", t: t %>
+          </a>
+        </div>
+      <% end %>
     <% end %>
     <!-- icon (icon classes), from, date, to, amount -->
   </div>
