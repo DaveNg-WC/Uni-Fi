@@ -6,6 +6,15 @@ class WalletsController < ApplicationController
     # @wallets = Wallet.all
     # raise
     @wallets = Wallet.where(user: current_user, is_hidden: false)
+    # @net_worth = 0
+    # @wallets.each do |wallet|
+    #   balance(wallet)
+    #   if wallet.wallet_type == "Debit"
+    #     @net_worth += balance(wallet)
+    #   else
+    #     @net_worth -= balance(wallet)
+    #   end
+    # end
   end
 
   # GET /wallets/1 or /wallets/1.json
@@ -54,10 +63,6 @@ class WalletsController < ApplicationController
   def show
     @transactions = Transaction.all
     @transactions = @transactions.where(main_wallet_id: @wallet.id)
-    @balance = 0
-    @transactions.each do |t|
-      @balance += t.amount
-    end
   end
 
   # DELETE /wallets/1 or /wallets/1.json
@@ -69,6 +74,16 @@ class WalletsController < ApplicationController
     #   format.json { head :no_content }
     # end
   end
+
+  # def balance(wallet)
+  #   @transactions = Transaction.all
+  #   @transactions = @transactions.where(main_wallet_id: wallet.id)
+  #   @balance = 0
+  #   @transactions.each do |t|
+  #     @balance += t.amount
+  #   end
+  #   @balance
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -3,7 +3,11 @@ class TransactionsController < ApplicationController
 
   # GET /transactions or /transactions.json
   def index
-    @transactions = current_user.transactions.order("date DESC")
+    if params[:wallet_id]
+      @transactions = current_user.transactions.where(main_wallet_id: params[:wallet_id]).order("date DESC")
+    else
+      @transactions = current_user.transactions.order("date DESC")
+    end
   end
 
   # GET /transactions/1 or /transactions/1.json

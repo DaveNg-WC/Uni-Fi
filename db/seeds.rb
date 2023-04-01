@@ -82,7 +82,7 @@ users.each do |user|
   10.times do |i|
     # Create income transactions
     income_category = categories_for_user.select { |category| category.category_type == "income" }.sample
-    income_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "debit" }.sample.id
+    income_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "Debit" }.sample.id
     transactions << Transaction.create!(
       description: "Income transaction #{i+1}",
       txn_type: "income",
@@ -95,7 +95,7 @@ users.each do |user|
 
     # Create expense transactions
     expense_category = categories_for_user.select { |category| category.category_type == "expense" }.sample
-    expense_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "credit" }.sample.id
+    expense_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "Credit" }.sample.id
     transactions << Transaction.create!(
       description: "Expense transaction #{i+1}",
       txn_type: "expense",
