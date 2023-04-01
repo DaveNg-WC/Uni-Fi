@@ -15,10 +15,12 @@ class Category < ApplicationRecord
   end
 
   def balance
-    sum = 0
+    balance = 0
+
     self.transactions.each do |t|
-      sum += t.amount
+      balance += t.amount
     end
-    sum
+
+    balance
   end
 end
