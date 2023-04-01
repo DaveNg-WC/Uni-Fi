@@ -6,6 +6,7 @@ class WalletsController < ApplicationController
     # @wallets = Wallet.all
     # raise
     @wallets = Wallet.where(user: current_user, is_hidden: false)
+    @net_worth = net_worth(@wallets)
     # @net_worth = 0
     # @wallets.each do |wallet|
     #   balance(wallet)
