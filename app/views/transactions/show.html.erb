@@ -4,7 +4,18 @@
 <%= render "shared/pageheader", name: "Transaction ##{params[:id]}" %>
 
 <div class="container mobile d-flex flex-column align-items-center" style="margin-top: 30px;">
-  <p class="bold" style="font-size: 44px; text-align: center;">-$24.99</p>
+
+  <% if @transaction.expense? %>
+    <p class="bold" style="font-size: 44px; text-align: center;">-<%= number_to_currency(@transaction.amount) %></p>
+  <% end %>
+
+  <% if @transaction.income? %>
+    <p class="bold" style="font-size: 44px; text-align: center;">+<%= number_to_currency(@transaction.amount) %></p>
+  <% end %>
+
+  <% if @transaction.transfer? %>
+    <p class="bold" style="font-size: 44px; text-align: center;"><%= number_to_currency(@transaction.amount) %></p>
+  <% end %>
 
   <%= render "shared/notestab", name: "Notes", info: @transaction.description %>
 
@@ -17,8 +28,7 @@
   <%= render "shared/detailtab", name: "Type", info: @transaction.txn_type.capitalize, icon: "fa-solid fa-wallet fa-lg" %>
 
   <div>
-    <%= link_to "Edit this transaction", edit_transaction_path(@transaction), class: "btn-small-primary" %>
-    <br>
-    <%= button_to "Destroy this transaction", @transaction, method: :delete, class: "btn-small-secondary" %>
+    <%= link_to "Edit this transaction", edit_transaction_path(@transaction), class: "btn-small-primary", style: "margin-bottom: 8px; margin-top: 15px;" %>
+    <%= button_to "Destroy this transaction", @transaction, method: :delete, class: "btn-small-secondary", style: "margin-bottom: 15px;" %>
   </div>
 </div>

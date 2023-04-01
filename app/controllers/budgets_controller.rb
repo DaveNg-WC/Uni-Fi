@@ -12,12 +12,12 @@ class BudgetsController < ApplicationController
 
   def new
     @budget = Budget.new
-    @categories = current_user.categories.where(category_type: 'expense')
+    @categories = current_user.categories.where(category_type: 'Expense')
   end
 
   # GET /budgets/1/edit
   def edit
-    @categories = current_user.categories.where(category_type: 'expense')
+    @categories = current_user.categories.where(category_type: 'Expense')
   end
 
   # POST /budgets

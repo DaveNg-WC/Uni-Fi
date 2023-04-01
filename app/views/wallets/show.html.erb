@@ -2,13 +2,8 @@
 
 <!-- this handles the back button, name of page -->
 
-<div class="container mobile page-header" style="margin-bottom: 10px">
-  <a href="<%= request.referer %>">
-    <i class="fa-solid fa-arrow-left side-icon fa-xl"></i>
-  </a>
-  <h2 class="header bold" style="text-align: center;"><%= @wallet.name %></h2>
-  <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
-</div>
+<%= render "shared/pageheader", name: @wallet.name %>
+
 
 <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
   <div class="info-tab green" style="margin-bottom: 20px;">
@@ -17,7 +12,7 @@
     </div>
     <div class="info-tab-right">
       <p class="info-tab-right-top"><%= @wallet.wallet_type == "Debit" ? 'Total Balance:' : 'Total Amount Spent:' %></p>
-      <p class="info-tab-right-btm"><%= balance(@wallet) %></p>
+      <p class="info-tab-right-btm"><%= number_to_currency(balance(@wallet)) %></p>
     </div>
   </div>
 
@@ -27,29 +22,22 @@
       <%= link_to "Back to wallets", wallets_path %>
     </div>
   <% else %>
-    <%# <strong><%= @wallet.wallet_type == "Debit" ? 'Balance:' : 'Amount Spent:' %></strong>
-    <%# <%= @balance %>
-    <%# <%= render @wallet %> %>
 
-    <div>
-      <%= link_to "Edit this wallet", edit_wallet_path(@wallet), class: "btn-small-secondary" %> |
-      <%= link_to "Back to wallets", wallets_path, class: "btn-small-secondary" %>
-
-      <%= button_to "Destroy this wallet", @wallet, method: :delete, class: 'btn-small-secondary' %>
-    </div><br>
-
-    <h2 class="header bold" style="text-align: center;">Transactions</h2>
-
+    <p class="bold">Transactions</p>
     <div id="transactions">
-      <% @transactions.take(3).each do |transaction| %>
+      <% @transactions.take(3).each do |t| %>
 
-        <%= render transaction %>
-        <p>
-          <%= link_to "Show this transaction", transaction, class: "btn-small-primary" %>
-        </p>
+        <div style="margin-bottom: 15px;">
+          <a href="/transactions/<%= t.id %>" method="get">
+            <%= render "shared/txntab", icon: "fa-solid fa-circle-down fa-lg", t: t %>
+          </a>
+        </div>
       <% end %>
-      <%= link_to "All transaction", wallet_transactions_path(@wallet), class: "btn-small-primary" %>
-
+      <%= link_to "All Transactions", wallet_transactions_path(@wallet), class: "btn-big-normal", style: "margin-bottom: 15px;" %>
+      <div>
+        <%= link_to "Edit this wallet", edit_wallet_path(@wallet), class: "btn-small-primary", style: "margin-bottom: 15px;" %>
+        <%= button_to "Destroy Wallet", @wallet, method: :delete, class: 'btn-small-secondary', style: "margin-bottom: 15px;" %>
+      </div>
     </div>
   <% end %>
 </div>

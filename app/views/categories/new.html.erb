@@ -1,15 +1,7 @@
-<h1>New category</h1>
 
-<%= render "form", category: @category %>
 
-<%= form_tag transactions_path, method: :post, style: "display: flex; flex-direction: column;", class: 'stretch' do %>
-  <%= label_tag :name, 'Enter User ID:', class: 'form-label' %>
-  <%= text_field_tag :account_id, nil, class: 'form-input', style: "margin-bottom: 20px;" %>
-  <%= submit_tag 'Confirm Connect', class: 'btn-small-primary' %>
-<% end %>
+<%= render "shared/pageheader", name: "Categories" %>
 
-<br>
-
-<div>
-  <%= link_to "Back to categories", categories_path %>
+<div class="container mobile d-flex flex-column" style="margin-top: 30px;">
+  <%= render "form", category: @category %>
 </div>

@@ -1,10 +1,6 @@
-<h1>Edit Budget</h1>
+<%= render "shared/pageheader", name: "Edit Budget" %>
 
-<%= render "form", budget: @budget %>
-
-<br>
-
-<div>
-  <%= link_to "Show this budget", @budget %> |
-  <%= link_to "Back to budgets", budgets_path %>
+<div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
+  <p class="bold">Edit Your Budget Details</p>
+  <%= render "form", budget: @budget, categories: @categories %>
 </div>

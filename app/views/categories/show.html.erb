@@ -1,29 +1,25 @@
-<p style="color: green"><%= notice %></p>
-
-<%#= render @category %>
-<h1><%= @category.name %></h1>
-
-<div class="div">
-
-  <p><%= "Total Outflow This Month" if @category.expense?%></p>
-  <p><%= "Total Inflow This Month" if @category.income?%></p>
-  <p><strong><%= @sum %></strong></p>
-</div>
-
-<div class="div">
-  <p>Notes</p>
-  <p><%= @category.description %></p>
-</div>
-
-<div class="div">
-  <p>Transaction History</p>
-  <%= render "category_transaction", category: @category, transactions: @transactions%>
-</div>
 
 
-<div>
-  <%= link_to "Edit this category", edit_category_path(@category) %>
-  <%= link_to "Back to categories", categories_path %>
+<%= render "shared/pageheader", name: @category.name %>
 
-  <%= button_to "Destroy this category", @category, method: :delete %>
+
+<div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
+  <p class="bold">Total Outflow this Month</p>
+
+  <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: @category.name, balance: number_to_currency(@category.balance), bgcolor: "green" %>
+
+  <%= render "shared/notestab", name: "Notes", info: @category.description %>
+
+  <% @transactions.each do |t| %>
+    <div style="margin-bottom: 15px;">
+      <a href="/transactions/<%= t.id %>" method="get">
+        <%= render "shared/txntab", icon: "fa-solid fa-circle-down fa-lg", t: t %>
+      </a>
+    </div>
+  <% end %>
+
+  <%= link_to "Edit this category", edit_category_path(@category), class: "btn-small-primary", style: "margin-bottom: 15px;" %>
+  <%= link_to "Back to categories", categories_path, class: "btn-small-secondary" %>
+
+
 </div>

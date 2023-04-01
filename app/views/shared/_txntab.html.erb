@@ -10,7 +10,14 @@
   </div>
   <div class="transaction-tab-right">
     <p class="transaction-tab-right-top"><%= to(t) %></p>
-    <p class="transaction-tab-right-btm"><%= amount(t) %></p>
+
+    <% if t.expense? %>
+      <p class="transaction-tab-right-btm" style="color: #FA8484;"><%= number_to_currency(amount(t)) %></p>
+    <% elsif t.income? %>
+      <p class="transaction-tab-right-btm" style="color: #17D85C;">+<%= number_to_currency(amount(t)) %></p>
+    <% else %>
+      <p class="transaction-tab-right-btm" style="color: #888888;"><%= number_to_currency(amount(t)) %></p>
+    <% end %>
   </div>
 </div>
 

@@ -1,18 +1,24 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @budget %>
+<%= render "shared/pageheader", name: "#{@budget.name}" %>
 
+<div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
 
-<p><strong>Selected Categories:</strong></p>
-<ul>
-  <% @budget.categories.each do |category| %>
-    <li><%= category.name %></li>
-  <% end %>
-</ul>
+  <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: @budget.name, balance: number_to_currency(@budget.amount), bgcolor: "green" %>
 
-<div>
-  <%= link_to "Edit this budget", edit_budget_path(@budget) %> |
-  <%= link_to "Back to budgets", budgets_path %>
+  <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg orange-icon", name: @budget.name, balance: number_to_currency(@budget.amount), bgcolor: "orange" %>
 
-  <%= button_to "Destroy this budget", @budget, method: :delete %>
+  <p class="bold">Selected Categories</p>
+  <ul>
+    <% @budget.categories.each do |category| %>
+      <li><%= category.name %></li>
+    <% end %>
+  </ul>
+
+  <div>
+    <%= link_to "Edit this budget", edit_budget_path(@budget), class: "btn-small-primary" %>
+    <br>
+    <%= button_to "Destroy this budget", @budget, method: :delete, class:"btn-small-secondary" %>
+  </div>
+
 </div>

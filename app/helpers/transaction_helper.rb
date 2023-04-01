@@ -18,6 +18,10 @@ module TransactionHelper
   end
 
   def amount(t)
-    return t.amount
+    amount = "-#{t.amount}" if t.expense?
+    amount = "#{t.amount}" if t.transfer?
+    amount = "#{t.amount}" if t.income?
+
+    return amount
   end
 end
