@@ -1,7 +1,22 @@
-<div class="container mobile page-header" style="margin-bottom: 20px">
-  <a href="<%= menu_path %>">
-    <i class="fa-solid fa-bars side-icon fa-xl"></i>
-  </a>
-  <h2 class="header bold" style="text-align: center;">Welcome Dashboard</h2>
-  <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
+
+<%= render "shared/pageheader", name: "Dashboard" %>
+
+<!-- this is where content begins -->
+
+<!-- below are the wallet and info tabs that this page should have -->
+
+<div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
+  <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Net Worth", balance: number_to_currency(@net_worth), bgcolor: "green" %>
+
+  <% if @spends_this_month > @spends_last_month %>
+   <p> You are spending more than last month ❗️</p>
+  <% end %>
+
+  <% if @spends_this_month < @spends_last_month %>
+   <p> You are spending less than last month 👍🏻</p>
+  <% end %>
+
+  <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg grey-icon", name: "Total Spent This Month", balance: number_to_currency(@spends_this_month), bgcolor: "grey" %>
+
+  <h5 class="bold">Budgets</h5>
 </div>
