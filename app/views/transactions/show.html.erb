@@ -1,67 +1,34 @@
 <p style="color: green"><%= notice %></p>
 
-<div class="container mobile page-header" style="margin-bottom: 10px">
-  <a href="<%= request.referer %>">
-    <i class="fa-solid fa-arrow-left side-icon fa-xl"></i>
-  </a>
-  <h2 class="header bold" style="text-align: center;">Transaction X</h2>
-  <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
-</div>
+
+<%= render "shared/pageheader", name: "Transaction ##{params[:id]}" %>
 
 <div class="container mobile d-flex flex-column align-items-center" style="margin-top: 30px;">
-  <p class="bold" style="font-size: 44px; text-align: center;">-$24.99</p>
 
-  <%= render "shared/notestab", name: "Notes", info: "some Lorem ipsumasdadasdasdasdadasdasdad" %>
+  <% if @transaction.expense? %>
+    <p class="bold" style="font-size: 44px; text-align: center;">-<%= number_to_currency(@transaction.amount) %></p>
+  <% end %>
 
-  <%= render "shared/detailtab", name: "Date", info: "Perfect", icon: "fa-solid fa-wallet fa-lg" %>
+  <% if @transaction.income? %>
+    <p class="bold" style="font-size: 44px; text-align: center;">+<%= number_to_currency(@transaction.amount) %></p>
+  <% end %>
 
-  <div class="detail-tab" style="margin-bottom: 15px;">
-    <div class="detail-icon">
-      <i class="fa-solid fa-wallet fa-lg"></i>
-    </div>
-    <div class="detail-tab-right">
-      <p class="detail-tab-right-top">Date</p>
-      <p class="detail-tab-right-btm">Wednesday, October 27, 2021</p>
-    </div>
-  </div>
+  <% if @transaction.transfer? %>
+    <p class="bold" style="font-size: 44px; text-align: center;"><%= number_to_currency(@transaction.amount) %></p>
+  <% end %>
 
-  <div class="detail-tab" style="margin-bottom: 15px;">
-    <div class="detail-icon">
-      <i class="fa-solid fa-wallet fa-lg"></i>
-    </div>
-    <div class="detail-tab-right">
-      <p class="detail-tab-right-top">Category</p>
-      <p class="detail-tab-right-btm">Food</p>
-    </div>
-  </div>
+  <%= render "shared/notestab", name: "Notes", info: @transaction.description %>
 
-  <div class="detail-tab" style="margin-bottom: 15px;">
-    <div class="detail-icon">
-      <i class="fa-solid fa-wallet fa-lg"></i>
-    </div>
-    <div class="detail-tab-right">
-      <p class="detail-tab-right-top">Wallet</p>
-      <p class="detail-tab-right-btm">DBS Debit #2</p>
-    </div>
-  </div>
+  <%= render "shared/detailtab", name: "Date", info: @transaction.date, icon: "fa-solid fa-wallet fa-lg" %>
 
-  <div class="detail-tab" style="margin-bottom: 15px;">
-    <div class="detail-icon">
-      <i class="fa-solid fa-wallet fa-lg"></i>
-    </div>
-    <div class="detail-tab-right">
-      <p class="detail-tab-right-top">Type</p>
-      <p class="detail-tab-right-btm">Expense</p>
-    </div>
-  </div>
+  <%= render "shared/detailtab", name: "Category", info: @transaction.category_id, icon: "fa-solid fa-wallet fa-lg" %>
 
+  <%= render "shared/detailtab", name: "Account", info: @transaction.main_wallet_id, icon: "fa-solid fa-wallet fa-lg" %>
 
-  <%= render "shared/transaction", transaction: @transaction %>
+  <%= render "shared/detailtab", name: "Type", info: @transaction.txn_type.capitalize, icon: "fa-solid fa-wallet fa-lg" %>
 
   <div>
-    <%= link_to "Edit this transaction", edit_transaction_path(@transaction) %> |
-    <%= link_to "Back to transactions", transactions_path %>
-
-    <%= button_to "Destroy this transaction", @transaction, method: :delete %>
+    <%= link_to "Edit this transaction", edit_transaction_path(@transaction), class: "btn-small-primary", style: "margin-bottom: 8px; margin-top: 15px;" %>
+    <%= button_to "Destroy this transaction", @transaction, method: :delete, class: "btn-small-secondary", style: "margin-bottom: 15px;" %>
   </div>
 </div>

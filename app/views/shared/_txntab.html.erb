@@ -1,14 +1,23 @@
+<%# income transaction card %>
+
 <div class="transaction-tab">
   <div class="transaction-icon">
     <i class="<%= icon %>"></i>
   </div>
   <div class="transaction-tab-mid">
-    <p class="transaction-tab-mid-top"><%= from %></p>
-    <p class="transaction-tab-mid-btm"><%= date %></p>
+    <p class="transaction-tab-mid-top"><%= from(t) %></p>
+    <p class="transaction-tab-mid-btm"><%= date(t) %></p>
   </div>
   <div class="transaction-tab-right">
-    <p class="transaction-tab-right-top"><%= to %></p>
-    <p class="transaction-tab-right-btm"><%= amount %></p>
+    <p class="transaction-tab-right-top"><%= to(t) %></p>
+
+    <% if t.expense? %>
+      <p class="transaction-tab-right-btm" style="color: #FA8484;"><%= number_to_currency(amount(t)) %></p>
+    <% elsif t.income? %>
+      <p class="transaction-tab-right-btm" style="color: #17D85C;">+<%= number_to_currency(amount(t)) %></p>
+    <% else %>
+      <p class="transaction-tab-right-btm" style="color: #888888;"><%= number_to_currency(amount(t)) %></p>
+    <% end %>
   </div>
 </div>
 

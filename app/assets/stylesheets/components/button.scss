@@ -58,6 +58,7 @@
 }
 
 .btn-big-normal {
+  display: block;
   color: black;
   padding: 8px 24px;
   border-radius: 4px;
@@ -68,5 +69,4 @@
   line-height: 170%;
   font-size: 16px;
   font-weight: 600;
-  width: 100%;
 }

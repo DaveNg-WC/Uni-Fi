@@ -5,11 +5,11 @@
 
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.input :category_type, collection: ["income", "expense"] %>
+    <%= f.input :category_type, collection: ["Income", "Expense"] %>
     <%= f.input :description %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, class: "btn-small-primary" %>
   </div>
 <% end %>
