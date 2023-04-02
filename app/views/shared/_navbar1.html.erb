@@ -1,0 +1,90 @@
+<div class="navbar navbar-light navbar-lewagon">
+  <div class="container-fluid">
+    <%= link_to dashboard_path, class: "navbar-brand" do %>
+      <img src="<%= image_path('logowithoutname.png') %>">
+    <% end %>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <% if user_signed_in? %>
+          <div class="container mobile">
+            <div class="side-menu-top" style="margin-bottom: 30px;">
+              <div class="user-details" style="margin-right: 8px;">
+                <p class="bold" style="margin-bottom: 0px; font-size: 16px;"><%= current_user.first_name %> <%= current_user.last_name %></p>
+                <p class="bold" style="color: #949494; margin-bottom: 4px; font-size: 13px;">User ID: <%= current_user.id %></p>
+              </div>
+            </div>
+            <div>
+              <div class="side menu">
+               <a href="/dashboard" method="get">
+                  <div class="side-menu-tab">
+                    <i class="fa-solid fa-square-poll-horizontal side-icon"></i>
+                    <div class="side-menu-right">
+                      <p class="bold">Dashboard</p>
+                    </div>
+                  </div>
+                </a>
+                <a href="/wallets" method="get">
+                  <div class="side-menu-tab">
+                    <i class="fa-solid fa-sack-dollar side-icon"></i>
+                    <div class="side-menu-right">
+                      <p class="bold">Wallets</p>
+                    </div>
+                  </div>
+                </a>
+                <a href="/categories" method="get">
+                  <div class="side-menu-tab">
+                    <i class="fa-solid fa-filter side-icon"></i>
+                    <div class="side-menu-right">
+                      <p class="bold">Categories</p>
+                    </div>
+                  </div>
+                </a>
+                <a href="/budgets" method="get">
+                  <div class="side-menu-tab">
+                    <i class="fa-solid fa-square-check side-icon"></i>
+                    <div class="side-menu-right">
+                      <p class="bold">Budgets</p>
+                    </div>
+                  </div>
+                </a>
+                <a href="/transactions" method="get">
+                  <div class="side-menu-tab">
+                    <i class="fa-solid fa-coins side-icon"></i>
+                    <div class="side-menu-right">
+                      <p class="bold">Transactions</p>
+                    </div>
+                  </div>
+                </a>
+                <a href="/partnerships" method="get">
+                  <div class="side-menu-tab">
+                    <i class="fa-solid fa-heart side-icon"></i>
+                    <div class="side-menu-right">
+                      <p class="bold">Partner Settings</p>
+                    </div>
+                  </div>
+                </a>
+
+                <%= link_to destroy_user_session_path, data: {turbo_method: :delete}, class: "side-menu-tab" do%>
+                  <i class="fa-solid fa-right-from-bracket side-icon"></i>
+                  <div class="side-menu-right">
+                      <p class="bold">Log Out</p>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% else %>
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+          </li>
+         </ul>
+        <% end %>
+    </div>
+
+  </div>
+</div>
