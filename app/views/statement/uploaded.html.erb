@@ -1,0 +1,11 @@
+<%= render "shared/pageheader", name: "Your Uploaded Transactions" %>
+
+
+<div class="container mobile d-flex flex-column justify-content-center " style="margin-top: 30px;">
+  <p>It took only 3.5 seconds to upload <%= @uploaded.count %> transactions!</p>
+
+  <% @uploaded.each do |t| %>
+    <% raise %>
+    <%= t["id"] %>
+  <% end %>
+</div>

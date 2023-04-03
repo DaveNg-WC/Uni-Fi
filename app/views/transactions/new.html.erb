@@ -3,14 +3,50 @@
 <%= render "shared/pageheader", name: "Create A Transaction" %>
 
 <div data-controller="transaction">
+  <div class="container mobile d-flex flex-column justify-content-center " style="margin-top: 30px;">
+    <div class="choices">
+      <label for="expense">
+        <div class="txnchoice selected" id="choice-expense">
+          <div class="txnchoice-content">
+            <div class="choice-icon">
+              <i class="fa-solid fa-money-bill fa-lg"> </i>
+            </div>
+            <p>Expense</p>
+          </div>
+        </div>
+      </label>
 
-  <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
-    <ul>
-      <li>Expense <input type="radio" name="option" id="expense" checked></li>
-      <li>Transfer <input type="radio" name="option" id="transfer"></li>
-      <li>Income <input type="radio" name="option" id="income"></li>
-    </ul>
+      <input type="radio" name="option" id="expense" checked>
+
+      <label for="transfer">
+        <div class="txnchoice" id="choice-transfer">
+          <div class="txnchoice-content">
+            <div class="choice-icon">
+              <i class="fa-solid fa-right-left fa-lg"> </i>
+            </div>
+            <p>Transfer</p>
+          </div>
+        </div>
+      </label>
+
+      <input type="radio" name="option" id="transfer">
+
+      <label for="income">
+        <div class="txnchoice" id="choice-income">
+          <div class="txnchoice-content">
+            <div class="choice-icon">
+              <i class="fa-solid fa-circle-down fa-lg"> </i>
+            </div>
+            <p>Income</p>
+          </div>
+        </div>
+      </label>
+
+      <input type="radio" name="option" id="income">
+    </div>
   </div>
+
+
 
   <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 24px;">
 
