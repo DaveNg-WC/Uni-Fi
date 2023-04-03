@@ -264,12 +264,12 @@ DEPENDENCIES
   bootsnap
   bootstrap (~> 5.1.1)
   capybara
-  chartkick (~> 5.0)
+  chartkick
   debug
   devise
   dotenv-rails
   font-awesome-sass (~> 6.1)
-  groupdate (~> 6.2)
+  groupdate
   jbuilder
   jsbundling-rails
   pg (~> 1.1)
