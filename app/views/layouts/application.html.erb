@@ -11,7 +11,8 @@
   </head>
 
   <body>
-    <%= render "shared/navbar1" %>
+    <%= render "shared/navbar1" if user_signed_in? == true %>
+    <%= render "shared/navbarloggedout" if user_signed_in? == false %>
     <%= render "shared/flashes" %>
 
     <%= yield %>
