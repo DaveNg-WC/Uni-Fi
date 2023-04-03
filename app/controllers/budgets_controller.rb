@@ -8,6 +8,7 @@ class BudgetsController < ApplicationController
 
   # GET /budgets/1
   def show
+
   end
 
   def new
