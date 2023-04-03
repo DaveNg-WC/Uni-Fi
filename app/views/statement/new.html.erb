@@ -8,10 +8,10 @@
   <div class="file-upload">
     <%= form_tag({ controller: "/statement", action: "create" }, method: :post, multipart: true) do %>
       <div>
-        <%= file_field_tag :file, accept: 'application/pdf', required: true %>
+        <%= file_field_tag :file, accept: 'application/pdf', required: true; %>
       </div>
 
-      <p style="font-size: 14px; color: gray; text-align: center;">Only PDFs are allowed!</p>
+      <p style="font-size: 14px; color: gray; text-align: center;">PDFs only. 💟 We do not save your files.</p>
       <%= submit_tag 'Upload File', class: "btn-small-primary", style: "width: 50%; margin: auto; margin-top: 16px;"  %>
     <% end %>
   </div>
