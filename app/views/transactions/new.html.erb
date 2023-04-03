@@ -12,16 +12,14 @@
     </ul>
   </div>
 
-
-
-  <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
+  <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 24px;">
 
     <%# expense form  %>
     <%= simple_form_for(@transaction, {id: 'expense-form'}) do |f| %>
       <%= f.error_notification %>
       <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
       <div class="expense-form-inputs" id="expenseform">
-        <p class="bold">Expense</p>
+        <p class="bold">Add an expense transaction!</p>
         <%# as: :hidden hides the input. input_html: hard code the input value %>
         <%= f.input :txn_type, as: :hidden, input_html: { value: "expense" } %>
         <%#  LOWER function to match the category_type value with the downcased value "income". The ? is a placeholder for the actual value which is passed as the second argument to the where method.  %>
@@ -44,7 +42,7 @@
       <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
       <div class="transfer-form-inputs d-none" id="transferform">
-        <p class="bold">Transfer</p>
+        <p class="bold">Add a transfer transaction!</p>
         <%# as: :hidden hides the input. input_html: hard code the input value %>
         <%= f.input :txn_type, as: :hidden, input_html: { value: "transfer" } %>
         <%= f.association :main_wallet, label: "From", collection: @wallets%>
@@ -66,7 +64,7 @@
       <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
       <div class="income-form-inputs d-none" id="incomeform">
-        <p class="bold">Income</p>
+        <p class="bold">Add an income transaction!</p>
         <%# as: :hidden hides the input. input_html: hard code the input value %>
         <%= f.input :txn_type, as: :hidden, input_html: { value: "income" } %>
         <%#  LOWER function to match the category_type value with the downcased value "income". The ? is a placeholder for the actual value which is passed as the second argument to the where method.  %>
