@@ -1,31 +1,42 @@
-<p style="color: green"><%= notice %></p>
-
-
 <%= render "shared/pageheader", name: "Transaction ##{params[:id]}" %>
 
 <div class="container mobile d-flex flex-column align-items-center" style="margin-top: 30px;">
+  <p style="color: green"><%= notice %></p>
 
   <% if @transaction.expense? %>
     <p class="bold" style="font-size: 44px; text-align: center;">-<%= number_to_currency(@transaction.amount) %></p>
+
+    <%# assigning from and to to be used in partial below %>
+    <% from = @transaction.main_wallet.name %>
+    <% to   = @transaction.category.name %>
   <% end %>
 
   <% if @transaction.income? %>
     <p class="bold" style="font-size: 44px; text-align: center;">+<%= number_to_currency(@transaction.amount) %></p>
+
+    <%# assigning from and to to be used in partial below %>
+    <% from  = @transaction.category.name %>
+    <% to    = @transaction.main_wallet.name %>
   <% end %>
 
   <% if @transaction.transfer? %>
     <p class="bold" style="font-size: 44px; text-align: center;"><%= number_to_currency(@transaction.amount) %></p>
+
+    <%# assigning from and to to be used in partial below %>
+    <% from  = @transaction.main_wallet.name %>
+    <% to    = @transaction.second_wallet.name %>
   <% end %>
 
   <%= render "shared/notestab", name: "Notes", info: @transaction.description %>
 
-  <%= render "shared/detailtab", name: "Date", info: @transaction.date, icon: "fa-solid fa-wallet fa-lg" %>
+  <%= render "shared/detailtab", name: "Date", info: @transaction.date, icon: "fa-solid fa-calendar-days" %>
 
-  <%= render "shared/detailtab", name: "Category", info: @transaction.category_id, icon: "fa-solid fa-wallet fa-lg" %>
+  <%= render "shared/detailtab", name: "From", info: from, icon: "fa-solid fa-arrow-right-from-bracket" %>
 
-  <%= render "shared/detailtab", name: "Account", info: @transaction.main_wallet_id, icon: "fa-solid fa-wallet fa-lg" %>
+  <%= render "shared/detailtab", name: "To", info: to, icon: "fa-solid fa-arrow-right-to-bracket" %>
 
-  <%= render "shared/detailtab", name: "Type", info: @transaction.txn_type.capitalize, icon: "fa-solid fa-wallet fa-lg" %>
+  <%= render "shared/detailtab", name: "Type", info: @transaction.txn_type.capitalize, icon: "fa-solid fa-bars" %>
+
 
   <div>
     <%= link_to "Edit this transaction", edit_transaction_path(@transaction), class: "btn-small-primary", style: "margin-bottom: 8px; margin-top: 15px;" %>
