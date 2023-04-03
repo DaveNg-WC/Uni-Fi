@@ -8,7 +8,11 @@ class BudgetsController < ApplicationController
 
   # GET /budgets/1
   def show
-
+    this_month_spends = 0
+    @budget.categories.each do |c|
+      this_month_spends += c.this_month_balance
+    end
+    @this_month_spends = this_month_spends
   end
 
   def new
