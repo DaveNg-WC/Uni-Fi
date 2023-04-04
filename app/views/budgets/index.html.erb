@@ -16,11 +16,7 @@
 
     <a href="/budgets/<%= budget.id %>" method="get">
       <div style="margin-bottom: 15px;">
-<<<<<<< HEAD
-        <%= render "shared/categorytab", name: budget.name, balance: number_to_currency(budget.amount), icon: "fa-solid fa-square-check fa-lg" %>
-=======
-        <%= render "shared/categorytab", name: budget.name, balance: "#{number_to_currency(spends)}/#{number_to_currency(budget.amount)}", icon: "fa-solid fa-wallet fa-lg" %>
->>>>>>> master
+        <%= render "shared/categorytab", name: budget.name, balance: "#{number_to_currency(spends)}/#{number_to_currency(budget.amount)}", icon: "fa-solid fa-square-check fa-lg" %>
       </div>
     </a>
   <% end %>
