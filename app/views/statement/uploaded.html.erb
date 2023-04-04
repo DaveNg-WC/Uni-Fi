@@ -2,13 +2,19 @@
 
 <% x = 0 %>
 <div class="container mobile d-flex flex-column justify-content-center    " style="margin-top: 30px;">
-  <p>It took only 3.5 seconds to upload <%= @array.count %> transactions!</p>
-  <% @array.each do |t| %>
-    <% x += 1 %>
-    <%= x %>.
-    <%= t.description %> -
-    <%= date(t) %> -
-    <%= number_to_currency(t.amount) %>
-    <br>
+
+  <% if @array.count > 0 %>
+    <p>It took only 1 second to upload <%= @array.count %> transactions!</p>
+    <% @array.each do |t| %>
+      <% x += 1 %>
+      <%= x %>.
+      <%= t.description %> -
+      <%= date(t) %> -
+      <%= number_to_currency(t.amount) %>
+      <br>
+    <% end %>
+  <% else %>
+    <p style="text-align: center">You have no uploaded transactions! Click below to start uploading your bank statement!</p>
+    <%= link_to "Upload Bank Statement", statement_new_path, class: "btn-small-primary", style: "margin-bottom: 15px;" %>
   <% end %>
 </div>

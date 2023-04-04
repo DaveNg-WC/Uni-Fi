@@ -1,10 +1,11 @@
-<div class="navbar navbar-light navbar-lewagon">
+<div class="navbar navbar-light navbar-lewagon" style="border: 1px solid #dbdbdb; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
   <div class="container-fluid">
+
     <%= link_to dashboard_path, class: "navbar-brand" do %>
-      <img src="<%= image_path('logowithoutname.png') %>">
+      <img style="" src="<%= image_path('logoblack.png') %>">
     <% end %>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" style=""type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border: 0px;">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -29,7 +30,7 @@
                 </a>
                 <a href="/wallets" method="get">
                   <div class="side-menu-tab">
-                    <i class="fa-solid fa-sack-dollar side-icon"></i>
+                    <i class="fa-solid fa-wallet side-icon"></i>
                     <div class="side-menu-right">
                       <p class="bold">Wallets</p>
                     </div>
@@ -37,7 +38,7 @@
                 </a>
                 <a href="/categories" method="get">
                   <div class="side-menu-tab">
-                    <i class="fa-solid fa-filter side-icon"></i>
+                    <i class="fa-solid fa-layer-group side-icon"></i>
                     <div class="side-menu-right">
                       <p class="bold">Categories</p>
                     </div>
@@ -56,6 +57,14 @@
                     <i class="fa-solid fa-coins side-icon"></i>
                     <div class="side-menu-right">
                       <p class="bold">Transactions</p>
+                    </div>
+                  </div>
+                </a>
+                <a href="/statement/new" method="get">
+                  <div class="side-menu-tab">
+                    <i class="fa-solid fa-file-arrow-up side-icon"></i>
+                    <div class="side-menu-right">
+                      <p class="bold">Upload Bank Statement</p>
                     </div>
                   </div>
                 </a>
@@ -85,6 +94,5 @@
          </ul>
         <% end %>
     </div>
-
   </div>
 </div>

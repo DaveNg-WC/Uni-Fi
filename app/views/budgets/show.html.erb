@@ -4,9 +4,9 @@
 
 <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
 
-  <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: @budget.name, balance: number_to_currency(@budget.amount), bgcolor: "green" %>
+  <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Target Budget", balance: number_to_currency(@budget.amount), bgcolor: "green" %>
 
-  <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg orange-icon", name: @budget.name, balance: number_to_currency(@budget.amount), bgcolor: "orange" %>
+  <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg orange-icon", name: "Current Spent", balance: number_to_currency(@budget.amount), bgcolor: "orange" %>
 
   <p class="bold">Selected Categories</p>
   <ul>
