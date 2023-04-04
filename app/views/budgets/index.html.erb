@@ -1,8 +1,7 @@
-<p style="color: green"><%= notice %></p>
+<%= render "shared/pageheader", name: "Your Budgets" %>
 
 <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
 
-  <%= render "shared/pageheader", name: "Your Budgets" %>
 
   <div style="margin-top: 15px;">
     <p class="bold">Budgets</p>
@@ -12,12 +11,16 @@
 
     <% spends = 0  %>
     <% budget.categories.each do |c| %>
-      <% spends += c.balance  %>
+      <% spends += c.this_month_balance  %>
     <% end %>
 
     <a href="/budgets/<%= budget.id %>" method="get">
       <div style="margin-bottom: 15px;">
+<<<<<<< HEAD
         <%= render "shared/categorytab", name: budget.name, balance: number_to_currency(budget.amount), icon: "fa-solid fa-square-check fa-lg" %>
+=======
+        <%= render "shared/categorytab", name: budget.name, balance: "#{number_to_currency(spends)}/#{number_to_currency(budget.amount)}", icon: "fa-solid fa-wallet fa-lg" %>
+>>>>>>> master
       </div>
     </a>
   <% end %>
