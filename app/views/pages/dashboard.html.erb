@@ -33,6 +33,8 @@
   </div>
 
   <div>
+    <h5>Spends This Week</h5>
+
     <%= column_chart @expense_txn.group_by_day_of_week(:date, format: "%a",week_start: :mon).sum(:amount) %>
 
   </div>
