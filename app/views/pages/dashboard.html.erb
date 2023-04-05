@@ -31,20 +31,17 @@
 
   <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg grey-icon", name: "Total Spent This Month", balance: number_to_currency(@spends_this_month), bgcolor: "grey" %>
 
-  <h5 class="bold">Budgets</h5>
-
-
 
   <div>
-    <h5>Spends Breakdown</h5>
+    <h5 class="bold">Spends Breakdown</h5>
     <%= pie_chart @month_spends_by_category_data, donut: true, prefix: "$", thousands: ",", legend: "right" %>
   </div>
 
   <div>
-    <h5>Spends This Week</h5>
-
+    <h5 class="bold">Spends This Week</h5>
     <%= column_chart @expense_txn.group_by_day_of_week(:date, format: "%a",week_start: :mon).sum(:amount) %>
-
   </div>
+
+
 
 </div>
