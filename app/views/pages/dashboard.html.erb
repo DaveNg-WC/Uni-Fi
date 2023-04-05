@@ -29,19 +29,39 @@
    <p> You are spending less than last month 👍🏻</p>
   <% end %>
 
-  <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg grey-icon", name: "Total Spent This Month", balance: number_to_currency(@spends_this_month), bgcolor: "grey" %>
-
+  <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg grey-icon", name: "Income / Expense This Month", balance: "#{number_to_currency(@income_this_month)}/#{number_to_currency(@spends_this_month)}", bgcolor: "grey" %>
 
   <div>
-    <h5 class="bold">Spends Breakdown</h5>
-    <%= pie_chart @month_spends_by_category_data, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+    <h5 class="bold">Expense Breakdown This Month</h5>
+    <%= pie_chart @month_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+  </div>
+
+  <div>
+    <h5 class="bold">Expenses by Category</h5>
+    <%= bar_chart @month_spends_breakdown %>
   </div>
 
   <div>
     <h5 class="bold">Spends This Week</h5>
-    <%= column_chart @expense_txn.group_by_day_of_week(:date, format: "%a",week_start: :mon).sum(:amount) %>
+    <%= column_chart @expense_this_week %>
   </div>
 
+  <div>
+    <h5 class="bold">Expense vs Income</h5>
+    <%= column_chart [
+      { name: "Net Income", data: @total_income_by_month },
+      { name: "Expenses", data: @total_expense_by_month }
+      ],
+      stacked: true,
+      colors: ["#17D85C", "#FA8484"]
+    %>
+  </div>
+
+
+  <div>
+    <h5 class="bold">Cashflow</h5>
+    <%= area_chart @net_income_by_month%>
+  </div>
 
 
 </div>
