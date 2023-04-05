@@ -29,7 +29,7 @@
 
   <%= render "shared/notestab", name: "Notes", info: @transaction.description %>
 
-  <%= render "shared/detailtab", name: "Date", info: @transaction.date, icon: "fa-solid fa-calendar-days" %>
+  <%= render "shared/detailtab", name: "Date", info: date(@transaction), icon: "fa-solid fa-calendar-days" %>
 
   <%= render "shared/detailtab", name: "From", info: from, icon: "fa-solid fa-arrow-right-from-bracket" %>
 

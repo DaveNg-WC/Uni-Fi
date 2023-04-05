@@ -1,10 +1,8 @@
 <!-- If current_user.partner != nil, show User information below. -->
 <% if current_user.partnership == nil %>
   <div>
-    <div class="container mobile page-header" style="margin-bottom: 20px">
-      <a href="<%= dashboard_path %>">
-        <i class="fa-solid fa-arrow-left side-icon fa-xl"></i>
-      </a>
+    <div class="container mobile page-header" style="margin-bottom: 20px; margin-top: 30px;">
+      <div></div>
       <h2 class="header bold" style="text-align: center;">Your Finance Partner</h2>
       <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
     </div>
@@ -24,10 +22,8 @@
   </div>
 <% else %>
   <div>
-    <div class="container mobile page-header" style="margin-bottom: 20px">
-      <a href="<%= dashboard_path %>"> <!-- always goes to home? -->
-        <i class="fa-solid fa-arrow-left side-icon fa-xl"></i>
-      </a>
+    <div class="container mobile page-header" style="margin-bottom: 20px; margin-top: 30px;">
+      <div></div>
       <h2 class="header bold" style="text-align: center;">Your Finance Partner</h2>
       <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
     </div>
