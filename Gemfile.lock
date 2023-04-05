@@ -122,12 +122,7 @@ GEM
       sassc (~> 2.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
-<<<<<<< HEAD
-    groupdate (6.2.0)
-      activesupport (>= 5.2)
-=======
     hashery (2.1.2)
->>>>>>> master
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
