@@ -10,3 +10,10 @@
 .navbar-lewagon .navbar-brand img {
   width: 40px;
 }
+
+// fixed navbar position
+.navbar-lewagon {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
