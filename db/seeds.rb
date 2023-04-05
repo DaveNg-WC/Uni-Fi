@@ -40,13 +40,44 @@ users.each do |user|
       user: user
     )
   end
-  7.times do |i|
-    expense_categories << Category.create!(
-      name: "Expense#{i+1}",
-      category_type: "Expense",
-      user: user
-    )
-  end
+
+  # Needed Seed for Statement Upload
+  expense_categories << Category.create!(
+    name: "Transport",
+    category_type: "Expense",
+    user: user
+  )
+
+  expense_categories << Category.create!(
+    name: "Groceries",
+    category_type: "Expense",
+    user: user
+  )
+
+  expense_categories << Category.create!(
+    name: "Food",
+    category_type: "Expense",
+    user: user
+  )
+
+  expense_categories << Category.create!(
+    name: "Leisure",
+    category_type: "Expense",
+    user: user
+  )
+
+  expense_categories << Category.create!(
+    name: "Services",
+    category_type: "Expense",
+    user: user
+  )
+
+  expense_categories << Category.create!(
+    name: "Others",
+    category_type: "Expense",
+    user: user
+  )
+
 
   categories << income_categories + expense_categories
 end
