@@ -28,7 +28,6 @@ Partnership.create(user: User.fourth, partner: User.third)
 puts "created Partnerships"
 
 income_list = ["Salary", "Cashback", "Dividend", "Refund"]
-expense_list = ["Food", "Transport", "Shopping", "Utility & Phone Bill"]
 # Create categories for each user
 categories = []
 users.each do |user|
@@ -36,7 +35,7 @@ users.each do |user|
   expense_categories = []
   3.times do |i|
     income_categories << Category.create!(
-      name: "Income#{i+1}",
+      name: income_list.sample,
       category_type: "Income",
       user: user
     )
@@ -111,7 +110,7 @@ users.each do |user|
   categories_for_user = categories[users.index(user)]
   wallets_for_user = wallets.select { |wallet| wallet.user == user }
 
-  10.times do |i|
+  100.times do |i|
     # Create income transactions
     income_category = categories_for_user.select { |category| category.category_type == "Income" }.sample
     income_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "Debit" }.sample.id
@@ -121,7 +120,7 @@ users.each do |user|
       user: user,
       category: income_category,
       amount: rand(100..1000),
-      date: Date.today - rand(1..90).days,
+      date: Date.today - rand(1..180).days,
       main_wallet_id: income_wallet
     )
 
@@ -134,7 +133,7 @@ users.each do |user|
       user: user,
       category: expense_category,
       amount: rand(10..100),
-      date: Date.today - rand(1..90).days,
+      date: Date.today - rand(1..180).days,
       main_wallet_id: expense_wallet
     )
 
@@ -146,7 +145,7 @@ users.each do |user|
       txn_type: "Transfer",
       user: user,
       amount: rand(10..100),
-      date: Date.today - rand(1..90).days,
+      date: Date.today - rand(1..180).days,
       main_wallet_id: transfer_wallet_from,
       second_wallet_id: transfer_wallet_to
     )
