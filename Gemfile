@@ -83,3 +83,7 @@ end
 
 gem "chartkick"
 gem "groupdate"
+
+source 'https://rubygems.org'
+
+gem 'railties', platforms: [:jruby, :ruby]
