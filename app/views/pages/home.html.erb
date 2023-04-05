@@ -1,14 +1,16 @@
-<body style="background-color: #888888;">
+<body style="background-color: white;">
   <div>
     <div class="container mobile page-header" style="margin-bottom: 20px">
       <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
     </div>
 
-    <div class="container mobile d-flex justify-content-center align-items-center" style="margin-top: 250px">
+    <div class="container mobile d-flex justify-content-center align-items-center" style="max-width: 100%; max-height: 100%;">
       <div class="splash">
-        <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png", alt: "logo", style:"width: 80px; align-self: center;"%>
-        <p class="header bold" style="text-align: center; color: #FFFFFF; font-size: 20px; line-height: 1.2; margin-top: 20px;">Start taking control of your financial future.</p>
-        <%= button_to 'Start Now', dashboard_path, method: :get, class: 'btn-small-primary', style:"width: 100%;"%>
+        <div class="splash slide-in" style="background: url('/path/to/landingpage3.jpg') no-repeat center center fixed; background-size: cover;">
+          <%= image_tag "/assets/landingpage3.jpg", alt: "landing page image", style: "max-width: 120%; max-height: 100%;"%>
+          <p class="header bold" style="text-align: center; color: #000000; font-size: 20px; line-height: 1.2; margin-top: 20px;">Managing finances has never been easier.</p>
+          <%= button_to 'Start Now', dashboard_path, method: :get, class: 'btn-small-primary', style:"width: 100%;"%>
+        </div>
       </div>
     </div>
   </div>
