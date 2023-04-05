@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'statement/new'
+  post '/statement/new', to: 'statement#create'
+  get 'statement/uploaded'
+
   resources :partnerships, only: [:index, :new, :create, :destroy]
   resources :budgets
   resources :transactions
