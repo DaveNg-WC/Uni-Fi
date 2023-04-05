@@ -85,12 +85,12 @@ users.each do |user|
     income_category = categories_for_user.select { |category| category.category_type == "Income" }.sample
     income_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "Debit" }.sample.id
     transactions << Transaction.create!(
-      description: income_list.sample,
+      description: "Income transaction #{i+1}",
       txn_type: "Income",
       user: user,
       category: income_category,
       amount: rand(100..1000),
-      date: Date.today - rand(1..30).days,
+      date: Date.today - rand(1..90).days,
       main_wallet_id: income_wallet
     )
 
@@ -98,12 +98,12 @@ users.each do |user|
     expense_category = categories_for_user.select { |category| category.category_type == "Expense" }.sample
     expense_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "Credit" }.sample.id
     transactions << Transaction.create!(
-      description: expense_list.sample,
+      description: "Expense transaction #{i+1}",
       txn_type: "Expense",
       user: user,
       category: expense_category,
       amount: rand(10..100),
-      date: Date.today - rand(1..30).days,
+      date: Date.today - rand(1..90).days,
       main_wallet_id: expense_wallet
     )
 
@@ -115,7 +115,7 @@ users.each do |user|
       txn_type: "Transfer",
       user: user,
       amount: rand(10..100),
-      date: Date.today - rand(1..30).days,
+      date: Date.today - rand(1..90).days,
       main_wallet_id: transfer_wallet_from,
       second_wallet_id: transfer_wallet_to
     )
@@ -125,11 +125,10 @@ puts "created income, expense, transfer transactions for each users"
 
 
 # Create budgets for each user
-budget_list = ["Food", "Transport", "Shopping", "Utility & Phone Bill"]
 User.all.each do |user|
   3.times do |i|
     budget = Budget.create!(
-      name: budget_list.sample,
+      name: "Budget #{i+1}",
       amount: rand(500..1000),
       user: user
     )
