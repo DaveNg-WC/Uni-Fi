@@ -1,0 +1,53 @@
+
+.choices ul {
+  list-style-type: none;
+}
+
+/* TXN CHOICE */
+
+.white-icon {
+  color: #FFFFFF;
+}
+
+.white {
+  background-color: #FFFFFF;
+}
+
+.txnchoice-content {
+  display: block;
+  text-align: center;
+  padding: 0px 15px;
+}
+
+.txnchoice-content p {
+  margin-top: 10px;
+}
+
+.txnchoice {
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+}
+
+.choice-icon {
+  margin-top: 20px;
+}
+
+#expense, #transfer, #income {
+  display: none;
+}
+
+.choices {
+  display: flex;
+  flex-direction: row;
+}
+
+.choices > * {
+  flex-grow: 1;
+  margin: 0px 4px;
+}
+
+.selected {
+  background-color: black;
+  color: white;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}

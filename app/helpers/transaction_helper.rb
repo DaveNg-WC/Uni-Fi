@@ -1,3 +1,5 @@
+require "date"
+
 module TransactionHelper
   def from(t)
     from = t.category.name if t.income?
@@ -7,7 +9,10 @@ module TransactionHelper
   end
 
   def date(t)
-    return t.date
+    date_string = t.date.to_s
+    date = Date.parse(date_string)
+    formatted_date = date.strftime("%d %b %Y")
+    return formatted_date
   end
 
   def to(t)
