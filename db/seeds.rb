@@ -27,7 +27,8 @@ Partnership.create(user: User.third, partner: User.fourth)
 Partnership.create(user: User.fourth, partner: User.third)
 puts "created Partnerships"
 
-
+income_list = ["Salary", "Cashback", "Dividend", "Refund"]
+expense_list = ["Food", "Transport", "Shopping", "Utility & Phone Bill"]
 # Create categories for each user
 categories = []
 users.each do |user|
@@ -84,7 +85,7 @@ users.each do |user|
     income_category = categories_for_user.select { |category| category.category_type == "Income" }.sample
     income_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "Debit" }.sample.id
     transactions << Transaction.create!(
-      description: "Income transaction #{i+1}",
+      description: income_list.sample,
       txn_type: "Income",
       user: user,
       category: income_category,
@@ -97,7 +98,7 @@ users.each do |user|
     expense_category = categories_for_user.select { |category| category.category_type == "Expense" }.sample
     expense_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "Credit" }.sample.id
     transactions << Transaction.create!(
-      description: "Expense transaction #{i+1}",
+      description: expense_list.sample,
       txn_type: "Expense",
       user: user,
       category: expense_category,
@@ -124,10 +125,11 @@ puts "created income, expense, transfer transactions for each users"
 
 
 # Create budgets for each user
+budget_list = ["Food", "Transport", "Shopping", "Utility & Phone Bill"]
 User.all.each do |user|
   3.times do |i|
     budget = Budget.create!(
-      name: "Budget #{i+1}",
+      name: budget_list.sample,
       amount: rand(500..1000),
       user: user
     )
