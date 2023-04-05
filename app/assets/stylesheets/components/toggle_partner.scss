@@ -24,13 +24,14 @@
   width: 100%;
   border: 1px solid #D7D7D7;
   border-radius: 16px;
-  padding: 0px 20px;
+  padding: 8px 16px;
+  margin-bottom: 15px;
 }
 
 .view-partner-left {
-  margin-left: 5px;
   display: flex;
   flex-grow: 1;
+  margin: 0px 0px 0px 8px;
 }
 
 
@@ -68,7 +69,7 @@
 .toggle:hover .toggle-switch:before {
 }
 .toggle-checkbox:checked + .toggle-switch {
-  background: #000000;
+  background: #FFB877;
 }
 .toggle-checkbox:checked + .toggle-switch:before {
   left: 30px;

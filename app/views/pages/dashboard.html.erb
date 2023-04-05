@@ -1,16 +1,24 @@
 
-<div class="container mobile page-header" style="margin-bottom: 20px">
+<div class="container mobile page-header" style="margin-bottom: 20px; margin-top: 30px;">
   <div></div>
   <h2 class="header bold" style="text-align: center;">Dashboard</h2>
   <div></div> <!-- this extra div allows the space between to work properly in 3 segments, and allows home button to be at the end-->
 </div>
-
 
 <!-- this is where content begins -->
 
 <!-- below are the wallet and info tabs that this page should have -->
 
 <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
+
+  <div class="view-partner">
+    <p class="view-partner-left">View Partner's Finances</p>
+    <label class="toggle">
+      <input class="toggle-checkbox" type="checkbox">
+      <div class="toggle-switch"></div>
+    </label>
+  </div>
+
   <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Net Worth", balance: number_to_currency(@net_worth), bgcolor: "green" %>
 
   <% if @spends_this_month > @spends_last_month %>

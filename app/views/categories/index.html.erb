@@ -6,7 +6,7 @@
     <% @incomes.each do |c| %>
       <a href="/categories/<%= c.id %>" method="get">
         <div style="margin-bottom: 15px;">
-          <%= render "shared/categorytab", icon: "fa-solid fa-wallet fa-lg", name: c.name, balance: number_to_currency(c.total_balance)  %>
+          <%= render "shared/categorytab", icon: "fa-solid fa-layer-group fa-lg", name: c.name, balance: number_to_currency(c.total_balance)  %>
         </div>
       </a>
     <% end %>
@@ -16,7 +16,7 @@
   <% @expenses.each do |c| %>
     <a href="/categories/<%= c.id %>" method="get">
       <div style="margin-bottom: 15px;">
-        <%= render "shared/categorytab", icon: "fa-solid fa-wallet fa-lg", name: c.name, balance: number_to_currency(c.total_balance)  %>
+        <%= render "shared/categorytab", icon: "fa-solid fa-layer-group fa-lg", name: c.name, balance: number_to_currency(c.total_balance)  %>
       </div>
     </a>
   <% end %>
