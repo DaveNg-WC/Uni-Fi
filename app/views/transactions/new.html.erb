@@ -57,7 +57,7 @@
       <div class="expense-form-inputs" id="expenseform">
         <p class="bold">Add an expense transaction!</p>
         <%# as: :hidden hides the input. input_html: hard code the input value %>
-        <%= f.input :txn_type, as: :hidden, input_html: { value: "expense" } %>
+        <%= f.input :txn_type, as: :hidden, input_html: { value: "Expense" } %>
         <%#  LOWER function to match the category_type value with the downcased value "income". The ? is a placeholder for the actual value which is passed as the second argument to the where method.  %>
         <%= f.association :main_wallet, label: "From", collection: @wallets %>
         <%= f.association :category, label: "To", collection: @expenses %>
@@ -80,7 +80,7 @@
       <div class="transfer-form-inputs d-none" id="transferform">
         <p class="bold">Add a transfer transaction!</p>
         <%# as: :hidden hides the input. input_html: hard code the input value %>
-        <%= f.input :txn_type, as: :hidden, input_html: { value: "transfer" } %>
+        <%= f.input :txn_type, as: :hidden, input_html: { value: "Transfer" } %>
         <%= f.association :main_wallet, label: "From", collection: @wallets%>
         <%= f.association :second_wallet, label: "To", collection: @wallets %>
         <%= f.input :amount %>
@@ -102,7 +102,7 @@
       <div class="income-form-inputs d-none" id="incomeform">
         <p class="bold">Add an income transaction!</p>
         <%# as: :hidden hides the input. input_html: hard code the input value %>
-        <%= f.input :txn_type, as: :hidden, input_html: { value: "income" } %>
+        <%= f.input :txn_type, as: :hidden, input_html: { value: "Income" } %>
         <%#  LOWER function to match the category_type value with the downcased value "income". The ? is a placeholder for the actual value which is passed as the second argument to the where method.  %>
         <%= f.association :category, label: "From", collection: @incomes %>
         <%= f.association :main_wallet, label: "To", collection: @wallets %>
