@@ -10,7 +10,8 @@
       <%= x %>.
       <%= t.description %> -
       <%= date(t) %> -
-      <%= number_to_currency(t.amount) %>
+      <%= number_to_currency(t.amount) %> -
+      <%= Category.find(t.category_id).name %>
       <br>
     <% end %>
   <% else %>
