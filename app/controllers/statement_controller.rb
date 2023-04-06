@@ -8,8 +8,10 @@ class StatementController < ApplicationController
   after_action :delete_uploaded_txns, only: [:uploaded]
 
   UPLOADED_TXNS = []
+  CHOSEN_WALLET = []
+
   def new
-    @wallets = Wallet.all
+    @wallets = current_user.wallets
   end
 
   def create
@@ -20,6 +22,8 @@ class StatementController < ApplicationController
     pdf = params[:file].tempfile
     io = open(pdf)
     reader = PDF::Reader.new(io)
+
+    CHOSEN_WALLET << params[:wallet]
 
     reader.pages.each do |page|
       text = page.text
@@ -37,7 +41,7 @@ class StatementController < ApplicationController
                                        amount: match[5],
                                        category_id: category_id,
                                        date: Date.parse("#{match[3]} #{Date.today.year}"),
-                                       main_wallet_id: 1)  # main wallet here should be taken from above field, user choose wallet
+                                       main_wallet_id: params[:wallet])  # main wallet here should be taken from above field, user choose wallet
               newTxn.save
               UPLOADED_TXNS << newTxn
               break
@@ -63,11 +67,12 @@ class StatementController < ApplicationController
 
   def uploaded
     @array = UPLOADED_TXNS
+    @wallet_id = CHOSEN_WALLET
   end
 
   private
 
   def delete_uploaded_txns
-    UPLOADED_TXNS.clear
+
   end
 end

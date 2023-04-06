@@ -5,12 +5,19 @@
   <p>Upload your file and we will crawl through your PDF and create new transactions according to your spending!</p>
   <p>With <strong>Uni-Fi</strong>, financial tracking doesn't have to be difficult.</p>
 
-  <% @wallets.each do |w| %>
-    <%= w.name %> <br>
-  <% end %>
+
   <div class="file-upload">
+
     <%= form_tag({ controller: "/statement", action: "create" }, method: :post, multipart: true) do %>
       <div>
+        <%= label_tag 'wallet', 'What wallet is this spending from?', class: 'form-label' %>
+        <br>
+        <%= select_tag 'wallet', options_for_select(@wallets.map { |w| [w.name, w.id] }), { prompt: 'Choose a wallet' } %>
+      </div>
+      <br>
+      <div>
+        <%= label_tag 'file', 'Choose a bank statement!' %>
+        <br>
         <%= file_field_tag :file, accept: 'application/pdf', required: true; %>
       </div>
 
@@ -18,5 +25,4 @@
       <%= submit_tag 'Upload File', class: "btn-small-primary", style: "width: 50%; margin: auto; margin-top: 16px;"  %>
     <% end %>
   </div>
-
 </div>
