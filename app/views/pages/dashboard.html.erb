@@ -41,8 +41,8 @@
     </div>
 
     <div>
-      <h5 class="bold">Expense  This Week</h5>
-      <%= column_chart @expense_this_week.group_by_day(:date).sum(:amount)%>
+      <h5 class="bold">Expense This Week</h5>
+      <%= column_chart @expense_this_week.group_by_day(:date).sum(:amount) %>
     </div>
   </div>
 
@@ -55,7 +55,7 @@
     </div>
 
     <div>
-      <h5 class="bold">Income and Expnese</h5>
+      <h5 class="bold">Income and Expnese this Month</h5>
       <%= bar_chart [
         {name: "Income", data: @income_this_month.group_by_month(:date, format: "%b").sum(:amount)},
         {name: "Expense", data: @expense_this_month.group_by_month(:date, format: "%b").sum(:amount)}
@@ -70,27 +70,21 @@
 
     <%# ----------------------------- This Year  ------------------------------------------------------------- %>
 
+
+<div>
   <div>
-    <h5 class="bold">Expense vs Income </h5>
-    <%= column_chart [
-      { name: "Net Income", data: @total_income_by_month },
-      { name: "Expenses", data: @total_expense_by_month }
-      ],
-      stacked: true,
-      colors: ["#17D85C", "#FA8484"]
-    %>
+      <h5 class="bold">Expense Breakdown This Year</h5>
+      <%= pie_chart @year_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
   </div>
 
-  <div>
-    <h5 class="bold">Income This Year</h5>
-    <%= column_chart @total_income_this_year %>
-  </div>
+
+</div>
 
   <div>
-    <h5 class="bold">Expense vs Income</h5>
+    <h5 class="bold">Expense vs Income This Year</h5>
     <%= column_chart [
-      { name: "Net Income", data: @total_income_by_month },
-      { name: "Expenses", data: @total_expense_by_month }
+      { name: "Income", data: @income_this_year },
+      { name: "Expenses", data: @expense_this_year }
       ],
       stacked: true,
       colors: ["#17D85C", "#FA8484"]
