@@ -1,3 +1,5 @@
+require 'faker'
+
 puts "destroying users"
 User.destroy_all
 puts "user destroyed"
@@ -9,14 +11,14 @@ puts "creating seeds"
 users = []
 4.times do |i|
   user = User.create!(
-    first_name: "User#{i+1}",
-    last_name: "Lastname#{i+1}",
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
     email: "user#{i+1}@example.com",
     password: "password"
   )
   users << user
+  puts "Created #{user.first_name} #{user.last_name}"
 end
-puts "created 4 users"
 
 
 # Create partnerships
@@ -86,20 +88,25 @@ puts "created income and expense categories for each users"
 # Create wallets for each user
 wallets = []
 users.each do |user|
-  2.times do |i|
-    wallets << Wallet.create!(
-      name: "Debit Wallet #{i+1}",
-      wallet_type: "Debit",
-      description: "Debit wallet #{i+1} for #{user.first_name}",
-      user: user
-    )
-    wallets << Wallet.create!(
-      name: "Credit Wallet #{i+1}",
-      wallet_type: "Credit",
-      description: "Credit wallet #{i+1} for #{user.first_name}",
-      user: user
-    )
-  end
+  wallets << Wallet.create!(
+    name: "DBS Debit",
+    wallet_type: "Debit",
+    description: "DBS Debit Black Card ",
+    user: user
+  )
+  wallets << Wallet.create!(
+    name: "OCBC Credit",
+    wallet_type: "Credit",
+    description: "OCBC 360 Credit Card White/Red",
+    user: user
+  )
+
+  wallets << Wallet.create!(
+    name: "UOB Debit",
+    wallet_type: "Debit",
+    description: "UOB Savings Account",
+    user: user
+  )
 end
 puts "created debit and credit wallets for each users"
 
