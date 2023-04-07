@@ -73,6 +73,6 @@ class StatementController < ApplicationController
   private
 
   def delete_uploaded_txns
-
+    UPLOADED_TXNS.clear
   end
 end
