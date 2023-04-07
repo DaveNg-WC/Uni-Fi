@@ -26,7 +26,6 @@ class Category < ApplicationRecord
 
   def this_month_balance
     balance = 0
-    # self.transactions.where(date.month: Time.now.month).each do |t|
     self.transactions.where('extract(month from date) = ?', Time.now.month).each do |t|
       balance += t.amount
     end
@@ -35,8 +34,15 @@ class Category < ApplicationRecord
 
   def last_month_balance
     balance = 0
-    # self.transactions.where(date.month: Time.now.month).each do |t|
     self.transactions.where('extract(month from date) = ?', Time.now.month-1).each do |t|
+      balance += t.amount
+    end
+    balance
+  end
+
+  def month_balance(month)
+    balance = 0
+    self.transactions.where('extract(month from date) = ?', month).each do |t|
       balance += t.amount
     end
     balance
