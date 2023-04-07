@@ -5,6 +5,12 @@
   <%= form_with url: params[:wallet_id].present? ? wallet_transactions_path(Wallet.find(params[:wallet_id])) : transactions_path,
     method: :get, class: "d-flex" do
   %>
+<div   padding: 10px;
+border: 2px solid #ccc;
+border-right: none;
+font-size: 16px;
+border-radius: 5px 0 0 5px;>
+
   <%= text_field_tag :search_keyword,
     params[:search_keyword],
     class: "form-control",
@@ -30,6 +36,7 @@
     class: "btn-small-primary",
     style: "margin-bottom: 15px;"
   %>
+  </div>
   <% end %>
 
   <div id="transactions">
