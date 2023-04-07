@@ -17,4 +17,5 @@ class Transaction < ApplicationRecord
   def transfer?
     self.txn_type.downcase == "transfer"
   end
+
 end
