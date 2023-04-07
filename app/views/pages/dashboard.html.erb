@@ -71,34 +71,33 @@
     <%# ----------------------------- This Year  ------------------------------------------------------------- %>
 
 
-<div>
   <div>
-      <h5 class="bold">Expense Breakdown This Year</h5>
-      <%= pie_chart @year_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+    <div>
+        <h5 class="bold">Expense Breakdown This Year</h5>
+        <%= pie_chart @year_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+    </div>
+
+    <div>
+      <h5 class="bold">Expense vs Income This Year</h5>
+      <%= column_chart [
+        { name: "Income", data: @income_this_year },
+        { name: "Expenses", data: @expense_this_year }
+        ],
+        stacked: true,
+        colors: ["#17D85C", "#FA8484"]
+      %>
+    </div>
+
+    <div>
+      <h5 class="bold">Cashflow</h5>
+      <%= line_chart @net_income_by_month%>
+    </div>
+
+    <div>
+    todo add net worth line chart
+    </div>
+
   </div>
-
-
-</div>
-
-  <div>
-    <h5 class="bold">Expense vs Income This Year</h5>
-    <%= column_chart [
-      { name: "Income", data: @income_this_year },
-      { name: "Expenses", data: @expense_this_year }
-      ],
-      stacked: true,
-      colors: ["#17D85C", "#FA8484"]
-    %>
-  </div>
-
-
-
-  <div>
-    <h5 class="bold">Cashflow</h5>
-    <%= line_chart @net_income_by_month%>
-  </div>
-
-
 
 
 </div>
