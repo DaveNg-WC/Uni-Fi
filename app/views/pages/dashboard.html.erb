@@ -55,6 +55,11 @@
     </div>
 
     <div>
+      <h5 class="bold">Expense This Month</h5>
+      <%= column_chart @expense_this_month.group_by_week(:date).sum(:amount) %>
+    </div>
+
+    <div>
       <h5 class="bold">Income and Expnese this Month</h5>
       <%= bar_chart [
         {name: "Income", data: @income_this_month.group_by_month(:date, format: "%b").sum(:amount)},
