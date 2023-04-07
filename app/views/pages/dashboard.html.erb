@@ -30,19 +30,55 @@
 
   <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg grey-icon", name: "Income / Expense This Month", balance: "#{number_to_currency(@income_this_month)}/#{number_to_currency(@spends_this_month)}", bgcolor: "grey" %>
 
+
+    <%# ------------------------------- chart starts here ------------------------------------------------------------- %>
+
+    <%# ----------------------------- This Month by weeks ------------------------------------------------------------- %>
+  <div>
+    <h5 class="bold">Expense Breakdown This Week</h5>
+    <%= pie_chart @week_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+  </div>
+
+  <div>
+    <h5 class="bold">Expense  This Week</h5>
+    <%= column_chart @expense_this_week.group_by_day(:date).sum(:amount), xmin: (Date.current - 6), xmax: Date.current %>
+
+
+  </div>
+
+
+
+
+    <%# ----------------------------- This Month by weeks ------------------------------------------------------------- %>
   <div>
     <h5 class="bold">Expense Breakdown This Month</h5>
     <%= pie_chart @month_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
   </div>
 
   <div>
-    <h5 class="bold">Expenses by Category</h5>
-    <%= bar_chart @month_spends_breakdown %>
+    <h5 class="bold">Expense vs Income This Month</h5>
+    <%= column_chart [
+      { name: "Net Income", data: @total_income_by_month },
+      { name: "Expenses", data: @total_expense_by_month }
+      ],
+      stacked: true,
+      colors: ["#17D85C", "#FA8484"]
+    %>
+  </div>
+
+  <div>
+    <h5 class="bold">Expenses This Month by Weeks</h5>
+    <%= column_chart @month_spends_breakdown %>
   </div>
 
   <div>
     <h5 class="bold">Spends This Week</h5>
     <%= column_chart @expense_this_week %>
+  </div>
+
+  <div>
+    <h5 class="bold">Income This Year</h5>
+    <%= column_chart @total_income_this_year %>
   </div>
 
   <div>
@@ -57,10 +93,13 @@
   </div>
 
 
+
   <div>
     <h5 class="bold">Cashflow</h5>
-    <%= area_chart @net_income_by_month%>
+    <%= line_chart @net_income_by_month%>
   </div>
+
+
 
 
 </div>

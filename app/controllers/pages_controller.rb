@@ -33,21 +33,45 @@ class PagesController < ApplicationController
       end
     end
 
-    # ---------------------------------- for charts and graphs -------------------------------------------------------
-    #  data can be hash or array
+    # ---------------------------------- for charts and graphs  (data can be hash or array)-------------------------------------------------------
+    @total_income             = current_user.transactions.where(txn_type: "Income")
+    @total_expense            = current_user.transactions.where(txn_type: "Expense")
 
+    # ---------------------- This Week by days ----------------------------------------------
+    ## Calculating each Expense category's balance for the week.
+    ## Returns a hash. {cat.name: cat balance} sorted Descending
+    @week_spends_breakdown = {}
+    last_7_days = (Date.current - 6)..Date.current
+    current_user.categories.each do |c|
+      # skip if category is income
+      next if c.income?
+
+      balance = 0
+      c.transactions.where(date: last_7_days).each do |t|
+        balance += t.amount
+      end
+      @week_spends_breakdown.store(c.name, balance)
+    end
+    @week_spends_breakdown    = @week_spends_breakdown.sort_by { |k, v| -v }.to_h
+    @expense_this_week        = @total_expense.where(date: last_7_days)
+    @income_this_week         = @total_income.where(date: last_7_days)
+
+
+    # -------------- This Month by weeks -----------------
     @month_spends_breakdown = {}
     current_user.categories.each do |c|
       @month_spends_breakdown.store(c.name, c.month_balance(Time.now.month)) if c.expense?
     end
     @month_spends_breakdown   = @month_spends_breakdown.sort_by { |k, v| -v }.to_h
 
-
-    @total_income             = current_user.transactions.where(txn_type: "Income")
-    @total_expense            = current_user.transactions.where(txn_type: "Expense")
-    @expense_this_week        = @total_expense.where(date: Date.current.all_week).group_by_day_of_week(:date, format: "%a",week_start: :mon).sum(:amount)
     @expense_this_month       = @total_expense.where(date: Date.current.all_month)
+
+
     @total_income_by_month    = @total_income.group_by_month(:date, format: "%b").sum(:amount)
+
+    # -------------- This Year by months -----------------
+
+    @total_income_this_year   = @total_income.where(date: Date.current.all_year).group_by_month(:date, format: "%b").sum(:amount)
     @total_expense_by_month   = @total_expense.group_by_month(:date, format: "%b").sum(:amount)
     @net_income_by_month      = {}
 
