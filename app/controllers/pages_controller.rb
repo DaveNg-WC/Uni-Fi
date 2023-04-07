@@ -8,19 +8,19 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    @spends_this_month = 0
+    @outflow_this_month = 0
     current_user.expenses.each do |c|
-      @spends_this_month += c.this_month_balance
+      @outflow_this_month += c.this_month_balance
     end
 
-    @spends_last_month = 0
+    @outflow_last_month = 0
     current_user.expenses.each do |c|
-      @spends_last_month += c.last_month_balance
+      @outflow_last_month += c.last_month_balance
     end
 
-    @income_this_month = 0
+    @inflow_this_month = 0
     current_user.incomes.each do |c|
-      @income_this_month += c.month_balance(Time.now.month)
+      @inflow_this_month += c.month_balance(Time.now.month)
     end
 
 
@@ -37,7 +37,8 @@ class PagesController < ApplicationController
     @total_income             = current_user.transactions.where(txn_type: "Income")
     @total_expense            = current_user.transactions.where(txn_type: "Expense")
 
-    # ---------------------- This Week by days ----------------------------------------------
+    # ---------------------- This Week  ------------------------
+
     ## Calculating each Expense category's balance for the week.
     ## Returns a hash. {cat.name: cat balance} sorted Descending
     @week_spends_breakdown = {}
@@ -57,7 +58,7 @@ class PagesController < ApplicationController
     @income_this_week         = @total_income.where(date: last_7_days)
 
 
-    # -------------- This Month by weeks -----------------
+    # -------------- This Month  -------------------------
     @month_spends_breakdown = {}
     current_user.categories.each do |c|
       @month_spends_breakdown.store(c.name, c.month_balance(Time.now.month)) if c.expense?
@@ -65,6 +66,7 @@ class PagesController < ApplicationController
     @month_spends_breakdown   = @month_spends_breakdown.sort_by { |k, v| -v }.to_h
 
     @expense_this_month       = @total_expense.where(date: Date.current.all_month)
+    @income_this_month        = @total_income.where(date: Date.current.all_month)
 
 
     @total_income_by_month    = @total_income.group_by_month(:date, format: "%b").sum(:amount)

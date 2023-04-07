@@ -42,7 +42,6 @@ class Category < ApplicationRecord
 
   def month_balance(month)
     balance = 0
-    # self.transactions.where(date.month: Time.now.month).each do |t|
     self.transactions.where('extract(month from date) = ?', month).each do |t|
       balance += t.amount
     end
