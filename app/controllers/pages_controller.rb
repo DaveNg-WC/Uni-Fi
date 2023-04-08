@@ -11,6 +11,8 @@ class PagesController < ApplicationController
   end
 
   def dashboard
+
+
     @outflow_this_month = 0
     current_user.expenses.each do |c|
       @outflow_this_month += c.this_month_balance

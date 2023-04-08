@@ -6,101 +6,227 @@
 </div>
 <!-- this is where content begins -->
 
-<!-- below are the wallet and info tabs that this page should have -->
 
+<!------------------------ View Partner Toggle ------------------------>
 <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
 
   <div class="view-partner">
     <p class="view-partner-left">View Partner's Finances</p>
-    <label class="toggle">
-      <input class="toggle-checkbox" type="checkbox">
+    <label class="toggle" data-controller="partner">
+      <input class="toggle-checkbox" type="checkbox" id="partner-toggle">
       <div class="toggle-switch"></div>
     </label>
   </div>
 
-  <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Net Worth", balance: number_to_currency(@net_worth), bgcolor: "green" %>
+  <div id="user-content">
+    <!-- Content to be shown when the toggle switch is toggled off -->
+    <!------------------------ Net Worth tab ------------------------>
 
-  <% if @outflow_this_month > @outflow_last_month %>
-   <p> You are spending more than last month ❗️</p>
-  <% end %>
-
-  <% if @outflow_this_month < @outflow_last_month %>
-   <p> You are spending less than last month 👍🏻</p>
-  <% end %>
-
-  <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg grey-icon", name: "Income / Expense This Month", balance: "#{number_to_currency(@inflow_this_month)}/#{number_to_currency(@outflow_this_month)}", bgcolor: "grey" %>
+    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Net Worth", balance: number_to_currency(@net_worth), bgcolor: "green" %>
 
 
-    <%# ------------------------------- chart starts here ------------------------------------------------------------- %>
+    <!------------------------ Spend vs last month tab ------------------------>
+
+    <% if @outflow_this_month > @outflow_last_month %>
+    <p> You are spending more than last month ❗️</p>
+    <% end %>
+
+    <% if @outflow_this_month < @outflow_last_month %>
+    <p> You are spending less than last month 👍🏻</p>
+    <% end %>
+
+    <!------------------------ Income this month tab ------------------------>
+
+    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Income This Month", balance: number_to_currency(@inflow_this_month), bgcolor: "green" %>
+
+    <!------------------------ Expense this month tab ------------------------>
+
+    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg grey-icon", name: "Expense This Month", balance: number_to_currency(@outflow_this_month), bgcolor: "grey" %>
+
+
+
+    <!------------------------ Chart starts here ------------------------------------------------------------->
+
+
 
     <%# ----------------------------- This Week  ------------------------------------------------------------- %>
-  <div>
     <div>
-      <h5 class="bold">Expense Breakdown This Week</h5>
-      <%= pie_chart @week_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
-    </div>
+      <div>
+        <h5 class="bold">Expense Breakdown This Week</h5>
+        <%= pie_chart week_spends_breakdown(current_user), donut: true, prefix: "$", thousands: ",", legend: "right" %>
+      </div>
 
-    <div>
-      <h5 class="bold">Expense This Week</h5>
-      <%= column_chart @expense_this_week.group_by_day(:date).sum(:amount) %>
+      <div>
+        <h5 class="bold">Expense This Week</h5>
+        <%= column_chart @expense_this_week.group_by_day(:date).sum(:amount) %>
+      </div>
     </div>
-  </div>
 
 
     <%# ----------------------------- This Month  ------------------------------------------------------------- %>
-  <div>
     <div>
-      <h5 class="bold">Expense Breakdown This Month</h5>
-      <%= pie_chart @month_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+      <div>
+        <h5 class="bold">Expense Breakdown This Month</h5>
+        <%= pie_chart @month_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+      </div>
+
+      <div>
+        <h5 class="bold">Expense This Month</h5>
+        <%= column_chart @expense_this_month.group_by_week(:date).sum(:amount) %>
+      </div>
+
+      <div>
+        <h5 class="bold">Income and Expnese this Month</h5>
+        <%= bar_chart [
+          {name: "Income", data: @income_this_month.group_by_month(:date, format: "%b").sum(:amount)},
+          {name: "Expense", data: @expense_this_month.group_by_month(:date, format: "%b").sum(:amount)}
+          ],
+          colors: ["#17D85C", "#FA8484"]
+        %>
+      </div>
+
     </div>
-
-    <div>
-      <h5 class="bold">Expense This Month</h5>
-      <%= column_chart @expense_this_month.group_by_week(:date).sum(:amount) %>
-    </div>
-
-    <div>
-      <h5 class="bold">Income and Expnese this Month</h5>
-      <%= bar_chart [
-        {name: "Income", data: @income_this_month.group_by_month(:date, format: "%b").sum(:amount)},
-        {name: "Expense", data: @expense_this_month.group_by_month(:date, format: "%b").sum(:amount)}
-        ],
-        colors: ["#17D85C", "#FA8484"]
-      %>
-    </div>
-
-  </div>
-
 
 
     <%# ----------------------------- This Year  ------------------------------------------------------------- %>
 
 
-  <div>
     <div>
-        <h5 class="bold">Expense Breakdown This Year</h5>
-        <%= pie_chart @year_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+      <div>
+          <h5 class="bold">Expense Breakdown This Year</h5>
+          <%= pie_chart @year_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+      </div>
+
+      <div>
+        <h5 class="bold">Expense vs Income This Year</h5>
+        <%= column_chart [
+          { name: "Income", data: @income_this_year },
+          { name: "Expenses", data: @expense_this_year }
+          ],
+          stacked: true,
+          colors: ["#17D85C", "#FA8484"]
+        %>
+      </div>
+
+      <div>
+        <h5 class="bold">Cashflow</h5>
+        <%= line_chart @net_income_by_month%>
+      </div>
+
+      <div>
+      todo add net worth line chart
+      </div>
+
     </div>
 
+
+
+  </div>
+
+  <div id="partner-content">
+    <!-- Content to be shown when the toggle switch is toggled on -->
+    <!------------------------ Net Worth tab ------------------------>
+    <% sum_net_worth = net_worth(current_user) + net_worth(current_user.partner) %>
+    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Net Worth", balance: number_to_currency(sum_net_worth), bgcolor: "green" %>
+
+
+    <!------------------------ Spend vs last month tab ------------------------>
+    <% sum_outflow_this_month = outflow_this_month(current_user) + outflow_this_month(current_user.partner) %>
+    <% sum_outflow_last_month = outflow_last_month(current_user) + outflow_last_month(current_user.partner) %>
+
+    <% if sum_outflow_this_month > sum_outflow_last_month %>
+    <p> You are spending more than last month ❗️</p>
+    <% end %>
+
+    <% if sum_outflow_this_month < sum_outflow_last_month %>
+    <p> You are spending less than last month 👍🏻</p>
+    <% end %>
+
+    <!------------------------ Income this month tab ------------------------>
+
+    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Income This Month", balance: number_to_currency(@inflow_this_month), bgcolor: "green" %>
+
+    <!------------------------ Expense this month tab ------------------------>
+
+    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg grey-icon", name: "Expense This Month", balance: number_to_currency(@outflow_this_month), bgcolor: "grey" %>
+
+
+
+    <!------------------------ Chart starts here ------------------------------------------------------------->
+
+
+
+    <%# ----------------------------- This Week  ------------------------------------------------------------- %>
     <div>
-      <h5 class="bold">Expense vs Income This Year</h5>
-      <%= column_chart [
-        { name: "Income", data: @income_this_year },
-        { name: "Expenses", data: @expense_this_year }
-        ],
-        stacked: true,
-        colors: ["#17D85C", "#FA8484"]
-      %>
+      <div>
+        <h5 class="bold">Expense Breakdown This Week</h5>
+        <%= pie_chart week_spends_breakdown(current_user), donut: true, prefix: "$", thousands: ",", legend: "right" %>
+      </div>
+
+      <div>
+        <h5 class="bold">Expense This Week</h5>
+        <%= column_chart @expense_this_week.group_by_day(:date).sum(:amount) %>
+      </div>
     </div>
 
+
+    <%# ----------------------------- This Month  ------------------------------------------------------------- %>
     <div>
-      <h5 class="bold">Cashflow</h5>
-      <%= line_chart @net_income_by_month%>
+      <div>
+        <h5 class="bold">Expense Breakdown This Month</h5>
+        <%= pie_chart @month_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+      </div>
+
+      <div>
+        <h5 class="bold">Expense This Month</h5>
+        <%= column_chart @expense_this_month.group_by_week(:date).sum(:amount) %>
+      </div>
+
+      <div>
+        <h5 class="bold">Income and Expnese this Month</h5>
+        <%= bar_chart [
+          {name: "Income", data: @income_this_month.group_by_month(:date, format: "%b").sum(:amount)},
+          {name: "Expense", data: @expense_this_month.group_by_month(:date, format: "%b").sum(:amount)}
+          ],
+          colors: ["#17D85C", "#FA8484"]
+        %>
+      </div>
+
     </div>
 
+
+    <%# ----------------------------- This Year  ------------------------------------------------------------- %>
+
+
     <div>
-    todo add net worth line chart
+      <div>
+          <h5 class="bold">Expense Breakdown This Year</h5>
+          <%= pie_chart @year_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+      </div>
+
+      <div>
+        <h5 class="bold">Expense vs Income This Year</h5>
+        <%= column_chart [
+          { name: "Income", data: @income_this_year },
+          { name: "Expenses", data: @expense_this_year }
+          ],
+          stacked: true,
+          colors: ["#17D85C", "#FA8484"]
+        %>
+      </div>
+
+      <div>
+        <h5 class="bold">Cashflow</h5>
+        <%= line_chart @net_income_by_month%>
+      </div>
+
+      <div>
+      todo add net worth line chart
+      </div>
+
     </div>
+
+
 
   </div>
 
