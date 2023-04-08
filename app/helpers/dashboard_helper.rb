@@ -71,6 +71,34 @@ module DashboardHelper
     week_spends_breakdown    = week_spends_breakdown.sort_by { |k, v| -v }.to_h
   end
 
+  def month_spends_breakdown(user)
+    ## Returns a hash. {cat.name: cat balance} sorted Descending
+    month_spends_breakdown = {}
+    user.categories.each do |c|
+      # skip if category is income
+      next if c.income?
+
+      balance = 0
+      c.transactions.where(date: Date.current.all_month).each do |t|
+        balance += t.amount
+      end
+      month_spends_breakdown.store(c.name, balance)
+    end
+    month_spends_breakdown    = month_spends_breakdown.sort_by { |k, v| -v }.to_h
+  end
+
+  def combined_week_spends_breakdown
+    week_spends_breakdown(current_user).merge(week_spends_breakdown(current_user.partner)) do |key, old_value, new_value|
+      old_value + new_value
+    end
+  end
+
+  def combined_month_spends_breakdown
+    month_spends_breakdown(current_user).merge(month_spends_breakdown(current_user.partner)) do |key, old_value, new_value|
+      old_value + new_value
+    end
+  end
+
   def combined_expense_this_week
     # returns an combined hash
     last_7_days = (Date.current - 6)..Date.current
