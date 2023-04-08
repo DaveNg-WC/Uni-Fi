@@ -162,9 +162,13 @@
 
     <%# ----------------------------- This Week  ------------------------------------------------------------- %>
     <div>
+      <% merged_week_spends_breakdown = week_spends_breakdown(current_user).merge(week_spends_breakdown(current_user.partner)) do |key, old_value, new_value|
+          old_value + new_value
+        end %>
+
       <div>
         <h5 class="bold">Expense Breakdown This Week</h5>
-        <%= pie_chart week_spends_breakdown(current_user), donut: true, prefix: "$", thousands: ",", legend: "right" %>
+        <%= pie_chart merged_week_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
       </div>
 
       <div>
