@@ -10,7 +10,7 @@
 
   <!-- this is where PARTIALS begins -->
 
-  <%= render "shared/infotab", name: "Your Total Net Worth", balance: number_to_currency(net_worth(@wallets)), icon: "fa-solid fa-money-bill fa-lg green-icon", bgcolor: "green" %>
+  <%= render "shared/infotab", name: "Your Total Net Worth", balance: number_to_currency(net_worth(current_user)), icon: "fa-solid fa-money-bill fa-lg green-icon", bgcolor: "green" %>
 
   <%# <div style="margin-bottom: 15px;">
     <%= render "shared/categorytab", name: "Wallet Name", balance: "S$ 500", icon: "fa-solid fa-wallet fa-lg" %>
