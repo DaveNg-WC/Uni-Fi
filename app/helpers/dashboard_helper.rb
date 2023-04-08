@@ -109,10 +109,28 @@ module DashboardHelper
     end
   end
 
-  def combined_expense_this_month
+  def combined_expense_this_month_by_week
     # returns an combined hash
     user        = total_expense(current_user).where(date: Date.current.all_month).group_by_week(:date).sum(:amount)
     partner     = total_expense(current_user.partner).where(date: Date.current.all_month).group_by_week(:date).sum(:amount)
+    merged_hash = user.merge(partner) do |key, old_value, new_value|
+      old_value + new_value
+    end
+  end
+
+  def combined_income_this_month
+    # returns an combined hash
+    user        = total_income(current_user).where(date: Date.current.all_month).group_by_month(:date, format: "%b").sum(:amount)
+    partner     = total_income(current_user.partner).where(date: Date.current.all_month).group_by_month(:date, format: "%b").sum(:amount)
+    merged_hash = user.merge(partner) do |key, old_value, new_value|
+      old_value + new_value
+    end
+  end
+
+  def combined_expense_this_month
+    # returns an combined hash
+    user        = total_expense(current_user).where(date: Date.current.all_month).group_by_month(:date, format: "%b").sum(:amount)
+    partner     = total_expense(current_user.partner).where(date: Date.current.all_month).group_by_month(:date, format: "%b").sum(:amount)
     merged_hash = user.merge(partner) do |key, old_value, new_value|
       old_value + new_value
     end

@@ -183,14 +183,14 @@
 
       <div>
         <h5 class="bold">Expense This Month</h5>
-        <%= column_chart combined_expense_this_month %>
+        <%= column_chart combined_expense_this_month_by_week %>
       </div>
 
       <div>
         <h5 class="bold">Income and Expnese this Month</h5>
         <%= bar_chart [
-          {name: "Income", data: @income_this_month.group_by_month(:date, format: "%b").sum(:amount)},
-          {name: "Expense", data: @expense_this_month.group_by_month(:date, format: "%b").sum(:amount)}
+          {name: "Income", data: combined_income_this_month},
+          {name: "Expense", data: combined_expense_this_month}
           ],
           colors: ["#17D85C", "#FA8484"]
         %>
