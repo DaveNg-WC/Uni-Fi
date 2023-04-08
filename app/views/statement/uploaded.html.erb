@@ -1,20 +1,50 @@
-<%= render "shared/pageheader", name: "Your Uploaded Transactions" %>
+<style>
+  .table-custom {
+    font-family: Courier, monospace;
+    font-size: 12px;
+    border: 1px solid #D7D7D7;
+  }
+</style>
 
-<% x = 0 %>
-<div class="container mobile d-flex flex-column justify-content-center    " style="margin-top: 30px;">
+<%= render "shared/pageheader", name: "Review Transactions" %>
 
-  <% if @array.count > 0 %>
-    <p>It took only 1 second to upload <%= @array.count %> transactions!</p>
-    <% @array.each do |t| %>
-      <% x += 1 %>
-      <%= x %>.
-      <%= t.description %> -
-      <%= date(t) %> -
-      <%= number_to_currency(t.amount) %>
-      <br>
-    <% end %>
-  <% else %>
+
+<% if @array.count > 0 %>
+  <% x = 0 %>
+  <% wallet = Wallet.find(@wallet_id.first) %>
+  <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
+    <p>Congratulations! <u><%= @array.count %></u> transactions found from <u><%= date(@array.first) %></u> to <u><%= date(@array.last) %></u>.</p>
+  </div>
+  <table class="table table-sm table-custom table-striped" style="max-width: 95%; margin: auto;">
+    <caption style="text-align: center">Successful Uploaded Transactions: <%= DateTime.now.strftime('%d-%m-%Y %H:%M') %></caption>
+    <thead>
+      <%# <tr>
+        <th scope="col">#</th>
+        <th scope="col">Date</th>
+        <th scope="col">Description</th>
+        <th scope="col">Category</th>
+        <th scope="col">Amount</th>
+      </tr> %>
+    </thead>
+    <tbody>
+      <% @array.each do |t| %>
+        <% x += 1 %>
+        <tr>
+          <th scope="row" style="font-weight: 400;"><%= x %>.</th>
+          <td> <%= date(t) %><br><%= t.description %></td>
+          <td> <strong><%= number_to_currency(t.amount) %></strong><br><%= Category.find(t.category_id).name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
+    <p class="bold" style="text-align: center">Wallet Chosen: <%= wallet.name %></p>
+    <%= link_to "Import All Transactions", statement_new_path, class: "btn-small-primary", style: "margin-bottom: 15px;" %>
+    <%= link_to "Cancel Import and Restart", statement_new_path, class: "btn-small-secondary", style: "margin-bottom: 15px;" %>
+  </div>
+<% else %>
+  <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
     <p style="text-align: center">You have no uploaded transactions! Click below to start uploading your bank statement!</p>
     <%= link_to "Upload Bank Statement", statement_new_path, class: "btn-small-primary", style: "margin-bottom: 15px;" %>
-  <% end %>
-</div>
+  </div>
+<% end %>

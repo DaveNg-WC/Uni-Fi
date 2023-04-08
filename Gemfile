@@ -25,6 +25,9 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 
+# Faker
+gem 'faker'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
@@ -80,3 +83,10 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "chartkick"
+gem "groupdate"
+
+source 'https://rubygems.org'
+
+gem 'railties', platforms: [:jruby, :ruby]
