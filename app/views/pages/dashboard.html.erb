@@ -127,32 +127,32 @@
     <!-- Content to be shown when the toggle switch is toggled on -->
 
     <!------------------------ Net Worth tab ------------------------>
-    <% sum_net_worth = net_worth(current_user) + net_worth(current_user.partner) %>
-    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Net Worth", balance: number_to_currency(sum_net_worth), bgcolor: "green" %>
+    <% combined_net_worth = net_worth(current_user) + net_worth(current_user.partner) %>
+    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Net Worth", balance: number_to_currency(combined_net_worth), bgcolor: "green" %>
 
 
     <!------------------------ Spend vs last month tab ------------------------>
-    <% sum_outflow_this_month = outflow_this_month(current_user) + outflow_this_month(current_user.partner) %>
-    <% sum_outflow_last_month = outflow_last_month(current_user) + outflow_last_month(current_user.partner) %>
+    <% combined_outflow_this_month = outflow_this_month(current_user) + outflow_this_month(current_user.partner) %>
+    <% combined_outflow_last_month = outflow_last_month(current_user) + outflow_last_month(current_user.partner) %>
 
-    <% if sum_outflow_this_month > sum_outflow_last_month %>
+    <% if combined_outflow_this_month > combined_outflow_last_month %>
     <p> You are spending more than last month ❗️</p>
     <% end %>
 
-    <% if sum_outflow_this_month < sum_outflow_last_month %>
+    <% if combined_outflow_this_month < combined_outflow_last_month %>
     <p> You are spending less than last month 👍🏻</p>
     <% end %>
 
     <!------------------------ Income this month tab ------------------------>
 
-    <% sum_inflow_this_month = inflow_this_month(current_user) + inflow_this_month(current_user.partner) %>
-    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Income This Month", balance: number_to_currency(sum_inflow_this_month), bgcolor: "green" %>
+    <% combined_inflow_this_month = inflow_this_month(current_user) + inflow_this_month(current_user.partner) %>
+    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Income This Month", balance: number_to_currency(combined_inflow_this_month), bgcolor: "green" %>
 
 
     <!------------------------ Expense this month tab ------------------------>
 
-    <% sum_outflow_this_month = outflow_this_month(current_user) + outflow_this_month(current_user.partner) %>
-    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg grey-icon", name: "Expense This Month", balance: number_to_currency(sum_outflow_this_month), bgcolor: "grey" %>
+    <% combined_outflow_this_month = outflow_this_month(current_user) + outflow_this_month(current_user.partner) %>
+    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg grey-icon", name: "Expense This Month", balance: number_to_currency(combined_outflow_this_month), bgcolor: "grey" %>
 
 
 
@@ -162,13 +162,13 @@
 
     <%# ----------------------------- This Week  ------------------------------------------------------------- %>
     <div>
-      <% merged_week_spends_breakdown = week_spends_breakdown(current_user).merge(week_spends_breakdown(current_user.partner)) do |key, old_value, new_value|
+      <% combined_week_spends_breakdown = week_spends_breakdown(current_user).merge(week_spends_breakdown(current_user.partner)) do |key, old_value, new_value|
           old_value + new_value
         end %>
 
       <div>
         <h5 class="bold">Expense Breakdown This Week</h5>
-        <%= pie_chart merged_week_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+        <%= pie_chart combined_week_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
       </div>
 
       <div>
