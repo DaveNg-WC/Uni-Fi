@@ -11,12 +11,14 @@ export default class PartnerController extends Controller {
     partnerToggle.addEventListener('change', () => {
       if (partnerToggle.checked) {
         console.log("checked")
-        partnerContent.style.display = 'block'; // Show the content when the toggle switch is checked
-        userContent.style.display    = 'none'; // Hide the content when the toggle switch is checked
+        partnerContent.classList.remove("d-none")
+        userContent.classList.add("d-none")
       } else {
         console.log("uncheck")
-        partnerContent.style.display  = 'none'; // Hide the content when the toggle switch is unchecked
-        userContent.style.display     = 'block'; // Show the content when the toggle switch is unchecked
+        partnerContent.classList.add("d-none");       // Hide the content when the toggle switch is unchecked
+        userContent.classList.remove("d-none");       // Show the content when the toggle switch is unchecked
+
+
       }
     });
   }

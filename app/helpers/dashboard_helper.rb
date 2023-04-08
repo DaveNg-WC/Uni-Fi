@@ -176,4 +176,14 @@ module DashboardHelper
     end
   end
 
+  def combined_net_income_by_month
+    #returns hash
+    net_income_by_month = {}
+    combined_income_this_year.each do |month, income|
+      expense                     = combined_expense_this_year[month] || 0  # || 0: This is a default value in case the month key is not found
+      net_income_by_month[month] = income - expense
+    end
+    net_income_by_month
+  end
+
 end
