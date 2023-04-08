@@ -183,7 +183,7 @@
 
       <div>
         <h5 class="bold">Expense This Month</h5>
-        <%= column_chart @expense_this_month.group_by_week(:date).sum(:amount) %>
+        <%= column_chart combined_expense_this_month %>
       </div>
 
       <div>
