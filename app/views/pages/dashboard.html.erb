@@ -1,4 +1,3 @@
-
 <div class="container mobile page-header" style="margin-bottom: 20px; margin-top: 120px;">
   <div></div>
   <h2 class="header bold" style="text-align: center;">Dashboard</h2>
@@ -20,16 +19,19 @@
 
   <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Net Worth", balance: number_to_currency(@net_worth), bgcolor: "green" %>
 
+  <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg grey-icon", name: "Income / Expense This Month", balance: "#{number_to_currency(@inflow_this_month)}/#{number_to_currency(@outflow_this_month)}", bgcolor: "grey" %>
+
   <% if @outflow_this_month > @outflow_last_month %>
-   <p> You are spending more than last month ❗️</p>
+    <div class="spend-more">
+      <p><i class="fa-solid fa-circle-exclamation"></i> Spending more than last month </p>
+    </div>
   <% end %>
 
   <% if @outflow_this_month < @outflow_last_month %>
-   <p> You are spending less than last month 👍🏻</p>
+    <div class="spend-less">
+      <p> <i class="fa-solid fa-circle-check"></i> Spending lesser than last month! </p>
+    </div>
   <% end %>
-
-  <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg grey-icon", name: "Income / Expense This Month", balance: "#{number_to_currency(@inflow_this_month)}/#{number_to_currency(@outflow_this_month)}", bgcolor: "grey" %>
-
 
     <%# ------------------------------- chart starts here ------------------------------------------------------------- %>
 
@@ -96,8 +98,15 @@
     <div>
     todo add net worth line chart
     </div>
-
   </div>
 
+  <div style="margin-bottom: 200px">
+    <!-- this provides the margin on top of the sticky button below -->
+  </div>
+
+  <div class="sticky">
+    <%= link_to "Import Via Bank Statement", new_transaction_path, class: "btn-small-primary", style: "margin-bottom: 15px;" %>
+    <%= link_to "New transaction", new_transaction_path, class: "btn-small-primary", style: "margin-bottom: 15px;" %>
+  </div>
 
 </div>
