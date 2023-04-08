@@ -125,6 +125,7 @@
 
   <div id="partner-content">
     <!-- Content to be shown when the toggle switch is toggled on -->
+
     <!------------------------ Net Worth tab ------------------------>
     <% sum_net_worth = net_worth(current_user) + net_worth(current_user.partner) %>
     <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Net Worth", balance: number_to_currency(sum_net_worth), bgcolor: "green" %>
@@ -144,7 +145,9 @@
 
     <!------------------------ Income this month tab ------------------------>
 
-    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Income This Month", balance: number_to_currency(@inflow_this_month), bgcolor: "green" %>
+    <% sum_inflow_this_month = inflow_this_month(current_user) + inflow_this_month(current_user.partner) %>
+    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg green-icon", name: "Income This Month", balance: number_to_currency(sum_inflow_this_month), bgcolor: "green" %>
+
 
     <!------------------------ Expense this month tab ------------------------>
 
