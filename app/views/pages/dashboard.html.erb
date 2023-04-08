@@ -158,8 +158,6 @@
 
     <!------------------------ Chart starts here ------------------------------------------------------------->
 
-
-
     <%# ----------------------------- This Week  ------------------------------------------------------------- %>
     <div>
       <% combined_week_spends_breakdown = week_spends_breakdown(current_user).merge(week_spends_breakdown(current_user.partner)) do |key, old_value, new_value|
@@ -173,7 +171,8 @@
 
       <div>
         <h5 class="bold">Expense This Week</h5>
-        <%= column_chart @expense_this_week.group_by_day(:date).sum(:amount) %>
+        <%# check helper  %>
+        <%= column_chart combined_expense_this_week %>
       </div>
     </div>
 

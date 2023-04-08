@@ -49,7 +49,7 @@ module DashboardHelper
     user.transactions.where(txn_type: "Income")
   end
 
-  def total_income(user)
+  def total_expense(user)
     #return array of instances
     user.transactions.where(txn_type: "Expense")
   end
@@ -71,6 +71,15 @@ module DashboardHelper
     week_spends_breakdown    = week_spends_breakdown.sort_by { |k, v| -v }.to_h
   end
 
-
+  def combined_expense_this_week
+    # returns an combined hash
+    last_7_days = (Date.current - 6)..Date.current
+    user        = total_expense(current_user).where(date: last_7_days).group_by_day(:date).sum(:amount)
+    partner     = total_expense(current_user.partner).where(date: last_7_days).group_by_day(:date).sum(:amount)
+    merged_hash = user.merge(partner) do |key, old_value, new_value|
+      old_value + new_value
+    end
+    merged_hash
+  end
 
 end
