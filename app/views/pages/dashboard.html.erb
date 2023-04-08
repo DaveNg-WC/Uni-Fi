@@ -151,7 +151,8 @@
 
     <!------------------------ Expense this month tab ------------------------>
 
-    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg grey-icon", name: "Expense This Month", balance: number_to_currency(@outflow_this_month), bgcolor: "grey" %>
+    <% sum_outflow_this_month = outflow_this_month(current_user) + outflow_this_month(current_user.partner) %>
+    <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg grey-icon", name: "Expense This Month", balance: number_to_currency(sum_outflow_this_month), bgcolor: "grey" %>
 
 
 
