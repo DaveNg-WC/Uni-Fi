@@ -124,151 +124,165 @@ transactions = []
 users.each do |user|
   categories_for_user = categories[users.index(user)]
   wallets_for_user = wallets.select { |wallet| wallet.user == user }
-
   i = 1
   while i <= 6
     # Create income transactions
-    categories_for_user.each do |category|
-      if category.category_type == "Income"
-        # income_category = categories_for_user.select { |category| category.category_type == "Income" }.sample
-        income_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "Debit" }.sample.id
-        case category.name
-        when "Salary"
-          transactions << Transaction.create!(
-          description: "Monthly Salary #{i+1}",
-          txn_type: "Income",
-          user: user,
-          category: category,
-          amount: rand(5000..6000),
-          date: Date.today.prev_month(i-1).beginning_of_month,
-          main_wallet_id: income_wallet
-        )
-        when "Cashback"
-          transactions << Transaction.create!(
-          description: "Cashback #{i+1}",
-          txn_type: "Income",
-          user: user,
-          category: category,
-          amount: rand(50..100),
-          date: Date.today.prev_month(i-1).beginning_of_month,
-          main_wallet_id: income_wallet
-        )
-        when "Dividend"
-          transactions << Transaction.create!(
-          description: "Dividend #{i+1}",
-          txn_type: "Income",
-          user: user,
-          category: category,
-          amount: rand(100..300),
-          date: Date.today.prev_month(i-1),
-          main_wallet_id: income_wallet
-        )
-        when "Refund"
-          3.times do |t|
+    if i != 2
+      categories_for_user.each do |category|
+        if category.category_type == "Income"
+          # income_category = categories_for_user.select { |category| category.category_type == "Income" }.sample
+          income_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "Debit" }.sample.id
+          case category.name
+          when "Salary"
             transactions << Transaction.create!(
-            description: "Dividend #{t+1}",
+            description: "Monthly Salary #{i+1}",
+            txn_type: "Income",
+            user: user,
+            category: category,
+            amount: rand(5000..6000),
+            date: Date.today.prev_month(i-1).beginning_of_month,
+            main_wallet_id: income_wallet
+          )
+          when "Cashback"
+            transactions << Transaction.create!(
+            description: "Cashback #{i+1}",
+            txn_type: "Income",
+            user: user,
+            category: category,
+            amount: rand(50..100),
+            date: Date.today.prev_month(i-1).beginning_of_month,
+            main_wallet_id: income_wallet
+          )
+          when "Dividend"
+            transactions << Transaction.create!(
+            description: "Dividend #{i+1}",
             txn_type: "Income",
             user: user,
             category: category,
             amount: rand(100..300),
-            date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
+            date: Date.today.prev_month(i-1),
             main_wallet_id: income_wallet
           )
+          when "Refund"
+            3.times do |t|
+              transactions << Transaction.create!(
+              description: "Dividend #{t+1}",
+              txn_type: "Income",
+              user: user,
+              category: category,
+              amount: rand(50..100),
+              date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
+              main_wallet_id: income_wallet
+            )
+            end
+          end
+        elsif category.category_type == "Expense"
+          # Create expense transactions
+          expense_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "Credit" }.sample.id
+          case category.name
+          when "Transport"
+            20.times do |t|
+              transactions << Transaction.create!(
+                description: "Daily transport spending #{t+1}",
+                txn_type: "Expense",
+                user: user,
+                category: category,
+                amount: rand(5..25),
+                date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
+                main_wallet_id: expense_wallet
+              )
+            end
+          when "Groceries"
+            15.times do |t|
+              transactions << Transaction.create!(
+                description: "Daily groceries spending #{t+1}",
+                txn_type: "Expense",
+                user: user,
+                category: category,
+                amount: rand(5..50),
+                date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
+                main_wallet_id: expense_wallet
+              )
+            end
+          when "Food"
+            30.times do |t|
+              transactions << Transaction.create!(
+                description: "Daily Food spending #{t+1}",
+                txn_type: "Expense",
+                user: user,
+                category: category,
+                amount: rand(10..30),
+                date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
+                main_wallet_id: expense_wallet
+              )
+            end
+          when "Leisure"
+            if i > 1
+              5.times do |t|
+                transactions << Transaction.create!(
+                  description: "Leisure spending #{t+1}",
+                  txn_type: "Expense",
+                  user: user,
+                  category: category,
+                  amount: rand(30..100),
+                  date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
+                  main_wallet_id: expense_wallet
+                )
+              end
+            else
+              10.times do |t|
+                transactions << Transaction.create!(
+                  description: "Leisure spending #{t+1}",
+                  txn_type: "Expense",
+                  user: user,
+                  category: category,
+                  amount: rand(200..1000),
+                  date: Date.today.prev_month(i-1).beginning_of_month + rand(1..12).days,
+                  main_wallet_id: expense_wallet
+                )
+              end
+            end
+          when "Services"
+            4.times do |t|
+              transactions << Transaction.create!(
+                description: "Services spending #{t+1}",
+                txn_type: "Expense",
+                user: user,
+                category: category,
+                amount: rand(20..50),
+                date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
+                main_wallet_id: expense_wallet
+              )
+            end
+          when "Others"
+            10.times do |t|
+              transactions << Transaction.create!(
+                description: "Other spending #{t+1}",
+                txn_type: "Expense",
+                user: user,
+                category: category,
+                amount: rand(20..100),
+                date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
+                main_wallet_id: expense_wallet
+              )
+            end
           end
         end
-      elsif category.category_type == "Expense"
-        # Create expense transactions
-        expense_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "Credit" }.sample.id
-
-        case category.name
-        when "Transport"
-          20.times do |t|
-            transactions << Transaction.create!(
-              description: "Daily transport spending #{t+1}",
-              txn_type: "Expense",
-              user: user,
-              category: category,
-              amount: rand(5..25),
-              date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
-              main_wallet_id: expense_wallet
-            )
-          end
-        when "Groceries"
-          15.times do |t|
-            transactions << Transaction.create!(
-              description: "Daily groceries spending #{t+1}",
-              txn_type: "Expense",
-              user: user,
-              category: category,
-              amount: rand(5..50),
-              date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
-              main_wallet_id: expense_wallet
-            )
-          end
-        when "Food"
-          30.times do |t|
-            transactions << Transaction.create!(
-              description: "Daily Food spending #{t+1}",
-              txn_type: "Expense",
-              user: user,
-              category: category,
-              amount: rand(10..30),
-              date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
-              main_wallet_id: expense_wallet
-            )
-          end
-        when "Leisure"
+            # Create transfer transactions
           5.times do |t|
+            transfer_wallet_from = wallets_for_user.sample.id
+            transfer_wallet_to = (wallets_for_user - [transfer_wallet_from]).sample.id
             transactions << Transaction.create!(
-              description: "Leisure spending #{t+1}",
-              txn_type: "Expense",
+              description: "Transfer transaction #{t+1}",
+              txn_type: "Transfer",
               user: user,
-              category: category,
-              amount: rand(30..100),
-              date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
-              main_wallet_id: expense_wallet
+              amount: rand(10..100),
+              date: Date.today.prev_month(i).end_of_month - rand(1..30).days,
+              main_wallet_id: transfer_wallet_from,
+              second_wallet_id: transfer_wallet_to
             )
           end
-        when "Services"
-          4.times do |t|
-            transactions << Transaction.create!(
-              description: "Services spending #{t+1}",
-              txn_type: "Expense",
-              user: user,
-              category: category,
-              amount: rand(20..50),
-              date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
-              main_wallet_id: expense_wallet
-            )
-          end
-        when "Others"
-          10.times do |t|
-            transactions << Transaction.create!(
-              description: "Other spending #{t+1}",
-              txn_type: "Expense",
-              user: user,
-              category: category,
-              amount: rand(5..80),
-              date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
-              main_wallet_id: expense_wallet
-            )
-          end
-        end
       end
-          # Create transfer transactions
-        5.times do |t|
-          transfer_wallet_from = wallets_for_user.sample.id
-          transfer_wallet_to = (wallets_for_user - [transfer_wallet_from]).sample.id
-          transactions << Transaction.create!(
-            description: "Transfer transaction #{t+1}",
-            txn_type: "Transfer",
-            user: user,
-            amount: rand(10..100),
-            date: Date.today.prev_month(i).end_of_month - rand(1..30).days,
-            main_wallet_id: transfer_wallet_from,
-            second_wallet_id: transfer_wallet_to
-          )
-        end
     end
     i += 1
   end
