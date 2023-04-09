@@ -19,8 +19,8 @@ class CategoriesController < ApplicationController
   # GET /categories/1 or /categories/1.json
   def show
     # all transactions within current category for current user
-    @transactions = current_user.transactions.where(category: @category)
 
+    @transactions = current_user.transactions.where(category: @category)
     # summing all transactions values of above transactions
     @sum = 0
     @transactions.each { |t| @sum += t.amount }
