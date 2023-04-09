@@ -7,8 +7,8 @@ import { application } from "./application"
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
-import PartnerController from "./partner_controller"
-application.register("partner", PartnerController)
+import DashboardController from "./dashboard_controller"
+application.register("dashboard", DashboardController)
 
 import TransactionController from "./transaction_controller"
 application.register("transaction", TransactionController)
