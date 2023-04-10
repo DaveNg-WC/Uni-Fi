@@ -1,3 +1,19 @@
+<style>
+  .new-wallet-button {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    padding: 24px 40px 16px 40px;
+    background-color: white;
+    border: 1px solid #dbdbdb;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+</style>
+
 <p style="color: green"><%= notice %></p>
 
 <%= render "shared/pageheader", name: "Your Wallets" %>
@@ -25,6 +41,8 @@
       </a>
     <% end %>
   </div>
+</div>
 
-  <%= link_to "Create New Wallet", new_wallet_path, class: "btn-small-primary" %>
+<div class="new-wallet-button">
+    <%= link_to "Create New Wallet", new_wallet_path, class: "btn-small-primary", style: "margin-bottom: 15px;" %>
 </div>
