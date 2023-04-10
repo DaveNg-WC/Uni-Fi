@@ -11,7 +11,7 @@
   <!------------------------ View Partner Toggle ------------------------>
   <div class="view-partner">
     <p class="view-partner-left">View Combined Finances</p>
-    <label class="toggle" data-controller="partner">
+    <label class="toggle" data-controller="dashboard">
       <input class="toggle-checkbox" type="checkbox" id="partner-toggle">
       <div class="toggle-switch"></div>
     </label>
@@ -48,40 +48,54 @@
     <!------------------------ Chart starts here ------------------------------------------------------------->
 
 
+    <!------------------------ Week Monht Year Radio ------------------------------------------------------------->
+    <div class="btn-group">
+      <label class="graph-choice py-2 selected" id="week-label" for="week">Week</label>
+      <input type="radio" class="btn-check" name="options" id="week" autocomplete="off" checked />
+
+      <label class="graph-choice py-2" id="month-label" for="month">Month</label>
+      <input type="radio" class="btn-check" name="options" id="month" autocomplete="off" />
+
+      <label class="graph-choice py-2" id="year-label" for="year">Year</label>
+      <input type="radio" class="btn-check" name="options" id="year" autocomplete="off" />
+    </div>
+
 
     <%# ----------------------------- This Week  ------------------------------------------------------------- %>
-    <div>
+    <div id="week-graphs" class="mt-3">
       <div>
         <h5 class="bold">Expense Breakdown This Week</h5>
         <%= pie_chart week_spends_breakdown(current_user), donut: true, prefix: "$", thousands: ",", legend: "right" %>
       </div>
 
       <div>
-        <h5 class="bold">Expense This Week</h5>
-        <%= column_chart @expense_this_week.group_by_day(:date).sum(:amount) %>
+        <h5 class="bold">Expense by Day</h5>
+        <%= column_chart @expense_this_week.group_by_day(:date).sum(:amount), prefix: "$", thousands: "," %>
       </div>
     </div>
 
 
     <%# ----------------------------- This Month  ------------------------------------------------------------- %>
-    <div>
+    <div id="month-graphs" class="mt-3 d-none">
       <div>
         <h5 class="bold">Expense Breakdown This Month</h5>
         <%= pie_chart @month_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
       </div>
 
       <div>
-        <h5 class="bold">Expense This Month</h5>
-        <%= column_chart @expense_this_month.group_by_week(:date).sum(:amount) %>
+        <h5 class="bold">Expense by Week</h5>
+        <%= column_chart @expense_this_month.group_by_week(:date).sum(:amount),prefix: "$", thousands: "," %>
       </div>
 
-      <div>
-        <h5 class="bold">Income and Expnese this Month</h5>
+      <div class="mt-3">
+        <h5 class="bold">Income vs Expnese this Month</h5>
         <%= bar_chart [
           {name: "Income", data: @income_this_month.group_by_month(:date, format: "%b").sum(:amount)},
           {name: "Expense", data: @expense_this_month.group_by_month(:date, format: "%b").sum(:amount)}
           ],
-          colors: ["#17D85C", "#FA8484"]
+          colors: ["#17D85C", "#FA8484"],
+          prefix: "$",
+          thousands: ","
         %>
       </div>
 
@@ -89,9 +103,7 @@
 
 
     <%# ----------------------------- This Year  ------------------------------------------------------------- %>
-
-
-    <div>
+    <div id="year-graphs" class="mt-3 d-none">
       <div>
           <h5 class="bold">Expense Breakdown This Year</h5>
           <%= pie_chart @year_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
@@ -104,26 +116,24 @@
           { name: "Expenses", data: @expense_this_year }
           ],
           stacked: true,
-          colors: ["#17D85C", "#FA8484"]
+          colors: ["#17D85C", "#FA8484"],
+          prefix: "$",
+          thousands: ","
         %>
       </div>
 
-      <div>
+      <div class="mt-3">
         <h5 class="bold">Cashflow</h5>
-        <%= line_chart @net_income_by_month%>
-      </div>
-
-      <div>
-      todo add net worth line chart
+        <%= line_chart @net_income_by_month,  prefix: "$", thousands: ","%>
       </div>
 
     </div>
 
 
-
   </div>
 
   <div id="partner-content" class="d-none">
+
     <!-- Content to be shown when the toggle switch is toggled on -->
 
     <!------------------------ Net Worth tab ------------------------>
@@ -146,8 +156,7 @@
     <% combined_outflow_this_month = outflow_this_month(current_user) + outflow_this_month(current_user.partner) %>
     <%= render "shared/infotab", icon: "fa-solid fa-money-bill fa-lg grey-icon", name: "Expense This Month", balance: number_to_currency(combined_outflow_this_month), bgcolor: "grey" %>
 
-  <!------------------------ Spend vs last month tab ------------------------>
-
+    <!------------------------ Spend vs last month tab ------------------------>
     <% if combined_outflow_this_month > combined_outflow_last_month %>
       <div class="spend-more">
         <p><i class="fa-solid fa-circle-exclamation"></i> Spending more than last month </p>
@@ -160,13 +169,23 @@
       </div>
     <% end %>
 
-
-
     <!------------------------ Chart starts here ------------------------------------------------------------->
 
-    <%# ----------------------------- This Week  ------------------------------------------------------------- %>
-    <div>
+    <!------------------------ Week Monht Year Radio ------------------------------------------------------------->
+    <div class="btn-group">
+      <label class="graph-choice py-2 selected" id="week-label-partner" for="week-partner">Week</label>
+      <input type="radio" class="btn-check" name="options" id="week-partner" autocomplete="off" checked />
 
+      <label class="graph-choice py-2" id="month-label-partner" for="month-partner">Month</label>
+      <input type="radio" class="btn-check" name="options" id="month-partner" autocomplete="off" />
+
+      <label class="graph-choice py-2" id="year-label-partner" for="year-partner">Year</label>
+      <input type="radio" class="btn-check" name="options" id="year-partner" autocomplete="off" />
+    </div>
+
+
+    <!----------------------------- This Week  ------------------------------------------------------------->
+    <div id="week-graphs-partner" class="mt-3">
       <div>
         <h5 class="bold">Expense Breakdown This Week</h5>
         <%= pie_chart combined_week_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
@@ -175,75 +194,82 @@
       <div>
         <h5 class="bold">Expense This Week</h5>
         <%# check helper  %>
-        <%= column_chart combined_expense_this_week %>
+        <%= column_chart combined_expense_this_week, prefix: "$", thousands: "," %>
       </div>
     </div>
 
 
-    <%# ----------------------------- This Month  ------------------------------------------------------------- %>
-    <div>
+    <!----------------------------- This Month  ------------------------------------------------------------->
+    <div id="month-graphs-partner" class="mt-3 d-none">
       <div>
         <h5 class="bold">Expense Breakdown This Month</h5>
+        <!-- Check Helper for combined data -->
         <%= pie_chart combined_month_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
       </div>
 
       <div>
         <h5 class="bold">Expense This Month</h5>
-        <%= column_chart combined_expense_this_month_by_week %>
+        <!-- Check Helper for combined data -->
+        <%= column_chart combined_expense_this_month_by_week, prefix: "$", thousands: "," %>
       </div>
 
-      <div>
+      <div class="mt-3">
         <h5 class="bold">Income and Expnese this Month</h5>
+        <!-- Check Helper for combined data -->
         <%= bar_chart [
           {name: "Income", data: combined_income_this_month},
           {name: "Expense", data: combined_expense_this_month}
           ],
-          colors: ["#17D85C", "#FA8484"]
+          colors: ["#17D85C", "#FA8484"],
+          prefix: "$",
+          thousands: ","
         %>
       </div>
 
     </div>
 
 
-    <%# ----------------------------- This Year  ------------------------------------------------------------- %>
-
-
-    <div>
+    <!----------------------------- This Year  ------------------------------------------------------------->
+    <div id="year-graphs-partner" class="mt-3 d-none">
       <div>
-          <h5 class="bold">Expense Breakdown This Year</h5>
-          <%= pie_chart combined_year_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+        <h5 class="bold">Expense Breakdown This Year</h5>
+        <!-- Check Helper for combined data -->
+        <%= pie_chart combined_year_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
       </div>
 
       <div>
         <h5 class="bold">Expense vs Income This Year</h5>
+        <!-- Check Helper for combined data -->
         <%= column_chart [
           { name: "Income", data: combined_income_this_year },
           { name: "Expenses", data: combined_expense_this_year }
           ],
           stacked: true,
-          colors: ["#17D85C", "#FA8484"]
+          colors: ["#17D85C", "#FA8484"],
+          prefix: "$",
+          thousands: ","
         %>
       </div>
 
-      <div>
+      <div class="mt-3">
         <h5 class="bold">Cashflow</h5>
-        <%= line_chart combined_net_income_by_month%>
-      </div>
-
-      <div>
-      <!--todo add net worth line chart -->
+        <!-- Check Helper for combined data -->
+        <%= line_chart combined_net_income_by_month, prefix: "$", thousands: "," %>
       </div>
 
     </div>
+
+
   </div>
+
 
   <div style="margin-bottom: 200px">
     <!-- this provides the margin on top of the sticky button below -->
   </div>
 
   <div class="sticky">
-    <%= link_to "Import Via Bank Statement", new_transaction_path, class: "btn-small-primary", style: "margin-bottom: 15px;" %>
-    <%= link_to "New transaction", new_transaction_path, class: "btn-small-primary", style: "margin-bottom: 15px;" %>
+    <%= link_to "Import Via Bank Statement", statement_new_path, class: "btn-small-primary my-3" %>
+    <%= link_to "New transaction", new_transaction_path, class: "btn-small-primary my-3" %>
   </div>
 
 </div>

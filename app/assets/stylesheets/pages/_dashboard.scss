@@ -4,7 +4,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  padding: 24px 40px 16px 40px;
+  padding: 4px 12px 4px 12px;
   background-color: white;
   border: 1px solid #dbdbdb;
   border-top-left-radius: 8px;
@@ -43,3 +43,28 @@
 .spend-less p {
   margin: 0px;
 }
+
+// --------- week month year radio ------------- //
+
+
+.btn-group {
+  display: flex;
+  flex-direction: row;
+}
+.btn-group > * {
+  flex-grow: 1;
+}
+
+.selected {
+  background-color: black;
+  color: white;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.graph-choice {
+  text-align: center;
+  border: 1px solid #dbdbdb;
+}
+
+
+// --------- End of week month year radio ------------- //
