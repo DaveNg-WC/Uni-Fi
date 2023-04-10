@@ -45,6 +45,8 @@ users.each do |user|
     )
   end
 
+
+  # Do not create any other categories before this as the ID used for upload statement is fixed. If changed, might have bugs
   # Needed Seed for Statement Upload
   expense_categories << Category.create!(
     name: "Transport",
