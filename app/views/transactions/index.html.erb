@@ -12,49 +12,47 @@
     border-top-right-radius: 8px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   }
+
+  .txn-search {
+    display: flex;
+    flex-direction: column;
+  }
 </style>
 
 <%= render "shared/pageheader", name: "All Transactions" %>
 
 <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
 
-  <%= form_with url: params[:wallet_id].present? ? wallet_transactions_path(Wallet.find(params[:wallet_id])) : transactions_path,
-    method: :get, class: "d-flex" do
-  %>
+    <%= form_with url: params[:wallet_id].present? ? wallet_transactions_path(Wallet.find(params[:wallet_id])) : transactions_path,
+      method: :get, class: "d-flex flex-column" do
+    %>
 
-<div padding: 10px;
-border: 2px solid #ccc;
-border-right: none;
-font-size: 16px;
-border-radius: 5px 0 0 5px;>
+      <%= text_field_tag :search_keyword,
+        params[:search_keyword],
+        class: "form-control",
+        placeholder: "Search by Key Word",
+        style: "margin-bottom: 15px;"
+      %>
 
-  <%= text_field_tag :search_keyword,
-    params[:search_keyword],
-    class: "form-control",
-    placeholder: "Search by Key Word",
-    style: "margin-bottom: 15px;"
-  %>
+      <%= label_tag :start_date, "Start Date" %>
+      <%= date_field_tag :start_date,
+        params[:start_date],
+        class: "form-control",
+        style: "margin-bottom: 15px;"
+      %>
 
-  <%= label_tag :start_date, "Start Date" %>
-  <%= date_field_tag :start_date,
-    params[:start_date],
-    class: "form-control",
-    style: "margin-bottom: 15px;"
-  %>
+      <%= label_tag :end_date, "End Date" %>
+      <%= date_field_tag :end_date,
+        params[:end_date],
+        class: "form-control",
+        style: "margin-bottom: 15px;"
+      %>
 
-  <%= label_tag :end_date, "End Date" %>
-  <%= date_field_tag :end_date,
-    params[:end_date],
-    class: "form-control",
-    style: "margin-bottom: 15px;"
-  %>
-
-  <%= submit_tag "Search",
-    class: "btn-small-primary",
-    style: "margin-bottom: 15px;"
-  %>
-  </div>
-  <% end %>
+      <%= submit_tag "Search",
+        class: "btn-small-primary",
+        style: "margin-bottom: 15px;"
+      %>
+    <% end %>
 
   <div id="transactions">
     <% if @transactions.empty? %>
