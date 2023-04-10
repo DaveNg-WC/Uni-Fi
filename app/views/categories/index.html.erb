@@ -20,5 +20,30 @@
       </div>
     </a>
   <% end %>
-  <%= link_to "New category", new_category_path, class:"btn-small-primary", style: "margin-bottom: 16px;" %>
+
+</div>
+
+<style>
+  .new-category-button {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    padding: 24px 40px 16px 40px;
+    background-color: white;
+    border: 1px solid #dbdbdb;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+</style>
+
+
+<div style="margin-bottom: 120px">
+  <!-- this provides the margin on top of the sticky button below -->
+</div>
+
+<div class="new-category-button">
+    <%= link_to "New category", new_category_path, class:"btn-small-primary", style: "margin-bottom: 16px;" %>
 </div>
