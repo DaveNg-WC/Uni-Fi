@@ -9,13 +9,15 @@
 <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
 
   <!------------------------ View Partner Toggle ------------------------>
-  <div class="view-partner">
-    <p class="view-partner-left">View Combined Finances</p>
-    <label class="toggle" data-controller="dashboard">
-      <input class="toggle-checkbox" type="checkbox" id="partner-toggle">
-      <div class="toggle-switch"></div>
-    </label>
-  </div>
+  <% unless current_user.partner.nil? %>
+    <div class="view-partner">
+      <p class="view-partner-left">View Combined Finances</p>
+      <label class="toggle" data-controller="dashboard">
+        <input class="toggle-checkbox" type="checkbox" id="partner-toggle">
+        <div class="toggle-switch"></div>
+      </label>
+    </div>
+  <% end %>
 
   <div id="user-content">
     <!-- Content to be shown when the toggle switch is toggled off -->
@@ -132,137 +134,139 @@
 
   </div>
 
-  <div id="partner-content" class="d-none">
+  <% unless current_user.partner.nil? %>
+
+    <div id="partner-content" class="d-none">
+
+      <!-- Content to be shown when the toggle switch is toggled on -->
+
+      <!------------------------ Net Worth tab ------------------------>
+      <% combined_net_worth = net_worth(current_user) + net_worth(current_user.partner) %>
+      <%= render "shared/infotab", icon: "fa-solid fa-user fa-lg green-icon", name: "Net Worth", balance: number_to_currency(combined_net_worth), bgcolor: "green" %>
 
 
+      <!------------------------ Spend vs last month tab ------------------------>
+      <% combined_outflow_this_month = outflow_this_month(current_user) + outflow_this_month(current_user.partner) %>
+      <% combined_outflow_last_month = outflow_last_month(current_user) + outflow_last_month(current_user.partner) %>
 
-    <!-- Content to be shown when the toggle switch is toggled on -->
+      <!------------------------ Income this month tab ------------------------>
 
-    <!------------------------ Net Worth tab ------------------------>
-    <% combined_net_worth = net_worth(current_user) + net_worth(current_user.partner) %>
-    <%= render "shared/infotab", icon: "fa-solid fa-user fa-lg green-icon", name: "Net Worth", balance: number_to_currency(combined_net_worth), bgcolor: "green" %>
-
-
-    <!------------------------ Spend vs last month tab ------------------------>
-    <% combined_outflow_this_month = outflow_this_month(current_user) + outflow_this_month(current_user.partner) %>
-    <% combined_outflow_last_month = outflow_last_month(current_user) + outflow_last_month(current_user.partner) %>
-
-    <!------------------------ Income this month tab ------------------------>
-
-    <% combined_inflow_this_month = inflow_this_month(current_user) + inflow_this_month(current_user.partner) %>
-    <%= render "shared/infotab", icon: "fa-solid fa-sack-dollar fa-lg green-icon", name: "Income This Month", balance: number_to_currency(combined_inflow_this_month), bgcolor: "green" %>
+      <% combined_inflow_this_month = inflow_this_month(current_user) + inflow_this_month(current_user.partner) %>
+      <%= render "shared/infotab", icon: "fa-solid fa-sack-dollar fa-lg green-icon", name: "Income This Month", balance: number_to_currency(combined_inflow_this_month), bgcolor: "green" %>
 
 
-    <!------------------------ Expense this month tab ------------------------>
+      <!------------------------ Expense this month tab ------------------------>
 
-    <% combined_outflow_this_month = outflow_this_month(current_user) + outflow_this_month(current_user.partner) %>
-    <%= render "shared/infotab", icon: "fa-solid fa-hand-holding-dollar fa-lg grey-icon", name: "Expense This Month", balance: number_to_currency(combined_outflow_this_month), bgcolor: "grey" %>
+      <% combined_outflow_this_month = outflow_this_month(current_user) + outflow_this_month(current_user.partner) %>
+      <%= render "shared/infotab", icon: "fa-solid fa-hand-holding-dollar fa-lg grey-icon", name: "Expense This Month", balance: number_to_currency(combined_outflow_this_month), bgcolor: "grey" %>
 
-    <!------------------------ Spend vs last month tab ------------------------>
-    <% if combined_outflow_this_month > combined_outflow_last_month %>
-      <div class="spend-more">
-        <p><i class="fa-solid fa-circle-exclamation"></i> Spending more than last month </p>
+      <!------------------------ Spend vs last month tab ------------------------>
+      <% if combined_outflow_this_month > combined_outflow_last_month %>
+        <div class="spend-more">
+          <p><i class="fa-solid fa-circle-exclamation"></i> Spending more than last month </p>
+        </div>
+      <% end %>
+
+      <% if combined_outflow_this_month < combined_outflow_last_month %>
+        <div class="spend-less">
+          <p> <i class="fa-solid fa-circle-check"></i> Spending lesser than last month! </p>
+        </div>
+      <% end %>
+
+      <!------------------------ Chart starts here ------------------------------------------------------------->
+
+      <!------------------------ Week Monht Year Radio ------------------------------------------------------------->
+      <div class="btn-group">
+        <label class="graph-choice py-2 selected" id="week-label-partner" for="week-partner">Week</label>
+        <input type="radio" class="btn-check" name="options" id="week-partner" autocomplete="off" checked />
+
+        <label class="graph-choice py-2" id="month-label-partner" for="month-partner">Month</label>
+        <input type="radio" class="btn-check" name="options" id="month-partner" autocomplete="off" />
+
+        <label class="graph-choice py-2" id="year-label-partner" for="year-partner">Year</label>
+        <input type="radio" class="btn-check" name="options" id="year-partner" autocomplete="off" />
       </div>
-    <% end %>
 
-    <% if combined_outflow_this_month < combined_outflow_last_month %>
-      <div class="spend-less">
-        <p> <i class="fa-solid fa-circle-check"></i> Spending lesser than last month! </p>
+
+      <!----------------------------- This Week  ------------------------------------------------------------->
+      <div id="week-graphs-partner" class="mt-3">
+        <div>
+          <h5 class="bold">Expense Breakdown This Week</h5>
+          <%= pie_chart combined_week_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+        </div>
+
+        <div>
+          <h5 class="bold">Expense This Week</h5>
+          <%# check helper  %>
+          <%= column_chart combined_expense_this_week, prefix: "$", thousands: "," %>
+        </div>
       </div>
-    <% end %>
 
-    <!------------------------ Chart starts here ------------------------------------------------------------->
 
-    <!------------------------ Week Monht Year Radio ------------------------------------------------------------->
-    <div class="btn-group">
-      <label class="graph-choice py-2 selected" id="week-label-partner" for="week-partner">Week</label>
-      <input type="radio" class="btn-check" name="options" id="week-partner" autocomplete="off" checked />
+      <!----------------------------- This Month  ------------------------------------------------------------->
+      <div id="month-graphs-partner" class="mt-3 d-none">
+        <div>
+          <h5 class="bold">Expense Breakdown This Month</h5>
+          <!-- Check Helper for combined data -->
+          <%= pie_chart combined_month_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+        </div>
 
-      <label class="graph-choice py-2" id="month-label-partner" for="month-partner">Month</label>
-      <input type="radio" class="btn-check" name="options" id="month-partner" autocomplete="off" />
+        <div>
+          <h5 class="bold">Expense This Month</h5>
+          <!-- Check Helper for combined data -->
+          <%= column_chart combined_expense_this_month_by_week, prefix: "$", thousands: "," %>
+        </div>
 
-      <label class="graph-choice py-2" id="year-label-partner" for="year-partner">Year</label>
-      <input type="radio" class="btn-check" name="options" id="year-partner" autocomplete="off" />
+        <div class="mt-3">
+          <h5 class="bold">Income and Expnese this Month</h5>
+          <!-- Check Helper for combined data -->
+          <%= bar_chart [
+            {name: "Income", data: combined_income_this_month},
+            {name: "Expense", data: combined_expense_this_month}
+            ],
+            colors: ["#17D85C", "#FA8484"],
+            prefix: "$",
+            thousands: ","
+          %>
+        </div>
+
+      </div>
+
+
+      <!----------------------------- This Year  ------------------------------------------------------------->
+      <div id="year-graphs-partner" class="mt-3 d-none">
+        <div>
+          <h5 class="bold">Expense Breakdown This Year</h5>
+          <!-- Check Helper for combined data -->
+          <%= pie_chart combined_year_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+        </div>
+
+        <div>
+          <h5 class="bold">Expense vs Income This Year</h5>
+          <!-- Check Helper for combined data -->
+          <%= column_chart [
+            { name: "Income", data: combined_income_this_year },
+            { name: "Expenses", data: combined_expense_this_year }
+            ],
+            stacked: true,
+            colors: ["#17D85C", "#FA8484"],
+            prefix: "$",
+            thousands: ","
+          %>
+        </div>
+
+        <div class="mt-3">
+          <h5 class="bold">Cashflow</h5>
+          <!-- Check Helper for combined data -->
+          <%= line_chart combined_net_income_by_month, prefix: "$", thousands: "," %>
+        </div>
+
+      </div>
+
+
     </div>
 
-
-    <!----------------------------- This Week  ------------------------------------------------------------->
-    <div id="week-graphs-partner" class="mt-3">
-      <div>
-        <h5 class="bold">Expense Breakdown This Week</h5>
-        <%= pie_chart combined_week_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
-      </div>
-
-      <div>
-        <h5 class="bold">Expense This Week</h5>
-        <%# check helper  %>
-        <%= column_chart combined_expense_this_week, prefix: "$", thousands: "," %>
-      </div>
-    </div>
-
-
-    <!----------------------------- This Month  ------------------------------------------------------------->
-    <div id="month-graphs-partner" class="mt-3 d-none">
-      <div>
-        <h5 class="bold">Expense Breakdown This Month</h5>
-        <!-- Check Helper for combined data -->
-        <%= pie_chart combined_month_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
-      </div>
-
-      <div>
-        <h5 class="bold">Expense This Month</h5>
-        <!-- Check Helper for combined data -->
-        <%= column_chart combined_expense_this_month_by_week, prefix: "$", thousands: "," %>
-      </div>
-
-      <div class="mt-3">
-        <h5 class="bold">Income and Expnese this Month</h5>
-        <!-- Check Helper for combined data -->
-        <%= bar_chart [
-          {name: "Income", data: combined_income_this_month},
-          {name: "Expense", data: combined_expense_this_month}
-          ],
-          colors: ["#17D85C", "#FA8484"],
-          prefix: "$",
-          thousands: ","
-        %>
-      </div>
-
-    </div>
-
-
-    <!----------------------------- This Year  ------------------------------------------------------------->
-    <div id="year-graphs-partner" class="mt-3 d-none">
-      <div>
-        <h5 class="bold">Expense Breakdown This Year</h5>
-        <!-- Check Helper for combined data -->
-        <%= pie_chart combined_year_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
-      </div>
-
-      <div>
-        <h5 class="bold">Expense vs Income This Year</h5>
-        <!-- Check Helper for combined data -->
-        <%= column_chart [
-          { name: "Income", data: combined_income_this_year },
-          { name: "Expenses", data: combined_expense_this_year }
-          ],
-          stacked: true,
-          colors: ["#17D85C", "#FA8484"],
-          prefix: "$",
-          thousands: ","
-        %>
-      </div>
-
-      <div class="mt-3">
-        <h5 class="bold">Cashflow</h5>
-        <!-- Check Helper for combined data -->
-        <%= line_chart combined_net_income_by_month, prefix: "$", thousands: "," %>
-      </div>
-
-    </div>
-
-
-  </div>
+  <% end %>
 
 
   <div style="margin-bottom: 200px">
