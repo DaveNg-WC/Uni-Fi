@@ -50,7 +50,7 @@
     <!------------------------ Chart starts here ------------------------------------------------------------->
 
 
-    <!------------------------ Week Monht Year Radio ------------------------------------------------------------->
+    <!------------------------ Week Month Year Radio ------------------------------------------------------------->
     <div class="btn-group">
       <label class="graph-choice py-2" id="week-label" for="week">Week</label>
       <input type="radio" class="btn-check" name="options" id="week" autocomplete="off" />
@@ -71,8 +71,8 @@
       </div>
 
       <div>
-        <h5 class="bold">Expense by Day</h5>
-        <%= column_chart @expense_this_week.group_by_day(:date).sum(:amount), prefix: "$", thousands: "," %>
+        <h5 class="bold">Expense Last 7 Days</h5>
+        <%= column_chart @expense_this_week.group_by_day(:date, format: "%a").sum(:amount), prefix: "$", thousands: "," %>
       </div>
     </div>
 
@@ -85,12 +85,13 @@
       </div>
 
       <div>
-        <h5 class="bold">Expense by Week</h5>
-        <%= column_chart @expense_this_month.group_by_week(:date).sum(:amount),prefix: "$", thousands: "," %>
+        <h5 class="bold">Expense This Month by Week</h5>
+        <%= column_chart @expense_this_month.group_by_week(:date, format: "%-d %b").sum(:amount),prefix: "$", thousands: "," %>
       </div>
 
+
       <div class="mt-3">
-        <h5 class="bold">Income vs Expnese this Month</h5>
+        <h5 class="bold">Income vs Expense this Month</h5>
         <%= bar_chart [
           {name: "Income", data: @income_this_month.group_by_month(:date, format: "%b").sum(:amount)},
           {name: "Expense", data: @expense_this_month.group_by_month(:date, format: "%b").sum(:amount)}
@@ -195,7 +196,7 @@
         </div>
 
         <div>
-          <h5 class="bold">Expense This Week</h5>
+          <h5 class="bold">Expense Last 7 Days</h5>
           <%# check helper  %>
           <%= column_chart combined_expense_this_week, prefix: "$", thousands: "," %>
         </div>
@@ -211,12 +212,12 @@
         </div>
 
         <div>
-          <h5 class="bold">Expense This Month</h5>
+          <h5 class="bold">Expense This Month by Week</h5>
           <!-- Check Helper for combined data -->
           <%= column_chart combined_expense_this_month_by_week, prefix: "$", thousands: "," %>
         </div>
 
-        <div class="mt-3">
+        <div class="mt-5">
           <h5 class="bold">Income and Expnese this Month</h5>
           <!-- Check Helper for combined data -->
           <%= bar_chart [
