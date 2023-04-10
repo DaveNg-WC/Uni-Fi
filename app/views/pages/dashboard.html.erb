@@ -52,11 +52,11 @@
 
     <!------------------------ Week Monht Year Radio ------------------------------------------------------------->
     <div class="btn-group">
-      <label class="graph-choice py-2 selected" id="week-label" for="week">Week</label>
-      <input type="radio" class="btn-check" name="options" id="week" autocomplete="off" checked />
+      <label class="graph-choice py-2" id="week-label" for="week">Week</label>
+      <input type="radio" class="btn-check" name="options" id="week" autocomplete="off" />
 
-      <label class="graph-choice py-2" id="month-label" for="month">Month</label>
-      <input type="radio" class="btn-check" name="options" id="month" autocomplete="off" />
+      <label class="graph-choice py-2 selected" id="month-label" for="month">Month</label>
+      <input type="radio" class="btn-check" name="options" id="month" autocomplete="off" checked />
 
       <label class="graph-choice py-2" id="year-label" for="year">Year</label>
       <input type="radio" class="btn-check" name="options" id="year" autocomplete="off" />
@@ -64,7 +64,7 @@
 
 
     <%# ----------------------------- This Week  ------------------------------------------------------------- %>
-    <div id="week-graphs" class="mt-3">
+    <div id="week-graphs" class="mt-3 d-none">
       <div>
         <h5 class="bold">Expense Breakdown This Week</h5>
         <%= pie_chart week_spends_breakdown(current_user), donut: true, prefix: "$", thousands: ",", legend: "right" %>
@@ -78,7 +78,7 @@
 
 
     <%# ----------------------------- This Month  ------------------------------------------------------------- %>
-    <div id="month-graphs" class="mt-3 d-none">
+    <div id="month-graphs" class="mt-3">
       <div>
         <h5 class="bold">Expense Breakdown This Month</h5>
         <%= pie_chart @month_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
@@ -176,11 +176,11 @@
 
       <!------------------------ Week Monht Year Radio ------------------------------------------------------------->
       <div class="btn-group">
-        <label class="graph-choice py-2 selected" id="week-label-partner" for="week-partner">Week</label>
-        <input type="radio" class="btn-check" name="options" id="week-partner" autocomplete="off" checked />
+        <label class="graph-choice py-2" id="week-label-partner" for="week-partner">Week</label>
+        <input type="radio" class="btn-check" name="options" id="week-partner" autocomplete="off" />
 
-        <label class="graph-choice py-2" id="month-label-partner" for="month-partner">Month</label>
-        <input type="radio" class="btn-check" name="options" id="month-partner" autocomplete="off" />
+        <label class="graph-choice py-2 selected" id="month-label-partner" for="month-partner">Month</label>
+        <input type="radio" class="btn-check" name="options" id="month-partner" autocomplete="off" checked />
 
         <label class="graph-choice py-2" id="year-label-partner" for="year-partner">Year</label>
         <input type="radio" class="btn-check" name="options" id="year-partner" autocomplete="off" />
@@ -188,7 +188,7 @@
 
 
       <!----------------------------- This Week  ------------------------------------------------------------->
-      <div id="week-graphs-partner" class="mt-3">
+      <div id="week-graphs-partner" class="mt-3 d-none">
         <div>
           <h5 class="bold">Expense Breakdown This Week</h5>
           <%= pie_chart combined_week_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
@@ -203,7 +203,7 @@
 
 
       <!----------------------------- This Month  ------------------------------------------------------------->
-      <div id="month-graphs-partner" class="mt-3 d-none">
+      <div id="month-graphs-partner" class="mt-3">
         <div>
           <h5 class="bold">Expense Breakdown This Month</h5>
           <!-- Check Helper for combined data -->
