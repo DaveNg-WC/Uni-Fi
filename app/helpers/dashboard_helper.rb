@@ -35,11 +35,7 @@ module DashboardHelper
     #returns integer
     net_worth = 0
     user.wallets.each do |w|
-      if w.wallet_type == "Debit"
-        net_worth += w.balance
-      else
-        net_worth -= w.balance
-      end
+      net_worth += w.balance
     end
     net_worth
   end

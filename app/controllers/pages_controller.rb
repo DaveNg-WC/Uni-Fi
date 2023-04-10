@@ -27,15 +27,6 @@ class PagesController < ApplicationController
     end
 
 
-    @net_worth = 0
-    current_user.wallets.each do |w|
-      if w.wallet_type == "Debit"
-        @net_worth += w.balance
-      else
-        @net_worth -= w.balance
-      end
-    end
-
     # ---------------------------------- for charts and graphs  (data can be hash or array)-------------------------------------------------------
     @total_income             = current_user.transactions.where(txn_type: "Income")
     @total_expense            = current_user.transactions.where(txn_type: "Expense")
