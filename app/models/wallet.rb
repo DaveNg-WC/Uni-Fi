@@ -15,8 +15,14 @@ class Wallet < ApplicationRecord
   def balance
     balance = 0
     Transaction.all.where(main_wallet_id: self.id).each do |t|
-      balance += t.amount
+      balance += t.amount if t.income?
+      balance -= t.amount if t.expense?
+      balance -= t.amount if t.transfer?
     end
+    Transaction.all.where(second_wallet_id: self.id).each do |t|
+      balance += t.amount if t.transfer?
+    end
+
     balance
   end
 end

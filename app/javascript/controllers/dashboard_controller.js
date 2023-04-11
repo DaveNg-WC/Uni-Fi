@@ -23,7 +23,7 @@ export default class DashboardController extends Controller {
     });
 
 
-    // ------------------ Week/Month/Year User -------------------------------- //
+    // ------------------ User Week/Month/Year -------------------------------- //
     const week         = document.getElementById("week");
     const month        = document.getElementById("month");
     const year         = document.getElementById("year");
@@ -76,7 +76,7 @@ export default class DashboardController extends Controller {
       }
     });
 
-     // ------------------ Week/Month/Year Partner -------------------------------- //
+     // ------------------ Partner Week/Month/Year  -------------------------------- //
      const weekPartner         = document.getElementById("week-partner");
      const monthPartner        = document.getElementById("month-partner");
      const yearPartner         = document.getElementById("year-partner");

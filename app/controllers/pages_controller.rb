@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :home ]
+  skip_before_action :authenticate_user!, only: [ :landing ]
 
   def home
   end
@@ -11,8 +11,6 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-
-
     @outflow_this_month = 0
     current_user.expenses.each do |c|
       @outflow_this_month += c.this_month_balance
@@ -28,15 +26,6 @@ class PagesController < ApplicationController
       @inflow_this_month += c.month_balance(Time.now.month)
     end
 
-
-    @net_worth = 0
-    current_user.wallets.each do |w|
-      if w.wallet_type == "Debit"
-        @net_worth += w.balance
-      else
-        @net_worth -= w.balance
-      end
-    end
 
     # ---------------------------------- for charts and graphs  (data can be hash or array)-------------------------------------------------------
     @total_income             = current_user.transactions.where(txn_type: "Income")

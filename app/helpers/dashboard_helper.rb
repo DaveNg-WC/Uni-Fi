@@ -35,11 +35,7 @@ module DashboardHelper
     #returns integer
     net_worth = 0
     user.wallets.each do |w|
-      if w.wallet_type == "Debit"
-        net_worth += w.balance
-      else
-        net_worth -= w.balance
-      end
+      net_worth += w.balance
     end
     net_worth
   end
@@ -133,8 +129,8 @@ module DashboardHelper
 
   def combined_expense_this_month_by_week
     # returns an combined hash
-    user        = total_expense(current_user).where(date: Date.current.all_month).group_by_week(:date).sum(:amount)
-    partner     = total_expense(current_user.partner).where(date: Date.current.all_month).group_by_week(:date).sum(:amount)
+    user        = total_expense(current_user).where(date: Date.current.all_month).group_by_week(:date, format: "%-d %b").sum(:amount)
+    partner     = total_expense(current_user.partner).where(date: Date.current.all_month).group_by_week(:date, format: "%-d %b").sum(:amount)
     merged_hash = user.merge(partner) do |key, old_value, new_value|
       old_value + new_value
     end
