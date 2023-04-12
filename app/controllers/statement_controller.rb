@@ -25,6 +25,43 @@ class StatementController < ApplicationController
 
     CHOSEN_WALLET << params[:wallet]
 
+    fakeTxn1 = Transaction.new(description: "$500 on Groceries for Mum",
+          txn_type: "Expense",
+          user_id: current_user.id,
+          amount: 500,
+          category_id: 6,
+          date: Date.parse("19 MAR #{Date.today.year}"),
+          main_wallet_id: params[:wallet])
+    fakeTxn1.save
+
+    fakeTxn2 = Transaction.new(description: "$500 Dinner for Dad's Birthday",
+    txn_type: "Expense",
+    user_id: current_user.id,
+    amount: 500,
+    category_id: 7,
+    date: Date.parse("20 MAR #{Date.today.year}"),
+    main_wallet_id: params[:wallet])
+    fakeTxn2.save
+
+    fakeTxn3 = Transaction.new(description: "$500 Party Package for Son",
+    txn_type: "Expense",
+    user_id: current_user.id,
+    amount: 500,
+    category_id: 8,
+    date: Date.parse("21 MAR #{Date.today.year}"),
+    main_wallet_id: params[:wallet])
+    fakeTxn3.save
+
+    fakeTxn4 = Transaction.new(description: "$500 for Family Gym Membership",
+    txn_type: "Expense",
+    user_id: current_user.id,
+    amount: 500,
+    category_id: 9,
+    date: Date.parse("22 MAR #{Date.today.year}"),
+    main_wallet_id: params[:wallet])
+    fakeTxn4.save
+
+
     reader.pages.each do |page|
       text = page.text
       array = text.split("\n")
