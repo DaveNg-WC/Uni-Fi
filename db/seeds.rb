@@ -169,25 +169,25 @@ users.each do |user|
             user: user,
             category: category,
             amount: rand(100..300),
-            date: Date.today.prev_month(i-1),
+            date: Date.today.prev_month(i-1).beginning_of_month,
             main_wallet_id: income_wallet
           )
-          when "Refund"
-            3.times do |t|
-              transactions << Transaction.create!(
-              description: "Dividend #{t+1}",
-              txn_type: "Income",
-              user: user,
-              category: category,
-              amount: rand(50..100),
-              date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
-              main_wallet_id: income_wallet
-            )
-            end
+          # when "Refund"
+          #   3.times do |t|
+          #     transactions << Transaction.create!(
+          #     description: "Dividend #{t+1}",
+          #     txn_type: "Income",
+          #     user: user,
+          #     category: category,
+          #     amount: rand(50..100),
+          #     date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
+          #     main_wallet_id: income_wallet
+          #   )
+          #   end
           end
         elsif category.category_type == "Expense"
           # Create expense transactions
-          if i != 2
+          if i != 1
             expense_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "Credit" }.sample.id
             case category.name
             when "Transport"
