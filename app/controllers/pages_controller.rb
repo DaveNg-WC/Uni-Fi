@@ -70,7 +70,7 @@ class PagesController < ApplicationController
 
     @year_spends_breakdown = {}
     current_user.categories.each do |c|
-      @year_spends_breakdown.store(c.name, c.month_balance(Time.now.month)) if c.expense?
+      @year_spends_breakdown.store(c.name, c.total_balance) if c.expense?
     end
     @year_spends_breakdown    = @year_spends_breakdown.sort_by { |k, v| -v }.to_h
 

@@ -96,7 +96,7 @@ module DashboardHelper
       end
       year_spends_breakdown.store(c.name, balance)
     end
-    year_spends_breakdown    = year_spends_breakdown.sort_by { |k, v| -v }.to_h
+    year_spends_breakdown = year_spends_breakdown.sort_by { |k, v| -v }.to_h
   end
 
   def combined_week_spends_breakdown
