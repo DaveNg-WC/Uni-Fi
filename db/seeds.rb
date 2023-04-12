@@ -10,16 +10,23 @@ puts "creating seeds"
 
 # Create 4 users
 users = []
-4.times do |i|
-  user = User.create!(
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    email: "user#{i+1}@example.com",
-    password: "password"
-  )
-  users << user
-  puts "Created #{user.first_name} #{user.last_name}"
-end
+user1 = User.create!(
+  first_name: "Dave",
+  last_name: "Ng",
+  email: "user1@example.com",
+  password: "password"
+)
+puts "Created #{user1.first_name} #{user1.last_name}"
+
+user2 = User.create!(
+  first_name: "Yi",
+  last_name: "Xuan",
+  email: "user2@example.com",
+  password: "password"
+)
+puts "Created #{user2.first_name} #{user2.last_name}"
+
+users = [user1, user2]
 
 
 # Create partnerships
@@ -220,31 +227,31 @@ users.each do |user|
                 )
               end
             when "Leisure"
-              if i > 1
+              # if i > 1
                 5.times do |t|
                   transactions << Transaction.create!(
                     description: "Leisure spending #{t+1}",
                     txn_type: "Expense",
                     user: user,
                     category: category,
-                    amount: rand(30..100)*user.id,
+                    amount: rand(100..500)*user.id,
                     date: Date.today.prev_month(i-1).end_of_month - rand(1..29).days,
                     main_wallet_id: expense_wallet
                   )
                 end
-              else
-                9.times do |t|
-                  transactions << Transaction.create!(
-                    description: "Leisure spending #{t+1}",
-                    txn_type: "Expense",
-                    user: user,
-                    category: category,
-                    amount: rand(200..900)*user.id,
-                    date: Date.today.prev_month(i-1).beginning_of_month + rand(1..12).days,
-                    main_wallet_id: expense_wallet
-                  )
-                end
-              end
+              # else
+              #   9.times do |t|
+              #     transactions << Transaction.create!(
+              #       description: "Leisure spending #{t+1}",
+              #       txn_type: "Expense",
+              #       user: user,
+              #       category: category,
+              #       amount: rand(200..900)*user.id,
+              #       date: Date.today.prev_month(i-1).beginning_of_month + rand(1..12).days,
+              #       main_wallet_id: expense_wallet
+              #     )
+              #   end
+              # end
             when "Services"
               4.times do |t|
                 transactions << Transaction.create!(
