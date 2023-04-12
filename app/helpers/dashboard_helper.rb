@@ -62,7 +62,7 @@ module DashboardHelper
       c.transactions.where(date: last_7_days).each do |t|
         balance += t.amount
       end
-      week_spends_breakdown.store(c.name, balance)
+      week_spends_breakdown.store(c.name, balance) unless balance.zero?
     end
     week_spends_breakdown    = week_spends_breakdown.sort_by { |k, v| -v }.to_h
   end
@@ -78,7 +78,7 @@ module DashboardHelper
       c.transactions.where(date: Date.current.all_month).each do |t|
         balance += t.amount
       end
-      month_spends_breakdown.store(c.name, balance)
+      month_spends_breakdown.store(c.name, balance) unless balance.zero?
     end
     month_spends_breakdown    = month_spends_breakdown.sort_by { |k, v| -v }.to_h
   end
@@ -94,7 +94,7 @@ module DashboardHelper
       c.transactions.where(date: Date.current.all_year).each do |t|
         balance += t.amount
       end
-      year_spends_breakdown.store(c.name, balance)
+      year_spends_breakdown.store(c.name, balance) unless balance.zero?
     end
     year_spends_breakdown = year_spends_breakdown.sort_by { |k, v| -v }.to_h
   end

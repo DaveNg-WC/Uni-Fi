@@ -45,7 +45,7 @@ class PagesController < ApplicationController
       c.transactions.where(date: last_7_days).each do |t|
         balance += t.amount
       end
-      @week_spends_breakdown.store(c.name, balance)
+      @week_spends_breakdown.store(c.name, balance) unless balance.nil?
     end
     @week_spends_breakdown    = @week_spends_breakdown.sort_by { |k, v| -v }.to_h
     @expense_this_week        = @total_expense.where(date: last_7_days)
