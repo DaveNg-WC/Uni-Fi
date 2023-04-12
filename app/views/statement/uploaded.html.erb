@@ -10,6 +10,7 @@
 
 <% if @array.count > 0 %>
   <% x = 0 %>
+  <% total = 0 %>
   <% wallet = Wallet.find(@wallet_id.first) %>
   <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
     <p>Congratulations! <u><%= @array.count %></u> transactions found from <u><%= date(@array.first) %></u> to <u><%= date(@array.last) %></u>.</p>
@@ -28,6 +29,7 @@
     <tbody>
       <% @array.each do |t| %>
         <% x += 1 %>
+        <% total += t.amount %>
         <tr>
           <th scope="row" style="font-weight: 400;"><%= x %>.</th>
           <td> <%= date(t) %><br><%= t.description %></td>
@@ -36,6 +38,9 @@
       <% end %>
     </tbody>
   </table>
+  <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
+    <p>You spent a total of <strong>S$<%= total %></strong> from <u><%= date(@array.first) %></u> to <u><%= date(@array.last) %></u>.</p>
+  </div>
   <div class="container mobile d-flex flex-column justify-content-center" style="margin-top: 30px;">
     <p class="bold" style="text-align: center">Wallet Chosen: <%= wallet.name %></p>
     <%= link_to "Import All Transactions", dashboard_path, class: "btn-small-primary", style: "margin-bottom: 15px;" %>
