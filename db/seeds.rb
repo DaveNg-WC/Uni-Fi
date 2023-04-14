@@ -169,25 +169,25 @@ users.each do |user|
             user: user,
             category: category,
             amount: rand(100..300),
-            date: Date.today.prev_month(i-1),
+            date: Date.today.prev_month(i-1).beginning_of_month,
             main_wallet_id: income_wallet
           )
-          when "Refund"
-            3.times do |t|
-              transactions << Transaction.create!(
-              description: "Dividend #{t+1}",
-              txn_type: "Income",
-              user: user,
-              category: category,
-              amount: rand(50..100),
-              date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
-              main_wallet_id: income_wallet
-            )
-            end
+          # when "Refund"
+          #   3.times do |t|
+          #     transactions << Transaction.create!(
+          #     description: "Dividend #{t+1}",
+          #     txn_type: "Income",
+          #     user: user,
+          #     category: category,
+          #     amount: rand(50..100),
+          #     date: Date.today.prev_month(i-1).end_of_month - rand(1..30).days,
+          #     main_wallet_id: income_wallet
+          #   )
+          #   end
           end
         elsif category.category_type == "Expense"
           # Create expense transactions
-          if i != 2
+          if i != 1
             expense_wallet = wallets_for_user.select { |wallet| wallet.wallet_type == "Credit" }.sample.id
             case category.name
             when "Transport"
@@ -198,7 +198,7 @@ users.each do |user|
                   user: user,
                   category: category,
                   amount: rand(5..25),
-                  date: Date.today.prev_month(i-1).end_of_month - rand(1..29).days,
+                  date: Date.today.prev_month(i).end_of_month - rand(1..29).days,
                   main_wallet_id: expense_wallet
                 )
               end
@@ -210,7 +210,7 @@ users.each do |user|
                   user: user,
                   category: category,
                   amount: rand(5..50),
-                  date: Date.today.prev_month(i-1).end_of_month - rand(1..29).days,
+                  date: Date.today.prev_month(i).end_of_month - rand(1..29).days,
                   main_wallet_id: expense_wallet
                 )
               end
@@ -222,7 +222,7 @@ users.each do |user|
                   user: user,
                   category: category,
                   amount: rand(10..30)*user.id,
-                  date: Date.today.prev_month(i-1).end_of_month - rand(1..29).days,
+                  date: Date.today.prev_month(i).end_of_month - rand(1..29).days,
                   main_wallet_id: expense_wallet
                 )
               end
@@ -235,7 +235,7 @@ users.each do |user|
                     user: user,
                     category: category,
                     amount: rand(100..500)*user.id,
-                    date: Date.today.prev_month(i-1).end_of_month - rand(1..29).days,
+                    date: Date.today.prev_month(i).end_of_month - rand(1..29).days,
                     main_wallet_id: expense_wallet
                   )
                 end
@@ -247,7 +247,7 @@ users.each do |user|
               #       user: user,
               #       category: category,
               #       amount: rand(200..900)*user.id,
-              #       date: Date.today.prev_month(i-1).beginning_of_month + rand(1..12).days,
+              #       date: Date.today.prev_month(i).beginning_of_month + rand(1..12).days,
               #       main_wallet_id: expense_wallet
               #     )
               #   end
@@ -260,7 +260,7 @@ users.each do |user|
                   user: user,
                   category: category,
                   amount: rand(20..50),
-                  date: Date.today.prev_month(i-1).end_of_month - rand(1..29).days,
+                  date: Date.today.prev_month(i).end_of_month - rand(1..29).days,
                   main_wallet_id: expense_wallet
                 )
               end
@@ -272,7 +272,7 @@ users.each do |user|
                   user: user,
                   category: category,
                   amount: rand(20..100),
-                  date: Date.today.prev_month(i-1).end_of_month - rand(1..29).days,
+                  date: Date.today.prev_month(i).end_of_month - rand(1..29).days,
                   main_wallet_id: expense_wallet
                 )
               end

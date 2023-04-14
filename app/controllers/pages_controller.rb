@@ -45,7 +45,7 @@ class PagesController < ApplicationController
       c.transactions.where(date: last_7_days).each do |t|
         balance += t.amount
       end
-      @week_spends_breakdown.store(c.name, balance)
+      @week_spends_breakdown.store(c.name, balance) unless balance.nil?
     end
     @week_spends_breakdown    = @week_spends_breakdown.sort_by { |k, v| -v }.to_h
     @expense_this_week        = @total_expense.where(date: last_7_days)
@@ -70,7 +70,7 @@ class PagesController < ApplicationController
 
     @year_spends_breakdown = {}
     current_user.categories.each do |c|
-      @year_spends_breakdown.store(c.name, c.month_balance(Time.now.month)) if c.expense?
+      @year_spends_breakdown.store(c.name, c.total_balance) if c.expense?
     end
     @year_spends_breakdown    = @year_spends_breakdown.sort_by { |k, v| -v }.to_h
 

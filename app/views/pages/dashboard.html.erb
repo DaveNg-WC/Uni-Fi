@@ -81,7 +81,7 @@
     <div id="month-graphs" class="mt-3">
       <div>
         <h5 class="bold">Expense Breakdown This Month</h5>
-        <%= pie_chart @month_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+        <%= pie_chart month_spends_breakdown(current_user), donut: true, prefix: "$", thousands: ",", legend: "right" %>
       </div>
 
       <div>
@@ -109,7 +109,7 @@
     <div id="year-graphs" class="mt-3 d-none">
       <div>
           <h5 class="bold">Expense Breakdown This Year</h5>
-          <%= pie_chart @year_spends_breakdown, donut: true, prefix: "$", thousands: ",", legend: "right" %>
+          <%= pie_chart year_spends_breakdown(current_user), donut: true, prefix: "$", thousands: ",", legend: "right" %>
       </div>
 
       <div>
@@ -118,7 +118,6 @@
           { name: "Income", data: @income_this_year },
           { name: "Expenses", data: @expense_this_year }
           ],
-          stacked: true,
           colors: ["#17D85C", "#FA8484"],
           prefix: "$",
           thousands: ","
@@ -127,7 +126,7 @@
 
       <div class="mt-3">
         <h5 class="bold">Cashflow</h5>
-        <%= line_chart @net_income_by_month,  prefix: "$", thousands: ","%>
+        <%= area_chart @net_income_by_month,  prefix: "$", thousands: ","%>
       </div>
 
     </div>
@@ -175,7 +174,7 @@
 
       <!------------------------ Chart starts here ------------------------------------------------------------->
 
-      <!------------------------ Week Monht Year Radio ------------------------------------------------------------->
+      <!------------------------ Week Month Year Radio ------------------------------------------------------------->
       <div class="btn-group">
         <label class="graph-choice py-2" id="week-label-partner" for="week-partner">Week</label>
         <input type="radio" class="btn-check" name="options" id="week-partner" autocomplete="off" />
@@ -248,7 +247,6 @@
             { name: "Income", data: combined_income_this_year },
             { name: "Expenses", data: combined_expense_this_year }
             ],
-            stacked: true,
             colors: ["#17D85C", "#FA8484"],
             prefix: "$",
             thousands: ","
